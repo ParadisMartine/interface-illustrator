@@ -73,7 +73,7 @@
       "tip": "Utile quand plusieurs objets se superposent : cliquez plusieurs fois pour sélectionner les objets en profondeur un par un."
     },
     {
-      "id": "Ajout Ancrage",
+      "id": "ajout-ancrage",
       "icon": "🔧",
       "name": "Ajout de points d'ancrage",
       "shortcut": "=",
