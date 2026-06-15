@@ -1,0 +1,86 @@
+{
+  "tools": [
+    {
+      "id": "select",
+      "icon": "▶",
+      "name": "Outil Sélection",
+      "shortcut": "V",
+      "category": "cat-sel",
+      "categoryLabel": "Sélection",
+      "desc": "Sélectionne et déplace des objets entiers. Cliquez sur un objet pour le sélectionner, glissez dans une zone vide pour une sélection rectangulaire.",
+      "tags": [
+        "Sélection",
+        "Déplacement",
+        "Transformation"
+      ],
+      "tip": "**Maj+clic** : ajouter à la sélection. **Alt+glisser** : dupliquer. **Ctrl+A** : tout sélectionner.",
+      "extra": [
+        {
+          "title": "Raccourcis clavier",
+          "list": [
+            "**V** — Activer l'outil",
+            "**Ctrl+A** — Tout sélectionner",
+            "**Maj+clic** — Ajouter à la sélection",
+            "**Alt+glisser** — Dupliquer",
+            "**Échap** — Désélectionner"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "direct",
+      "icon": "↗",
+      "name": "Sélection directe",
+      "shortcut": "A",
+      "category": "cat-sel",
+      "categoryLabel": "Sélection",
+      "desc": "Sélectionne des points d'ancrage ou des segments individuellement pour modifier la forme d'un tracé point par point.",
+      "tags": [
+        "Points d'ancrage",
+        "Tracé",
+        "Forme"
+      ],
+      "tip": "Cliquez sur un point, puis bougez-le avec les flèches du clavier pour un déplacement au pixel près."
+    },
+    {
+      "id": "direct_normal",
+      "icon": "↗",
+      "name": "Sélection directe",
+      "shortcut": "A",
+      "category": "cat-sel",
+      "categoryLabel": "Sélection",
+      "desc": "Sélectionne des points d'ancrage ou des segments individuellement pour modifier la forme d'un tracé point par point.",
+      "tags": [
+        "Points d'ancrage",
+        "Tracé",
+        "Forme"
+      ],
+      "tip": "Cliquez sur un point, puis bougez-le avec les flèches du clavier pour un déplacement au pixel près."
+    },
+    {
+      "id": "direct_progres",
+      "icon": "↗",
+      "name": "Sélection directe progressive",
+      "shortcut": "Q",
+      "category": "cat-sel",
+      "categoryLabel": "Sélection",
+      "desc": "Sélectionne les objets en touchant leur tracé selon l'ordre d'empilement. Chaque clic supplémentaire étend la sélection à l'objet suivant.",
+      "tags": [
+        "Sélection progressive",
+        "Empilement",
+        "Tracé"
+      ],
+      "tip": "Utile quand plusieurs objets se superposent : cliquez plusieurs fois pour sélectionner les objets en profondeur un par un."
+    },
+    {
+      "id": "Ajout Ancrage",
+      "icon": "🔧",
+      "name": "Ajout de points d'ancrage",
+      "shortcut": "=",
+      "category": "cat-draw",
+      "categoryLabel": "Dessin",
+      "desc": "Voici la description",
+      "tip": "fffee"
+    }
+  ]
+}

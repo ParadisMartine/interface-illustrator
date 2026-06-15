@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Éditeur — Fiches Illustrator</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Mono:wght@500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#1c1d1f;
+  --paper:#f6f5f2;
+  --line:#e1ddd6;
+  --accent:#FF6E14;
+  --accent-soft:#fff1e6;
+  --muted:#8a8680;
+  --good:#2d7a4f;
+  --good-soft:#e8f5ee;
+}
+*,*::before,*::after{box-sizing:border-box;}
+html,body{margin:0;padding:0;}
+body{
+  font-family:'Inter',sans-serif;
+  background:var(--paper);
+  color:var(--ink);
+  min-height:100vh;
+}
+
+/* ── Top bar ── */
+.topbar{
+  position:sticky;top:0;z-index:50;
+  background:var(--paper);
+  border-bottom:1px solid var(--line);
+  padding:18px 24px;
+  display:flex;align-items:center;justify-content:space-between;
+  gap:16px;flex-wrap:wrap;
+}
+.topbar h1{
+  font-family:'Space Mono',monospace;
+  font-size:15px;font-weight:700;letter-spacing:.02em;
+  margin:0;
+}
+.topbar h1 .sub{
+  display:block;font-family:'Inter',sans-serif;font-weight:400;
+  font-size:12px;color:var(--muted);margin-top:2px;letter-spacing:0;
+}
+.topbar-actions{display:flex;gap:10px;flex-wrap:wrap;align-items:center;}
+
+button{
+  font-family:'Inter',sans-serif;font-size:13px;font-weight:600;
+  border-radius:8px;border:1px solid var(--line);
+  background:#fff;color:var(--ink);
+  padding:9px 16px;cursor:pointer;
+  transition:border-color .15s,background .15s,color .15s;
+}
+button:hover{border-color:var(--accent);}
+button.primary{
+  background:var(--accent);color:#fff;border-color:var(--accent);
+}
+button.primary:hover{background:#e6630f;}
+button.ghost{background:transparent;border-color:transparent;color:var(--muted);}
+button.ghost:hover{color:var(--accent);border-color:transparent;background:transparent;}
+button.danger{color:#b3392b;}
+button.danger:hover{border-color:#b3392b;}
+
+/* ── Status pill ── */
+.status{
+  font-size:12px;font-weight:600;padding:5px 12px;border-radius:20px;
+  display:inline-flex;align-items:center;gap:6px;
+  background:var(--good-soft);color:var(--good);
+  opacity:0;transition:opacity .25s;
+}
+.status.visible{opacity:1;}
+.status .dot{width:6px;height:6px;border-radius:50%;background:var(--good);}
+
+/* ── Layout ── */
+.container{max-width:880px;margin:0 auto;padding:28px 24px 120px;}
+.intro{
+  font-size:13px;color:var(--muted);line-height:1.7;margin-bottom:24px;
+  max-width:640px;
+}
+.intro code{
+  font-family:'Space Mono',monospace;font-size:12px;
+  background:#fff;border:1px solid var(--line);border-radius:4px;padding:1px 6px;
+}
+
+/* ── Card list (cPanel-style sections) ── */
+.list{
+  background:#fff;border:1px solid var(--line);border-radius:12px;
+  overflow:hidden;
+}
+.row{
+  border-bottom:1px solid var(--line);
+}
+.row:last-child{border-bottom:none;}
+
+.row-head{
+  display:flex;align-items:center;gap:14px;
+  padding:16px 20px;cursor:pointer;
+  user-select:none;
+}
+.row-head:hover{background:#fafaf8;}
+
+.row-icon{
+  width:34px;height:34px;flex-shrink:0;border-radius:8px;
+  background:var(--accent-soft);color:var(--accent);
+  display:flex;align-items:center;justify-content:center;
+  font-size:16px;
+}
+.row-titles{flex:1;min-width:0;}
+.row-name{font-size:14px;font-weight:600;}
+.row-id{
+  font-family:'Space Mono',monospace;font-size:11px;color:var(--muted);
+  margin-top:2px;
+}
+.row-badge{
+  font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;
+  padding:3px 10px;border-radius:20px;
+  background:#eef2ff;color:#3650b5;white-space:nowrap;
+}
+.row-chevron{
+  font-size:13px;color:var(--muted);transition:transform .2s;
+  flex-shrink:0;
+}
+.row.open .row-chevron{transform:rotate(180deg);}
+
+.row-body{
+  display:none;
+  padding:4px 20px 24px 68px;
+  border-top:1px solid var(--line);
+}
+.row.open .row-body{display:block;}
+
+/* ── Form fields ── */
+.field{margin-top:16px;}
+.field label{
+  display:block;font-size:12px;font-weight:600;color:var(--muted);
+  text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px;
+}
+.field .hint{
+  font-size:11.5px;color:var(--muted);font-weight:400;
+  text-transform:none;letter-spacing:0;margin-top:4px;line-height:1.5;
+}
+.field input[type="text"],
+.field textarea,
+.field select{
+  width:100%;
+  font-family:'Inter',sans-serif;font-size:13.5px;color:var(--ink);
+  background:var(--paper);border:1px solid var(--line);border-radius:8px;
+  padding:10px 12px;
+  transition:border-color .15s,background .15s;
+}
+.field input[type="text"]:focus,
+.field textarea:focus,
+.field select:focus{
+  outline:none;border-color:var(--accent);background:#fff;
+}
+.field textarea{resize:vertical;min-height:64px;line-height:1.6;font-size:13px;}
+.field-row{display:flex;gap:12px;}
+.field-row .field{flex:1;}
+
+/* Tags */
+.tag-list{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:8px;}
+.tag-chip{
+  display:inline-flex;align-items:center;gap:6px;
+  background:var(--accent-soft);color:#a64500;
+  font-size:12px;font-weight:600;
+  padding:4px 6px 4px 10px;border-radius:20px;
+}
+.tag-chip button{
+  border:none;background:none;padding:0;width:16px;height:16px;
+  border-radius:50%;color:#a64500;font-size:13px;line-height:1;
+  display:flex;align-items:center;justify-content:center;
+}
+.tag-chip button:hover{background:rgba(166,69,0,.15);}
+.tag-add{display:flex;gap:8px;}
+.tag-add input{flex:1;}
+.tag-add button{flex-shrink:0;}
+
+/* Extra sections */
+.extra-block{
+  border:1px solid var(--line);border-radius:10px;padding:14px;
+  margin-top:10px;background:var(--paper);
+}
+.extra-block .field{margin-top:10px;}
+.extra-block .extra-head{
+  display:flex;justify-content:space-between;align-items:center;
+  font-size:12px;font-weight:600;color:var(--muted);
+  text-transform:uppercase;letter-spacing:.06em;
+}
+.list-items{margin-top:8px;display:flex;flex-direction:column;gap:6px;}
+.list-item{display:flex;gap:8px;align-items:flex-start;}
+.list-item textarea{flex:1;min-height:40px;}
+.list-item button{flex-shrink:0;padding:9px 10px;}
+
+.add-row{
+  margin-top:10px;
+}
+
+/* Footer actions inside each card */
+.row-foot{
+  display:flex;justify-content:flex-end;gap:8px;margin-top:20px;
+  padding-top:16px;border-top:1px solid var(--line);
+}
+
+/* Add new tool */
+.add-tool{
+  margin-top:16px;display:flex;justify-content:center;
+}
+.add-tool button{
+  width:100%;padding:14px;border:1px dashed var(--line);
+  border-radius:12px;background:transparent;color:var(--muted);
+  font-size:13px;font-weight:600;
+}
+.add-tool button:hover{border-color:var(--accent);color:var(--accent);background:var(--accent-soft);}
+
+/* Toast */
+.toast{
+  position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(20px);
+  background:var(--ink);color:#fff;font-size:13px;font-weight:600;
+  padding:12px 20px;border-radius:10px;
+  opacity:0;pointer-events:none;transition:opacity .25s,transform .25s;
+  box-shadow:0 8px 24px rgba(0,0,0,.18);
+  z-index:100;
+}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+
+@media (max-width:640px){
+  .row-body{padding-left:20px;}
+  .field-row{flex-direction:column;}
+}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <h1>Éditeur de fiches
+    <span class="sub">illustrator-guideD · tools-data.json</span>
+  </h1>
+  <div class="topbar-actions">
+    <span class="status" id="status"><span class="dot"></span><span id="statusText">Chargé</span></span>
+    <button class="ghost" id="reloadBtn">↺ Recharger</button>
+    <button class="primary" id="downloadBtn">⬇ Télécharger tools-data.json</button>
+  </div>
+</div>
+
+<div class="container">
+  <p class="intro">
+    Chaque section ci-dessous correspond à une fiche affichée dans le guide.
+    Cliquez sur une section pour l'ouvrir et modifier son contenu.
+    Le texte des champs <strong>Description</strong> et <strong>Conseil</strong> accepte
+    <code>**gras**</code> et <code>*italique*</code>.
+    Une fois vos changements faits, cliquez sur <strong>Télécharger tools-data.json</strong>
+    et remplacez le fichier dans votre dossier de projet.
+  </p>
+
+  <div class="list" id="list"></div>
+
+  <div class="add-tool">
+    <button id="addToolBtn">+ Ajouter une fiche</button>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+var DATA = null; // { tools: [...] }
+
+var CATEGORY_OPTIONS = [
+  ["cat-sel", "Sélection"],
+  ["cat-draw", "Dessin"],
+  ["cat-shape", "Forme"],
+  ["cat-text", "Texte"],
+  ["cat-transf", "Transformation"],
+  ["cat-nav", "Navigation"],
+  ["cat-color", "Couleur"],
+  ["cat-panel", "Panneau"]
+];
+
+function showToast(msg){
+  var t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  clearTimeout(t._timer);
+  t._timer = setTimeout(function(){ t.classList.remove('show'); }, 2200);
+}
+
+function setStatus(text, ok){
+  var s = document.getElementById('status');
+  var st = document.getElementById('statusText');
+  st.textContent = text;
+  s.classList.add('visible');
+  s.style.background = ok === false ? '#fdeceA' : '';
+  s.style.color = ok === false ? '#b3392b' : '';
+  s.querySelector('.dot').style.background = ok === false ? '#b3392b' : '';
+}
+
+// ── Chargement ──────────────────────────────────────
+function load(){
+  fetch('tools-data.json')
+    .then(function(res){
+      if(!res.ok) throw new Error('HTTP ' + res.status);
+      return res.json();
+    })
+    .then(function(json){
+      DATA = json;
+      if(!DATA.tools) DATA.tools = [];
+      render();
+      setStatus('Chargé', true);
+    })
+    .catch(function(err){
+      console.error(err);
+      setStatus('Erreur de chargement', false);
+      showToast('Impossible de charger tools-data.json — utilisez VS Code + Live Server (pas un double-clic sur le fichier).');
+    });
+}
+
+// ── Rendu de la liste ───────────────────────────────
+function render(){
+  var list = document.getElementById('list');
+  list.innerHTML = '';
+  DATA.tools.forEach(function(tool, idx){
+    list.appendChild(renderRow(tool, idx));
+  });
+}
+
+function renderRow(tool, idx){
+  var row = document.createElement('div');
+  row.className = 'row';
+
+  var head = document.createElement('div');
+  head.className = 'row-head';
+  head.innerHTML =
+    '<div class="row-icon">' + (tool.icon || '🔧') + '</div>' +
+    '<div class="row-titles">' +
+      '<div class="row-name">' + (tool.name || '(sans nom)') + '</div>' +
+      '<div class="row-id">id: ' + (tool.id || '—') + '</div>' +
+    '</div>' +
+    (tool.categoryLabel ? '<span class="row-badge">' + tool.categoryLabel + '</span>' : '') +
+    '<span class="row-chevron">▾</span>';
+
+  head.addEventListener('click', function(){
+    row.classList.toggle('open');
+  });
+
+  var body = document.createElement('div');
+  body.className = 'row-body';
+  body.appendChild(renderForm(tool, idx, row));
+
+  row.appendChild(head);
+  row.appendChild(body);
+  return row;
+}
+
+// ── Formulaire d'une fiche ──────────────────────────
+function renderForm(tool, idx, rowEl){
+  var wrap = document.createElement('div');
+
+  // Identifiant
+  wrap.appendChild(field('Identifiant (id)', textInput(tool.id || '', function(v){
+    tool.id = v;
+    refreshHeader(rowEl, tool);
+  }), 'Doit correspondre exactement au data-tool (ou data-subtool) du hotspot dans le HTML.'));
+
+  // Icône + nom + raccourci
+  var row1 = document.createElement('div');
+  row1.className = 'field-row';
+  row1.appendChild(field('Icône', textInput(tool.icon || '', function(v){
+    tool.icon = v; refreshHeader(rowEl, tool);
+  })));
+  row1.appendChild(field('Nom', textInput(tool.name || '', function(v){
+    tool.name = v; refreshHeader(rowEl, tool);
+  })));
+  row1.appendChild(field('Raccourci', textInput(tool.shortcut || '', function(v){
+    tool.shortcut = v;
+  })));
+  wrap.appendChild(row1);
+
+  // Catégorie
+  wrap.appendChild(field('Catégorie', categorySelect(tool, rowEl)));
+
+  // Description
+  wrap.appendChild(field('Description', textArea(tool.desc || '', function(v){
+    tool.desc = v;
+  }), 'Texte principal de la fiche.'));
+
+  // Tags
+  wrap.appendChild(field('Mots-clés', tagsEditor(tool)));
+
+  // Conseil
+  wrap.appendChild(field('Conseil', textArea(tool.tip || '', function(v){
+    tool.tip = v;
+  }, 60), 'Affiché avec 💡 au bas de la fiche.'));
+
+  // Extra (En savoir plus)
+  wrap.appendChild(field('Contenu "En savoir plus"', extraEditor(tool)));
+
+  // Footer : supprimer
+  var foot = document.createElement('div');
+  foot.className = 'row-foot';
+  var delBtn = document.createElement('button');
+  delBtn.className = 'danger';
+  delBtn.textContent = '🗑 Supprimer cette fiche';
+  delBtn.addEventListener('click', function(){
+    if(confirm('Supprimer la fiche "' + (tool.name || tool.id) + '" ?')){
+      var i = DATA.tools.indexOf(tool);
+      if(i > -1) DATA.tools.splice(i, 1);
+      render();
+    }
+  });
+  foot.appendChild(delBtn);
+  wrap.appendChild(foot);
+
+  return wrap;
+}
+
+function refreshHeader(rowEl, tool){
+  rowEl.querySelector('.row-icon').textContent = tool.icon || '🔧';
+  rowEl.querySelector('.row-name').textContent = tool.name || '(sans nom)';
+  rowEl.querySelector('.row-id').textContent = 'id: ' + (tool.id || '—');
+  var badge = rowEl.querySelector('.row-badge');
+  if(tool.categoryLabel){
+    if(!badge){
+      badge = document.createElement('span');
+      badge.className = 'row-badge';
+      rowEl.querySelector('.row-chevron').insertAdjacentElement('beforebegin', badge);
+    }
+    badge.textContent = tool.categoryLabel;
+  } else if(badge){
+    badge.remove();
+  }
+}
+
+// ── Helpers de champs ───────────────────────────────
+function field(labelText, controlEl, hintText){
+  var f = document.createElement('div');
+  f.className = 'field';
+  var l = document.createElement('label');
+  l.textContent = labelText;
+  f.appendChild(l);
+  f.appendChild(controlEl);
+  if(hintText){
+    var h = document.createElement('div');
+    h.className = 'hint';
+    h.textContent = hintText;
+    f.appendChild(h);
+  }
+  return f;
+}
+
+function textInput(value, onChange){
+  var i = document.createElement('input');
+  i.type = 'text';
+  i.value = value;
+  i.addEventListener('input', function(){ onChange(i.value); });
+  return i;
+}
+
+function textArea(value, onChange, minHeight){
+  var t = document.createElement('textarea');
+  t.value = value;
+  if(minHeight) t.style.minHeight = minHeight + 'px';
+  t.addEventListener('input', function(){ onChange(t.value); });
+  return t;
+}
+
+function categorySelect(tool, rowEl){
+  var sel = document.createElement('select');
+  var blank = document.createElement('option');
+  blank.value = ''; blank.textContent = '— Aucune —';
+  sel.appendChild(blank);
+  CATEGORY_OPTIONS.forEach(function(opt){
+    var o = document.createElement('option');
+    o.value = opt[0]; o.textContent = opt[1];
+    if(tool.category === opt[0]) o.selected = true;
+    sel.appendChild(o);
+  });
+  sel.addEventListener('change', function(){
+    var opt = CATEGORY_OPTIONS.find(function(o){ return o[0] === sel.value; });
+    tool.category = sel.value || undefined;
+    tool.categoryLabel = opt ? opt[1] : undefined;
+    refreshHeader(rowEl, tool);
+  });
+  return sel;
+}
+
+// ── Tags ─────────────────────────────────────────────
+function tagsEditor(tool){
+  var wrap = document.createElement('div');
+  if(!tool.tags) tool.tags = [];
+
+  var list = document.createElement('div');
+  list.className = 'tag-list';
+
+  function renderTags(){
+    list.innerHTML = '';
+    tool.tags.forEach(function(tag, i){
+      var chip = document.createElement('span');
+      chip.className = 'tag-chip';
+      chip.textContent = tag;
+      var rm = document.createElement('button');
+      rm.textContent = '✕';
+      rm.addEventListener('click', function(){
+        tool.tags.splice(i, 1);
+        renderTags();
+      });
+      chip.appendChild(rm);
+      list.appendChild(chip);
+    });
+  }
+  renderTags();
+
+  var addRow = document.createElement('div');
+  addRow.className = 'tag-add';
+  var input = document.createElement('input');
+  input.type = 'text';
+  input.placeholder = 'Nouveau mot-clé…';
+  var addBtn = document.createElement('button');
+  addBtn.textContent = 'Ajouter';
+  function add(){
+    var v = input.value.trim();
+    if(!v) return;
+    tool.tags.push(v);
+    input.value = '';
+    renderTags();
+  }
+  addBtn.addEventListener('click', add);
+  input.addEventListener('keydown', function(e){
+    if(e.key === 'Enter'){ e.preventDefault(); add(); }
+  });
+  addRow.appendChild(input);
+  addRow.appendChild(addBtn);
+
+  wrap.appendChild(list);
+  wrap.appendChild(addRow);
+  return wrap;
+}
+
+// ── Extra (En savoir plus) ──────────────────────────
+function extraEditor(tool){
+  var wrap = document.createElement('div');
+  if(!tool.extra) tool.extra = [];
+
+  var blocksWrap = document.createElement('div');
+
+  function renderBlocks(){
+    blocksWrap.innerHTML = '';
+    tool.extra.forEach(function(section, i){
+      blocksWrap.appendChild(renderExtraBlock(section, i));
+    });
+  }
+
+  function renderExtraBlock(section, i){
+    var block = document.createElement('div');
+    block.className = 'extra-block';
+
+    var head = document.createElement('div');
+    head.className = 'extra-head';
+    head.innerHTML = '<span>Section ' + (i + 1) + '</span>';
+    var rm = document.createElement('button');
+    rm.className = 'danger';
+    rm.textContent = '✕ Retirer';
+    rm.addEventListener('click', function(){
+      tool.extra.splice(i, 1);
+      renderBlocks();
+    });
+    head.appendChild(rm);
+    block.appendChild(head);
+
+    block.appendChild(field('Titre de section', textInput(section.title || '', function(v){
+      section.title = v;
+    })));
+
+    if(!section.list) section.list = [];
+    var listField = document.createElement('div');
+    listField.className = 'field';
+    var l = document.createElement('label');
+    l.textContent = 'Liste à puces';
+    listField.appendChild(l);
+
+    var itemsWrap = document.createElement('div');
+    itemsWrap.className = 'list-items';
+
+    function renderItems(){
+      itemsWrap.innerHTML = '';
+      section.list.forEach(function(item, j){
+        var row = document.createElement('div');
+        row.className = 'list-item';
+        var ta = document.createElement('textarea');
+        ta.value = item;
+        ta.addEventListener('input', function(){ section.list[j] = ta.value; });
+        var rmBtn = document.createElement('button');
+        rmBtn.textContent = '✕';
+        rmBtn.addEventListener('click', function(){
+          section.list.splice(j, 1);
+          renderItems();
+        });
+        row.appendChild(ta);
+        row.appendChild(rmBtn);
+        itemsWrap.appendChild(row);
+      });
+    }
+    renderItems();
+    listField.appendChild(itemsWrap);
+
+    var addItemBtn = document.createElement('button');
+    addItemBtn.className = 'add-row';
+    addItemBtn.textContent = '+ Ajouter une ligne';
+    addItemBtn.addEventListener('click', function(){
+      section.list.push('');
+      renderItems();
+    });
+    listField.appendChild(addItemBtn);
+    block.appendChild(listField);
+
+    block.appendChild(field('Texte libre (optionnel)', textArea(section.text || '', function(v){
+      section.text = v || undefined;
+    }), 'Paragraphe affiché sous la liste, si besoin.'));
+
+    return block;
+  }
+
+  renderBlocks();
+  wrap.appendChild(blocksWrap);
+
+  var addBlockBtn = document.createElement('button');
+  addBlockBtn.className = 'add-row';
+  addBlockBtn.textContent = '+ Ajouter une section "En savoir plus"';
+  addBlockBtn.addEventListener('click', function(){
+    tool.extra.push({ title: '', list: [], text: '' });
+    renderBlocks();
+  });
+  wrap.appendChild(addBlockBtn);
+
+  return wrap;
+}
+
+// ── Ajouter une nouvelle fiche ──────────────────────
+document.getElementById('addToolBtn').addEventListener('click', function(){
+  var tool = {
+    id: '',
+    icon: '🔧',
+    name: 'Nouvel outil',
+    shortcut: '',
+    category: '',
+    categoryLabel: '',
+    desc: '',
+    tags: [],
+    tip: ''
+  };
+  DATA.tools.push(tool);
+  render();
+  // Ouvrir automatiquement la nouvelle fiche
+  var rows = document.querySelectorAll('.row');
+  var last = rows[rows.length - 1];
+  if(last) last.classList.add('open');
+  last.scrollIntoView({behavior:'smooth', block:'center'});
+});
+
+// ── Recharger ────────────────────────────────────────
+document.getElementById('reloadBtn').addEventListener('click', function(){
+  if(confirm('Recharger annulera les changements non téléchargés. Continuer ?')){
+    load();
+  }
+});
+
+// ── Télécharger ──────────────────────────────────────
+document.getElementById('downloadBtn').addEventListener('click', function(){
+  // Nettoyage : retirer les clés vides/undefined superflues
+  var clean = JSON.parse(JSON.stringify(DATA));
+  clean.tools.forEach(function(tool){
+    if(!tool.category) { delete tool.category; delete tool.categoryLabel; }
+    if(!tool.shortcut) delete tool.shortcut;
+    if(tool.tags && tool.tags.length === 0) delete tool.tags;
+    if(!tool.tip) delete tool.tip;
+    if(tool.extra){
+      tool.extra.forEach(function(section){
+        if(!section.text) delete section.text;
+        if(!section.title) delete section.title;
+        if(section.list && section.list.length === 0) delete section.list;
+      });
+      tool.extra = tool.extra.filter(function(s){
+        return s.title || (s.list && s.list.length) || s.text;
+      });
+      if(tool.extra.length === 0) delete tool.extra;
+    }
+  });
+
+  var blob = new Blob([JSON.stringify(clean, null, 2)], {type:'application/json'});
+  var url = URL.createObjectURL(blob);
+  var a = document.createElement('a');
+  a.href = url;
+  a.download = 'tools-data.json';
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+  URL.revokeObjectURL(url);
+  showToast('tools-data.json téléchargé — remplacez le fichier dans votre projet.');
+});
+
+load();
+</script>
+</body>
+</html>

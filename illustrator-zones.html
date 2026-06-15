@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Calculateur de zones — Illustrator</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Mono:wght@700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html,body{width:100%;height:100%;background:#111;font-family:'Inter',sans-serif;color:#eee;display:flex;flex-direction:column;overflow:hidden;user-select:none;}
+
+.topbar{flex-shrink:0;background:#1e1e1e;border-bottom:1px solid #333;padding:8px 14px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
+.topbar h1{font-family:'Space Mono',monospace;font-size:12px;color:#FF6E14;white-space:nowrap;}
+.sep{width:1px;height:20px;background:#333;flex-shrink:0;}
+.mode-group{display:flex;gap:4px;}
+.mode-btn{padding:4px 10px;border-radius:4px;border:1px solid #444;background:#2a2a2a;color:#aaa;font-size:11px;cursor:pointer;font-family:'Inter',sans-serif;transition:all .15s;white-space:nowrap;}
+.mode-btn:hover{background:#333;color:#fff;}
+.mode-btn.active{background:#FF6E14;border-color:#FF6E14;color:#fff;font-weight:600;}
+.upload-btn{padding:4px 10px;border-radius:4px;border:1px solid #444;background:#2a2a2a;color:#aaa;font-size:11px;cursor:pointer;font-family:'Inter',sans-serif;transition:all .15s;white-space:nowrap;display:flex;align-items:center;gap:5px;}
+.upload-btn:hover{background:#1a3a5a;border-color:#4a8abf;color:#7ac;}
+.upload-btn input{display:none;}
+.img-indicator{font-size:10px;color:#666;font-family:'Space Mono',monospace;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:160px;}
+.img-indicator.sub{color:#FF6E14;}
+.coords{margin-left:auto;display:flex;gap:8px;align-items:center;font-family:'Space Mono',monospace;font-size:11px;color:#666;flex-wrap:wrap;}
+.coords span{color:#FF6E14;}
+.icon-btn{padding:4px 10px;border-radius:4px;border:1px solid #444;background:#2a2a2a;color:#aaa;font-size:11px;cursor:pointer;font-family:'Inter',sans-serif;transition:all .15s;white-space:nowrap;}
+.icon-btn:hover{background:#333;color:#fff;}
+.icon-btn.active{border-color:#FF6E14;color:#FF6E14;}
+.badge{background:#FF6E14;color:#fff;border-radius:10px;padding:1px 5px;font-size:9px;font-weight:700;margin-left:4px;}
+
+.codebar{flex-shrink:0;background:#161616;border-bottom:1px solid #2a2a2a;padding:5px 14px;display:flex;align-items:center;gap:10px;}
+.codebar label{font-size:11px;color:#555;white-space:nowrap;}
+.codebar input{flex:1;background:transparent;border:none;outline:none;font-family:'Space Mono',monospace;font-size:11px;color:#6ee;min-width:0;}
+.copy-btn{flex-shrink:0;padding:4px 12px;border-radius:4px;border:1px solid #3a3a3a;background:#2a2a2a;color:#aaa;font-size:11px;cursor:pointer;font-family:'Inter',sans-serif;white-space:nowrap;transition:all .15s;}
+.copy-btn:hover{background:#FF6E14;border-color:#FF6E14;color:#fff;}
+.copy-btn.copied{background:#2d5a2d;border-color:#4a8a4a;color:#8f8;}
+
+.canvas-area{flex:1;overflow:auto;display:flex;align-items:flex-start;justify-content:center;padding:16px;background:#1a1a1a;}
+.imgwrap{position:relative;flex-shrink:0;cursor:crosshair;width:min(100%, calc((100vh - 120px) * 1680 / 987));aspect-ratio:1680/987;}
+.imgwrap img.bg-img{display:block;width:100%;height:100%;pointer-events:none;object-fit:fill;}
+
+.hs-ex{position:absolute;border:1px solid rgba(80,160,255,.5);background:rgba(80,160,255,.08);pointer-events:none;display:none;}
+.hs-ex.visible{display:block;}
+#rect-drawing{position:absolute;border:2px dashed #FF6E14;background:rgba(255,110,20,.12);pointer-events:none;display:none;}
+.rect-saved{position:absolute;border:2px solid #FF6E14;background:rgba(255,110,20,.10);pointer-events:none;}
+.rect-label{position:absolute;top:2px;left:3px;font-family:'Space Mono',monospace;font-size:9px;color:#FF6E14;text-shadow:0 0 4px #000;white-space:nowrap;}
+#retic-h,#retic-v{position:absolute;background:rgba(255,110,20,.35);pointer-events:none;display:none;}
+#retic-h{height:1px;left:0;right:0;}
+#retic-v{width:1px;top:0;bottom:0;}
+
+.history{position:fixed;right:0;top:0;bottom:0;width:310px;background:#1a1a1a;border-left:1px solid #2a2a2a;display:flex;flex-direction:column;transform:translateX(100%);transition:transform .2s;z-index:200;}
+.history.open{transform:translateX(0);}
+.hist-hdr{padding:10px 14px;border-bottom:1px solid #2a2a2a;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;}
+.hist-hdr span{font-size:12px;font-weight:600;color:#ccc;}
+.hist-clear{font-size:10px;color:#666;cursor:pointer;}
+.hist-clear:hover{color:#f66;}
+.hist-list{flex:1;overflow-y:auto;padding:8px;display:flex;flex-direction:column;gap:6px;}
+.hist-item{background:#222;border:1px solid #333;border-radius:6px;padding:8px 10px;}
+.hist-id{font-size:10px;color:#FF6E14;font-family:'Space Mono',monospace;margin-bottom:3px;}
+.hist-mode{font-size:9px;color:#666;margin-bottom:4px;}
+.hist-code{font-size:9px;color:#666;font-family:'Space Mono',monospace;word-break:break-all;margin-bottom:5px;}
+.hist-copy{padding:3px 8px;border-radius:3px;border:1px solid #3a3a3a;background:#2a2a2a;color:#aaa;font-size:9px;cursor:pointer;font-family:'Inter',sans-serif;transition:all .15s;}
+.hist-copy:hover{background:#FF6E14;border-color:#FF6E14;color:#fff;}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <h1>🎯 Calculateur de zones</h1>
+  <div class="sep"></div>
+  <div class="mode-group">
+    <button class="mode-btn active" id="btn-main" onclick="switchImage('main')">🖥 Interface principale</button>
+    <button class="mode-btn" id="btn-sub" onclick="switchImage('sub')">📋 Sous-menu</button>
+    <button class="mode-btn" id="btn-img" onclick="switchImage('img')">🖼 Image</button>
+  </div>
+  <div class="sep"></div>
+  <label class="upload-btn" title="Charger une image de sous-menu">
+    📂 Charger image sous-menu
+    <input type="file" id="file-input" accept="image/*" onchange="loadSubImage(event)">
+  </label>
+  <div class="img-indicator" id="img-indicator">interface.png</div>
+  <div class="sep"></div>
+  <button class="icon-btn" id="btn-ex" onclick="toggleExisting()">Zones existantes</button>
+  <div class="coords">
+    X&nbsp;<span id="px">—</span>%
+    &nbsp;Y&nbsp;<span id="py">—</span>%
+    &nbsp;<span id="wh" style="color:#888"></span>
+  </div>
+  <button class="icon-btn" id="hist-btn" onclick="toggleHistory()">Historique<span class="badge" id="badge">0</span></button>
+  <button class="icon-btn" onclick="clearAll()" style="color:#888;">🗑 Effacer</button>
+</div>
+
+<div class="codebar">
+  <label id="code-label">Code :</label>
+  <input id="code-out" readonly value="← Dessinez un rectangle sur l'image" onclick="this.select()">
+  <button class="copy-btn" id="copy-btn" onclick="doCopy()">Copier</button>
+</div>
+
+<div class="canvas-area">
+  <div class="imgwrap" id="imgwrap">
+    <img class="bg-img" id="bg-img" src="img/interface.png" alt="Interface">
+
+    <div id="existing-layer">
+      <div class="hs-ex" style="left:0.595%;top:15.198%;width:2.738%;height:3.849%;"></div>
+      <div class="hs-ex" style="left:3.333%;top:15.198%;width:3.095%;height:3.849%;"></div>
+      <div class="hs-ex" style="left:0.595%;top:19.047%;width:2.738%;height:3.647%;"></div>
+      <div class="hs-ex" style="left:3.333%;top:19.047%;width:3.095%;height:3.647%;"></div>
+      <div class="hs-ex" style="left:0.595%;top:22.694%;width:2.738%;height:3.748%;"></div>
+      <div class="hs-ex" style="left:3.333%;top:22.694%;width:3.095%;height:3.748%;"></div>
+      <div class="hs-ex" style="left:0.595%;top:26.444%;width:2.738%;height:3.647%;"></div>
+      <div class="hs-ex" style="left:3.333%;top:26.444%;width:3.095%;height:3.647%;"></div>
+      <div class="hs-ex" style="left:0.595%;top:30.091%;width:2.738%;height:3.647%;"></div>
+      <div class="hs-ex" style="left:3.333%;top:30.091%;width:3.095%;height:3.647%;"></div>
+      <div class="hs-ex" style="left:0.595%;top:33.738%;width:2.738%;height:3.748%;"></div>
+      <div class="hs-ex" style="left:3.333%;top:33.738%;width:3.095%;height:3.748%;"></div>
+      <div class="hs-ex" style="left:0.595%;top:37.487%;width:2.738%;height:3.647%;"></div>
+      <div class="hs-ex" style="left:3.333%;top:37.487%;width:3.095%;height:3.647%;"></div>
+      <div class="hs-ex" style="left:0.595%;top:41.135%;width:2.738%;height:3.647%;"></div>
+      <div class="hs-ex" style="left:3.333%;top:41.135%;width:3.095%;height:3.647%;"></div>
+      <div class="hs-ex" style="left:0.595%;top:44.782%;width:2.738%;height:3.647%;"></div>
+      <div class="hs-ex" style="left:3.333%;top:44.782%;width:3.095%;height:3.647%;"></div>
+      <div class="hs-ex" style="left:0.595%;top:48.429%;width:2.738%;height:3.748%;"></div>
+      <div class="hs-ex" style="left:3.333%;top:48.429%;width:3.095%;height:3.748%;"></div>
+      <div class="hs-ex" style="left:0.595%;top:52.178%;width:2.738%;height:3.647%;"></div>
+      <div class="hs-ex" style="left:3.333%;top:52.178%;width:3.095%;height:3.647%;"></div>
+      <div class="hs-ex" style="left:0.595%;top:55.825%;width:2.738%;height:3.647%;"></div>
+      <div class="hs-ex" style="left:3.333%;top:55.825%;width:3.095%;height:3.647%;"></div>
+      <div class="hs-ex" style="left:0.595%;top:59.472%;width:2.738%;height:3.748%;"></div>
+      <div class="hs-ex" style="left:3.333%;top:59.472%;width:3.095%;height:3.748%;"></div>
+      <div class="hs-ex" style="left:0.595%;top:63.222%;width:2.738%;height:3.647%;"></div>
+      <div class="hs-ex" style="left:3.333%;top:63.222%;width:3.095%;height:3.647%;"></div>
+      <div class="hs-ex" style="left:0.595%;top:66.869%;width:2.738%;height:3.849%;"></div>
+      <div class="hs-ex" style="left:3.333%;top:66.869%;width:3.095%;height:3.849%;"></div>
+      <div class="hs-ex" style="left:75.476%;top:13.981%;width:8.274%;height:3.748%;"></div>
+      <div class="hs-ex" style="left:75.476%;top:18.438%;width:12.44%;height:3.748%;"></div>
+      <div class="hs-ex" style="left:75.536%;top:24.518%;width:8.512%;height:3.748%;"></div>
+      <div class="hs-ex" style="left:75.476%;top:28.774%;width:7.798%;height:4.154%;"></div>
+      <div class="hs-ex" style="left:75.476%;top:33.232%;width:8.631%;height:3.748%;"></div>
+      <div class="hs-ex" style="left:75.476%;top:39.513%;width:8.274%;height:3.748%;"></div>
+      <div class="hs-ex" style="left:75.476%;top:43.769%;width:8.274%;height:3.748%;"></div>
+      <div class="hs-ex" style="left:75.476%;top:48.226%;width:10.179%;height:3.748%;"></div>
+      <div class="hs-ex" style="left:75.476%;top:54.51%;width:7.798%;height:3.748%;"></div>
+      <div class="hs-ex" style="left:75.476%;top:58.765%;width:11.845%;height:3.748%;"></div>
+      <div class="hs-ex" style="left:75.476%;top:65.046%;width:8.214%;height:3.748%;"></div>
+      <div class="hs-ex" style="left:75.476%;top:69.302%;width:15.536%;height:3.748%;"></div>
+      <div class="hs-ex" style="left:75.476%;top:73.557%;width:11.012%;height:3.748%;"></div>
+      <div class="hs-ex" style="left:75.476%;top:79.635%;width:10.833%;height:3.748%;"></div>
+      <div class="hs-ex" style="left:62.976%;top:5.673%;width:11.131%;height:4.357%;"></div>
+    </div>
+
+    <div id="rect-drawing"></div>
+    <div id="retic-h"></div>
+    <div id="retic-v"></div>
+  </div>
+</div>
+
+<div class="history" id="hist-panel">
+  <div class="hist-hdr">
+    <span>Zones créées</span>
+    <span class="hist-clear" onclick="clearAll()">Tout effacer</span>
+  </div>
+  <div class="hist-list" id="hist-list"></div>
+</div>
+
+<script>
+var MAIN_SRC    = 'img/interface.png';
+var subSrc      = null;
+var subFileName = '';
+var mode        = 'main';
+
+var bgImg      = document.getElementById('bg-img');
+var imgwrap    = document.getElementById('imgwrap');
+var existLayer = document.getElementById('existing-layer');
+var indicator  = document.getElementById('img-indicator');
+var codeLabel  = document.getElementById('code-label');
+var codeOut    = document.getElementById('code-out');
+var rectEl     = document.getElementById('rect-drawing');
+var retH       = document.getElementById('retic-h');
+var retV       = document.getElementById('retic-v');
+
+function switchImage(m) {
+  if (m === 'sub' && !subSrc) {
+    alert("Chargez d'abord une image de sous-menu avec le bouton 📂");
+    return;
+  }
+  mode = m;
+  document.getElementById('btn-main').classList.toggle('active', m === 'main');
+  document.getElementById('btn-sub').classList.toggle('active',  m === 'sub');
+  document.getElementById('btn-img').classList.toggle('active',  m === 'img');
+  if (m === 'img') {
+    codeLabel.textContent = 'Code image :';
+  } else {
+    bgImg.src             = (m === 'main') ? MAIN_SRC : subSrc;
+    indicator.textContent = (m === 'main') ? MAIN_SRC : subFileName;
+    indicator.className   = (m === 'main') ? 'img-indicator' : 'img-indicator sub';
+    codeLabel.textContent = (m === 'main') ? 'Code hotspot :' : 'Code st-zone :';
+  }
+  existLayer.style.display = 'block';
+  clearRects();
+}
+
+function loadSubImage(evt) {
+  var file = evt.target.files[0];
+  if (!file) return;
+  subFileName = file.name;
+  var reader = new FileReader();
+  reader.onload = function(e) {
+    subSrc = e.target.result;
+    mode   = 'sub';
+    bgImg.src             = subSrc;
+    indicator.textContent = subFileName;
+    indicator.className   = 'img-indicator sub';
+    codeLabel.textContent = 'Code st-zone :';
+    existLayer.style.display = 'block';
+    document.getElementById('btn-sub').classList.add('active');
+    document.getElementById('btn-main').classList.remove('active');
+    clearRects();
+  };
+  reader.readAsDataURL(file);
+}
+
+var drawing  = false;
+var ox = 0, oy = 0;
+var counter  = 1;
+var saved    = [];
+var showEx   = false;
+var histOpen = false;
+
+function pct(e) {
+  var r = imgwrap.getBoundingClientRect();
+  return {
+    x: Math.max(0, Math.min(100, (e.clientX - r.left) / r.width  * 100)),
+    y: Math.max(0, Math.min(100, (e.clientY - r.top)  / r.height * 100))
+  };
+}
+function isOver(e) {
+  var r = imgwrap.getBoundingClientRect();
+  return e.clientX >= r.left && e.clientX <= r.right
+      && e.clientY >= r.top  && e.clientY <= r.bottom;
+}
+
+imgwrap.addEventListener('mousedown', function(e) {
+  e.preventDefault();
+  var p = pct(e);
+  if (mode === 'img') {
+    setCode(p.x, p.y, 0, 0, 'MON_ID');
+    addSaved(p.x, p.y, 0, 0);
+    return;
+  }
+  ox = p.x; oy = p.y; drawing = true;
+  rectEl.style.cssText = 'display:block;left:'+ox+'%;top:'+oy+'%;width:0;height:0;';
+});
+
+window.addEventListener('mousemove', function(e) {
+  if (!isOver(e)) { retH.style.display='none'; retV.style.display='none'; return; }
+  var p = pct(e);
+  document.getElementById('px').textContent = p.x.toFixed(2);
+  document.getElementById('py').textContent = p.y.toFixed(2);
+  retH.style.display='block'; retV.style.display='block';
+  retH.style.top=p.y+'%'; retV.style.left=p.x+'%';
+  if (drawing) {
+    var l=Math.min(ox,p.x), t=Math.min(oy,p.y);
+    var w=Math.abs(p.x-ox), h=Math.abs(p.y-oy);
+    rectEl.style.left=l+'%'; rectEl.style.top=t+'%';
+    rectEl.style.width=w+'%'; rectEl.style.height=h+'%';
+    document.getElementById('wh').textContent='W '+w.toFixed(2)+'%  H '+h.toFixed(2)+'%';
+    setCode(l,t,w,h,'MON_ID');
+  }
+});
+
+window.addEventListener('mouseup', function(e) {
+  if (!drawing) return;
+  drawing = false;
+  rectEl.style.display = 'none';
+  var p = pct(e);
+  var l=Math.min(ox,p.x), t=Math.min(oy,p.y);
+  var w=Math.abs(p.x-ox), h=Math.abs(p.y-oy);
+  if (w < 0.3 || h < 0.3) return;
+  addSaved(l,t,w,h);
+});
+
+function setCode(l,t,w,h,id) {
+  if (mode === 'main') {
+    codeOut.value = '<div class="hs" data-tool="'+id+'" style="left:'+l.toFixed(3)+'%;top:'+t.toFixed(3)+'%;width:'+w.toFixed(3)+'%;height:'+h.toFixed(3)+'%;"></div>';
+  } else if (mode === 'sub') {
+    codeOut.value = '<div class="st-zone" data-subtool="'+id+'" style="left:'+l.toFixed(3)+'%;top:'+t.toFixed(3)+'%;width:'+w.toFixed(3)+'%;height:'+h.toFixed(3)+'%;"></div>';
+  } else {
+    codeOut.value = 'left:'+l.toFixed(3)+'%;top:'+t.toFixed(3);
+  }
+}
+
+function addSaved(l,t,w,h) {
+  var prefix = (mode==='sub') ? 'sous_' : (mode==='img') ? 'img_' : 'zone_';
+  var id = prefix + counter++;
+  setCode(l,t,w,h,id);
+  var div = document.createElement('div');
+  if (mode === 'img') {
+    div.className = 'rect-saved';
+    div.style.cssText = 'left:'+l+'%;top:'+t+'%;width:10px;height:10px;transform:translate(-50%,-50%);border-radius:50%;';
+  } else {
+    div.className = 'rect-saved';
+    div.style.cssText = 'left:'+l+'%;top:'+t+'%;width:'+w+'%;height:'+h+'%;';
+  }
+  div.innerHTML = '<span class="rect-label">'+id+'</span>';
+  imgwrap.appendChild(div);
+  var code = codeOut.value;
+  saved.push({id:id,code:code,div:div,mode:mode});
+  addHistItem(id,code,mode);
+  document.getElementById('badge').textContent = saved.length;
+}
+
+function addHistItem(id,code,m) {
+  var list = document.getElementById('hist-list');
+  var item = document.createElement('div');
+  item.className = 'hist-item';
+  item.id = 'hi-'+id;
+  item.innerHTML = '<div class="hist-id">'+id+'</div>'
+    +'<div class="hist-mode">'+(m==='sub'?'📋 Sous-menu':m==='img'?'🖼 Image':'🖥 Interface')+'</div>'
+    +'<div class="hist-code">'+escHtml(code)+'</div>';
+  var btn = document.createElement('button');
+  btn.className = 'hist-copy';
+  btn.textContent = '📋 Copier';
+  btn.addEventListener('click', function(){ copyItem(id); });
+  item.appendChild(btn);
+  list.prepend(item);
+  if (!histOpen) toggleHistory();
+}
+
+function escHtml(s){ return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+function copyItem(id) {
+  var rec = saved.find(function(r){ return r.id===id; });
+  if (!rec) return;
+  copyText(rec.code);
+  var btn = document.querySelector('#hi-'+id+' .hist-copy');
+  if (btn){ btn.textContent='✅ Copié!'; setTimeout(function(){ btn.textContent='📋 Copier'; },1500); }
+}
+
+function toggleHistory() {
+  histOpen = !histOpen;
+  document.getElementById('hist-panel').classList.toggle('open', histOpen);
+  document.getElementById('hist-btn').classList.toggle('active', histOpen);
+}
+
+function toggleExisting() {
+  showEx = !showEx;
+  document.querySelectorAll('.hs-ex').forEach(function(el){ el.classList.toggle('visible', showEx); });
+  document.getElementById('btn-ex').classList.toggle('active', showEx);
+}
+
+function clearRects() {
+  saved.forEach(function(r){ r.div.remove(); });
+  saved = [];
+  document.getElementById('hist-list').innerHTML = '';
+  document.getElementById('badge').textContent = '0';
+  codeOut.value = "← Dessinez un rectangle sur l'image";
+  document.getElementById('wh').textContent = '';
+}
+
+function clearAll(){ clearRects(); counter=1; }
+
+function doCopy() {
+  var v = codeOut.value;
+  if (!v || v.indexOf('←') === 0) return;
+  copyText(v);
+  var btn = document.getElementById('copy-btn');
+  btn.textContent='✅ Copié!';
+  btn.classList.add('copied');
+  setTimeout(function(){ btn.textContent='Copier'; btn.classList.remove('copied'); },1500);
+}
+
+function copyText(text) {
+  if (navigator.clipboard) {
+    navigator.clipboard.writeText(text).catch(function(){ fallback(text); });
+  } else { fallback(text); }
+}
+
+function fallback(text) {
+  var ta = document.createElement('textarea');
+  ta.value = text;
+  ta.style.cssText = 'position:fixed;opacity:0';
+  document.body.appendChild(ta);
+  ta.focus(); ta.select();
+  document.execCommand('copy');
+  ta.remove();
+}
+</script>
+</body>
+</html>
