@@ -200,7 +200,7 @@ html,body{width:100%;height:100%;background:#111;display:flex;align-items:center
   <div class="hs has-sub" data-tool="direct" style="left:3.393%;top:15.198%;width:3.095%;height:3.850%;"></div>
   <div class="hs" data-tool="magic" style="left:0.595%;top:19.048%;width:2.738%;height:3.647%;"></div>
   <div class="hs" data-tool="lasso" style="left:3.393%;top:19.048%;width:3.095%;height:3.647%;"></div>
-  <div class="hs" data-tool="pen" style="left:0.595%;top:22.695%;width:2.738%;height:3.749%;"></div>
+  <div class="hs has-sub" data-tool="pen" style="left:0.595%;top:22.695%;width:2.738%;height:3.749%;"></div>
   <div class="hs" data-tool="courbure" style="left:3.393%;top:22.695%;width:3.095%;height:3.749%;"></div>
   <div class="hs" data-tool="type" style="left:0.595%;top:26.444%;width:2.738%;height:3.647%;"></div>
   <div class="hs" data-tool="line" style="left:3.393%;top:26.444%;width:3.095%;height:3.647%;"></div>
@@ -251,6 +251,17 @@ html,body{width:100%;height:100%;background:#111;display:flex;align-items:center
     </div>
   </div>
 
+
+
+  
+  <div class="subtool-popup" id="sub-pen">
+    <div class="st-img-wrap">
+      <img src="img/sous_outils/plume.png" style="left:6.435%;top:23.672%;">
+    <div class="st-zone" data-subtool="sous_3" style="left:6.506%;top:23.793%;width:17.880%;height:3.623%;"></div>
+      <div class="st-zone" data-subtool="sous_4" style="left:6.648%;top:27.537%;width:17.951%;height:3.261%;"></div>
+    </div>
+  </div>
+
   <div class="card-anchor" id="card-anchor">
     <div class="tc-default" id="tc-default">
       <h2>Guide des Outils</h2>
@@ -262,63 +273,108 @@ html,body{width:100%;height:100%;background:#111;display:flex;align-items:center
       </div>
     </div>
 
-    <!-- Les fiches (.tool-card) sont générées dynamiquement
-         depuis tools-data.js — voir générateur en fin de script. -->
+    <!-- Sélection -->
+    <div class="tool-card" data-tool="select">
+      <div class="tc-top">
+        <div class="tc-header">
+          <div class="tc-icon">▶</div>
+          <div class="tc-titles">
+            <div class="tc-name">Outil Sélection</div>
+            <div class="tc-shortcut">Raccourci : V</div>
+          </div>
+          <span class="tc-badge cat-sel">Sélection</span>
+        </div>
+        <p class="tc-desc">Sélectionne et déplace des objets entiers. Cliquez sur un objet pour le sélectionner, glissez dans une zone vide pour une sélection rectangulaire.</p>
+        <div class="tc-tags"><span class="tc-tag">Sélection</span><span class="tc-tag">Déplacement</span><span class="tc-tag">Transformation</span></div>
+        <div class="tc-tip">💡 Maj+clic : ajouter à la sélection. Alt+glisser : dupliquer. Ctrl+A : tout sélectionner.</div>
+      </div>
+      <div class="tc-extra">
+        <div class="tc-section">
+          <div class="tc-section-title">Raccourcis clavier</div>
+          <ul class="tc-list">
+            <li><strong>V</strong> — Activer l'outil</li>
+            <li><strong>Ctrl+A</strong> — Tout sélectionner</li>
+            <li><strong>Maj+clic</strong> — Ajouter à la sélection</li>
+            <li><strong>Alt+glisser</strong> — Dupliquer</li>
+            <li><strong>Échap</strong> — Désélectionner</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sélection directe -->
+    <div class="tool-card" data-tool="direct">
+      <div class="tc-top">
+        <div class="tc-header">
+          <div class="tc-icon">↗</div>
+          <div class="tc-titles">
+            <div class="tc-name">Sélection directe</div>
+            <div class="tc-shortcut">Raccourci : A</div>
+          </div>
+          <span class="tc-badge cat-sel">Sélection</span>
+        </div>
+        <p class="tc-desc">Sélectionne des points d'ancrage ou des segments individuellement pour modifier la forme d'un tracé point par point.</p>
+        <div class="tc-tags"><span class="tc-tag">Points d'ancrage</span><span class="tc-tag">Tracé</span><span class="tc-tag">Forme</span></div>
+        <div class="tc-tip">💡 Cliquez sur un point, puis bougez-le avec les flèches du clavier pour un déplacement au pixel près.</div>
+      </div>
+    </div>
+
+    <!-- ─── Sous-outil : Sélection directe normale ─── -->
+    <div class="tool-card" data-tool="direct_normal">
+      <div class="tc-top">
+        <div class="tc-header">
+          <div class="tc-icon">↗</div>
+          <div class="tc-titles">
+            <div class="tc-name">Sélection directe</div>
+            <div class="tc-shortcut">Raccourci : A</div>
+          </div>
+          <span class="tc-badge cat-sel">Sélection</span>
+        </div>
+        <p class="tc-desc">
+          Sélectionne des points d'ancrage ou des segments individuellement
+          pour modifier la forme d'un tracé point par point.
+        </p>
+        <div class="tc-tags">
+          <span class="tc-tag">Points d'ancrage</span>
+          <span class="tc-tag">Tracé</span>
+          <span class="tc-tag">Forme</span>
+        </div>
+        <div class="tc-tip">
+          💡 Cliquez sur un point, puis bougez-le avec les flèches du clavier pour un déplacement au pixel près.
+        </div>
+      </div>
+    </div>
+
+    <!-- ─── Sous-outil : Sélection directe progressive ─── -->
+    <div class="tool-card" data-tool="direct_progres">
+      <div class="tc-top">
+        <div class="tc-header">
+          <div class="tc-icon">↗</div>
+          <div class="tc-titles">
+            <div class="tc-name">Sélection directe progressive</div>
+            <div class="tc-shortcut">Raccourci : Q</div>
+          </div>
+          <span class="tc-badge cat-sel">Sélection</span>
+        </div>
+        <p class="tc-desc">
+          Sélectionne les objets en touchant leur tracé selon l'ordre d'empilement.
+          Chaque clic supplémentaire étend la sélection à l'objet suivant.
+        </p>
+        <div class="tc-tags">
+          <span class="tc-tag">Sélection progressive</span>
+          <span class="tc-tag">Empilement</span>
+          <span class="tc-tag">Tracé</span>
+        </div>
+        <div class="tc-tip">
+          💡 Utile quand plusieurs objets se superposent : cliquez plusieurs fois pour
+          sélectionner les objets en profondeur un par un.
+        </div>
+      </div>
+    </div>
 
   </div>
 </div>
 
-<script src="tools-data.js"></script>
-<script>
-// ── Génération des fiches (.tool-card) depuis TOOLS_DATA ──
-(function(){
-  var anchor = document.getElementById('card-anchor');
-
-  TOOLS_DATA.forEach(function(tool){
-    var card = document.createElement('div');
-    card.className = 'tool-card';
-    card.dataset.tool = tool.id;
-
-    var tagsHtml = (tool.tags || []).map(function(t){
-      return '<span class="tc-tag">' + t + '</span>';
-    }).join('');
-
-    var html = ''
-      + '<div class="tc-top">'
-      +   '<div class="tc-header">'
-      +     '<div class="tc-icon">' + (tool.icon || '') + '</div>'
-      +     '<div class="tc-titles">'
-      +       '<div class="tc-name">' + tool.name + '</div>'
-      +       (tool.shortcut ? '<div class="tc-shortcut">Raccourci : ' + tool.shortcut + '</div>' : '')
-      +     '</div>'
-      +     '<span class="tc-badge ' + (tool.category || '') + '">' + (tool.categoryLabel || '') + '</span>'
-      +   '</div>'
-      +   '<p class="tc-desc">' + tool.desc + '</p>'
-      +   (tagsHtml ? '<div class="tc-tags">' + tagsHtml + '</div>' : '')
-      +   (tool.tip ? '<div class="tc-tip">💡 ' + tool.tip + '</div>' : '')
-      + '</div>';
-
-    if(tool.extra && tool.extra.length){
-      html += '<div class="tc-extra">';
-      tool.extra.forEach(function(section){
-        html += '<div class="tc-section">';
-        if(section.title) html += '<div class="tc-section-title">' + section.title + '</div>';
-        if(section.list){
-          html += '<ul class="tc-list">' + section.list.map(function(li){ return '<li>' + li + '</li>'; }).join('') + '</ul>';
-        }
-        if(section.text){
-          html += '<p class="tc-section-text">' + section.text + '</p>';
-        }
-        html += '</div>';
-      });
-      html += '</div>';
-    }
-
-    card.innerHTML = html;
-    anchor.appendChild(card);
-  });
-})();
-</script>
 <script>
 var defEl  = document.getElementById('tc-default');
 var cards  = document.querySelectorAll('.tool-card');
