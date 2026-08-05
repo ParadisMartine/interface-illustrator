@@ -200,7 +200,7 @@ html,body{width:100%;height:100%;background:#111;display:flex;align-items:center
   <div class="hs has-sub" data-tool="direct" style="left:3.393%;top:15.198%;width:3.095%;height:3.850%;"></div>
   <div class="hs" data-tool="magic" style="left:0.595%;top:19.048%;width:2.738%;height:3.647%;"></div>
   <div class="hs" data-tool="lasso" style="left:3.393%;top:19.048%;width:3.095%;height:3.647%;"></div>
-  <div class="hs has-sub" data-tool="pen" style="left:0.595%;top:22.695%;width:2.738%;height:3.749%;"></div>
+  <div class="hs" data-tool="pen" style="left:0.595%;top:22.695%;width:2.738%;height:3.749%;"></div>
   <div class="hs" data-tool="courbure" style="left:3.393%;top:22.695%;width:3.095%;height:3.749%;"></div>
   <div class="hs" data-tool="type" style="left:0.595%;top:26.444%;width:2.738%;height:3.647%;"></div>
   <div class="hs" data-tool="line" style="left:3.393%;top:26.444%;width:3.095%;height:3.647%;"></div>
@@ -251,13 +251,6 @@ html,body{width:100%;height:100%;background:#111;display:flex;align-items:center
     </div>
   </div>
 
-  <div class="subtool-popup" id="sub-pen">
-    <div class="st-img-wrap">
-      <img src="img/sous_outils/plume.png" style="left:6.435%;top:23.672%;">
-      <div class="st-zone" data-subtool="ajout-ancrage" style="left:6.506%;top:23.793%;width:17.880%;height:3.623%;"></div>
-    </div>
-  </div>
-
   <div class="card-anchor" id="card-anchor">
     <div class="tc-default" id="tc-default">
       <h2>Guide des Outils</h2>
@@ -270,31 +263,13 @@ html,body{width:100%;height:100%;background:#111;display:flex;align-items:center
     </div>
 
     <!-- Les fiches (.tool-card) sont générées dynamiquement
-         depuis tools-data.json (chargé via fetch, voir fin de script). -->
+         depuis tools-data.js — voir générateur en fin de script. -->
 
   </div>
 </div>
 
+<script src="tools-data.js"></script>
 <script>
-// ── Chargement des données puis génération/initialisation ──
-fetch('tools-data.json')
-  .then(function(res){
-    if(!res.ok) throw new Error('HTTP ' + res.status);
-    return res.json();
-  })
-  .then(function(json){
-    initGuide(json.tools || []);
-  })
-  .catch(function(err){
-    console.error('Impossible de charger tools-data.json :', err);
-    var anchor = document.getElementById('card-anchor');
-    if(anchor) anchor.insertAdjacentHTML('beforeend',
-      '<p style="color:#b3392b;padding:12px;">Erreur de chargement de tools-data.json ' +
-      '(vérifiez qu\'il est bien dans le même dossier et que la page est servie via un ' +
-      'serveur local, pas ouverte en double-clic).</p>');
-  });
-
-function initGuide(TOOLS_DATA){
 // ── Génération des fiches (.tool-card) depuis TOOLS_DATA ──
 (function(){
   var anchor = document.getElementById('card-anchor');
@@ -343,7 +318,8 @@ function initGuide(TOOLS_DATA){
     anchor.appendChild(card);
   });
 })();
-
+</script>
+<script>
 var defEl  = document.getElementById('tc-default');
 var cards  = document.querySelectorAll('.tool-card');
 var hotspots = document.querySelectorAll('.hs');
@@ -519,8 +495,6 @@ document.querySelectorAll('.st-img-wrap img').forEach(function(img){
   if(img.complete && img.naturalWidth) apply();
   else img.addEventListener('load', apply);
 });
-
-} // fin initGuide()
 </script>
 </body>
 </html>
