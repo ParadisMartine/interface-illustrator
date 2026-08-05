@@ -250,16 +250,7 @@ button.danger:hover{border-color:#b3392b;}
     <code>**gras**</code> et <code>*italique*</code>.
     Une fois vos changements faits, cliquez sur <strong>Télécharger tools-data.json</strong>
     et remplacez le fichier dans votre dossier de projet.
-    <br><br>
-    Ouvert directement depuis votre ordinateur (double-clic) ? Cliquez sur
-    <strong>« Choisir le fichier tools-data.json… »</strong> ci-dessous pour le sélectionner manuellement —
-    aucun serveur n'est requis.
   </p>
-
-  <input type="file" id="fileInput" accept=".json" style="display:none;">
-  <div class="add-tool" id="filePicker" style="display:none;">
-    <button id="filePickerBtn">📂 Choisir le fichier tools-data.json…</button>
-  </div>
 
   <div class="list" id="list"></div>
 
@@ -304,7 +295,6 @@ function setStatus(text, ok){
 
 // ── Chargement ──────────────────────────────────────
 function load(){
-  document.getElementById('filePicker').style.display = 'none';
   fetch('tools-data.json')
     .then(function(res){
       if(!res.ok) throw new Error('HTTP ' + res.status);
@@ -318,40 +308,10 @@ function load(){
     })
     .catch(function(err){
       console.error(err);
-      setStatus('En attente d\'un fichier', false);
-      document.getElementById('filePicker').style.display = 'flex';
-      document.getElementById('list').innerHTML = '';
+      setStatus('Erreur de chargement', false);
+      showToast('Impossible de charger tools-data.json — utilisez VS Code + Live Server (pas un double-clic sur le fichier).');
     });
 }
-
-// ── Chargement manuel via sélecteur de fichier (sans serveur) ──
-document.getElementById('filePickerBtn').addEventListener('click', function(){
-  document.getElementById('fileInput').click();
-});
-document.getElementById('fileInput').addEventListener('change', function(e){
-  var file = e.target.files[0];
-  if(!file) return;
-  var reader = new FileReader();
-  reader.onload = function(evt){
-    try{
-      var json = JSON.parse(evt.target.result);
-      DATA = json;
-      if(!DATA.tools) DATA.tools = [];
-      document.getElementById('filePicker').style.display = 'none';
-      render();
-      setStatus('Chargé', true);
-      showToast('tools-data.json chargé — ' + DATA.tools.length + ' fiches.');
-    } catch(err){
-      console.error(err);
-      showToast('Ce fichier n\'est pas un JSON valide.');
-    }
-  };
-  reader.onerror = function(){
-    showToast('Impossible de lire le fichier.');
-  };
-  reader.readAsText(file, 'utf-8');
-  e.target.value = ''; // permet de recharger le même fichier plus tard
-});
 
 // ── Rendu de la liste ───────────────────────────────
 function render(){
