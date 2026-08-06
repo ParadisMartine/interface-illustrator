@@ -1,0 +1,1456 @@
+{
+  "tools": [
+    {
+      "id": "select",
+      "icon": "▶",
+      "name": "Outil Sélection",
+      "shortcut": "V",
+      "category": "cat-sel",
+      "categoryLabel": "Sélection",
+      "desc": "Sélectionne et déplace des objets entiers. Cliquez sur un objet pour le sélectionner, glissez dans une zone vide pour une sélection rectangulaire.",
+      "tags": [
+        "Sélection",
+        "Déplacement",
+        "Transformation"
+      ],
+      "tip": "Maj+clic : ajouter à la sélection. Alt+glisser : dupliquer. Ctrl+A : tout sélectionner.",
+      "extra": [
+        {
+          "title": "Raccourcis clavier",
+          "list": [
+            "<strong>V</strong> — Activer l'outil",
+            "<strong>Ctrl+A</strong> — Tout sélectionner",
+            "<strong>Maj+clic</strong> — Ajouter à la sélection",
+            "<strong>Alt+glisser</strong> — Dupliquer",
+            "<strong>Échap</strong> — Désélectionner"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "direct",
+      "icon": "↗",
+      "name": "Sélection directe",
+      "shortcut": "A",
+      "category": "cat-sel",
+      "categoryLabel": "Sélection",
+      "desc": "Sélectionne des points d'ancrage ou des segments individuellement pour modifier la forme d'un tracé point par point.",
+      "tags": [
+        "Points d'ancrage",
+        "Tracé",
+        "Forme"
+      ],
+      "tip": "Cliquez sur un point, puis bougez-le avec les flèches du clavier pour un déplacement au pixel près."
+    },
+    {
+      "id": "direct_normal",
+      "icon": "↗",
+      "name": "Sélection directe",
+      "shortcut": "A",
+      "category": "cat-sel",
+      "categoryLabel": "Sélection",
+      "desc": "Sélectionne des points d'ancrage ou des segments individuellement pour modifier la forme d'un tracé point par point.",
+      "tags": [
+        "Points d'ancrage",
+        "Tracé",
+        "Forme"
+      ],
+      "tip": "Cliquez sur un point, puis bougez-le avec les flèches du clavier pour un déplacement au pixel près."
+    },
+    {
+      "id": "direct_progres",
+      "icon": "↗",
+      "name": "Sélection directe progressive",
+      "shortcut": "Q",
+      "category": "cat-sel",
+      "categoryLabel": "Sélection",
+      "desc": "Sélectionne les objets en touchant leur tracé selon l'ordre d'empilement. Chaque clic supplémentaire étend la sélection à l'objet suivant.",
+      "tags": [
+        "Sélection progressive",
+        "Empilement",
+        "Tracé"
+      ],
+      "tip": "Utile quand plusieurs objets se superposent : cliquez plusieurs fois pour sélectionner les objets en profondeur un par un."
+    },
+    {
+      "id": "magic",
+      "icon": "✦",
+      "name": "Baguette magique",
+      "shortcut": "Y",
+      "category": "cat-sel",
+      "categoryLabel": "Sélection",
+      "desc": "Sélectionne en un clic tous les objets ayant des attributs similaires (couleur de remplissage, contour, épaisseur...) sur le plan de travail.",
+      "tags": [
+        "Sélection",
+        "Couleur",
+        "Attributs"
+      ],
+      "tip": "Double-cliquez sur l'outil pour choisir les attributs pris en compte (remplissage, contour, opacité...) et régler la tolérance."
+    },
+    {
+      "id": "lasso",
+      "icon": "➰",
+      "name": "Lasso",
+      "shortcut": "Q",
+      "category": "cat-sel",
+      "categoryLabel": "Sélection",
+      "desc": "Sélectionne des objets, des points d'ancrage ou des segments en traçant librement une zone à main levée autour d'eux.",
+      "tags": [
+        "Sélection libre",
+        "Points d'ancrage",
+        "Main levée"
+      ],
+      "tip": "Pratique pour sélectionner rapidement quelques points isolés dans un tracé complexe sans cliquer un à un."
+    },
+    {
+      "id": "pen",
+      "icon": "✒",
+      "name": "Plume",
+      "shortcut": "P",
+      "category": "cat-draw",
+      "categoryLabel": "Dessin",
+      "desc": "Trace des chemins précis composés de segments droits et de courbes, en plaçant des points d'ancrage et en manipulant leurs poignées.",
+      "tags": [
+        "Tracés",
+        "Courbes de Bézier",
+        "Points d'ancrage"
+      ],
+      "tip": "Cliquez pour un point d'angle, cliquez-glissez pour un point courbe. Ctrl (Cmd) temporairement = Sélection directe."
+    },
+    {
+      "id": "courbure",
+      "icon": "〰",
+      "name": "Courbure",
+      "shortcut": "Maj+~",
+      "category": "cat-draw",
+      "categoryLabel": "Dessin",
+      "desc": "Dessine et modifie des tracés fluides en plaçant simplement des points : le programme calcule automatiquement des courbes lisses entre eux.",
+      "tags": [
+        "Courbes",
+        "Tracé simplifié",
+        "Édition intuitive"
+      ],
+      "tip": "Double-cliquez pour créer un point d'angle plutôt qu'un point courbe pendant le tracé."
+    },
+    {
+      "id": "type",
+      "icon": "T",
+      "name": "Texte",
+      "shortcut": "T",
+      "category": "cat-text",
+      "categoryLabel": "Texte",
+      "desc": "Crée et modifie du texte ponctuel ou du texte captif (dans un cadre). Cliquez pour un point de texte, glissez pour un bloc de texte.",
+      "tags": [
+        "Texte",
+        "Typographie",
+        "Bloc de texte"
+      ],
+      "tip": "Cliquez sur le contour d'une forme fermée pour créer du texte captif à l'intérieur."
+    },
+    {
+      "id": "line",
+      "icon": "╱",
+      "name": "Segment de ligne",
+      "shortcut": "\\",
+      "category": "cat-shape",
+      "categoryLabel": "Forme",
+      "desc": "Trace des segments de droite simples en cliquant-glissant d'un point à un autre.",
+      "tags": [
+        "Ligne droite",
+        "Segment",
+        "Tracé simple"
+      ],
+      "tip": "Maintenez Maj pour contraindre l'angle à des multiples de 45°."
+    },
+    {
+      "id": "rect",
+      "icon": "▭",
+      "name": "Rectangle",
+      "shortcut": "M",
+      "category": "cat-shape",
+      "categoryLabel": "Forme",
+      "desc": "Dessine des rectangles et des carrés en cliquant-glissant sur le plan de travail.",
+      "tags": [
+        "Forme géométrique",
+        "Rectangle",
+        "Carré"
+      ],
+      "tip": "Maintenez Maj pour un carré parfait. Cliquez une fois sur le plan de travail pour saisir des dimensions exactes."
+    },
+    {
+      "id": "pencil",
+      "icon": "✎",
+      "name": "Crayon",
+      "shortcut": "N",
+      "category": "cat-draw",
+      "categoryLabel": "Dessin",
+      "desc": "Dessine des tracés à main levée, comme un vrai crayon sur papier. Illustrator place les points d'ancrage automatiquement.",
+      "tags": [
+        "Main levée",
+        "Tracé libre",
+        "Dessin"
+      ],
+      "tip": "Repassez sur une extrémité d'un tracé existant pour le prolonger sans le fermer."
+    },
+    {
+      "id": "brush",
+      "icon": "🖌",
+      "name": "Pinceau",
+      "shortcut": "B",
+      "category": "cat-draw",
+      "categoryLabel": "Dessin",
+      "desc": "Dessine des tracés habillés d'une nuance de pinceau (calligraphique, artistique, à motifs ou aux crins) pour un rendu expressif.",
+      "tags": [
+        "Nuances de pinceau",
+        "Tracé habillé",
+        "Calligraphie"
+      ],
+      "tip": "Choisissez une nuance dans le panneau Pinceaux avant de dessiner pour changer l'aspect du trait."
+    },
+    {
+      "id": "eraser",
+      "icon": "▱",
+      "name": "Gomme",
+      "shortcut": "Maj+E",
+      "category": "cat-draw",
+      "categoryLabel": "Dessin",
+      "desc": "Efface des portions de tracés ou d'objets vectoriels en glissant dessus, comme une gomme classique.",
+      "tags": [
+        "Effacement",
+        "Édition de tracé",
+        "Vectoriel"
+      ],
+      "tip": "Double-cliquez sur l'outil pour régler la taille, l'angle et l'arrondi de la pointe de gomme."
+    },
+    {
+      "id": "rotate",
+      "icon": "↻",
+      "name": "Rotation",
+      "shortcut": "R",
+      "category": "cat-transf",
+      "categoryLabel": "Transformation",
+      "desc": "Fait pivoter les objets sélectionnés autour d'un point de référence, déplaçable par simple clic avant de glisser.",
+      "tags": [
+        "Rotation",
+        "Point de référence",
+        "Transformation"
+      ],
+      "tip": "Alt+clic pour positionner précisément le point de rotation et ouvrir la boîte de dialogue Rotation."
+    },
+    {
+      "id": "puppet",
+      "icon": "⤢",
+      "name": "Mise à l'échelle",
+      "shortcut": "S",
+      "category": "cat-transf",
+      "categoryLabel": "Transformation",
+      "desc": "Redimensionne les objets sélectionnés depuis un point de référence déplaçable, uniformément ou selon un seul axe.",
+      "tags": [
+        "Redimensionnement",
+        "Point de référence",
+        "Transformation"
+      ],
+      "tip": "Maintenez Maj en glissant pour conserver les proportions ; Alt+clic pour ouvrir la boîte de dialogue avec valeurs précises."
+    },
+    {
+      "id": "warp",
+      "icon": "↝",
+      "name": "Largeur",
+      "shortcut": "Maj+W",
+      "category": "cat-transf",
+      "categoryLabel": "Transformation",
+      "desc": "Modifie la largeur d'un tracé à des endroits précis en glissant ses bords, pour créer des traits calligraphiques irréguliers.",
+      "tags": [
+        "Épaisseur variable",
+        "Tracé",
+        "Profil de largeur"
+      ],
+      "tip": "Alt+glisser pour ajouter un point de largeur symétrique ou non des deux côtés du tracé."
+    },
+    {
+      "id": "warp2",
+      "icon": "⛶",
+      "name": "Transformation manuelle",
+      "shortcut": "E",
+      "category": "cat-transf",
+      "categoryLabel": "Transformation",
+      "desc": "Redimensionne, fait pivoter ou déforme librement un objet en glissant directement les poignées de sa boîte englobante.",
+      "tags": [
+        "Boîte englobante",
+        "Redimensionnement",
+        "Déformation libre"
+      ],
+      "tip": "Approchez le curseur d'un coin sans le toucher pour faire pivoter plutôt que redimensionner."
+    },
+    {
+      "id": "warp3",
+      "icon": "⬡",
+      "name": "Concepteur de forme",
+      "shortcut": "Maj+M",
+      "category": "cat-shape",
+      "categoryLabel": "Forme",
+      "desc": "Fusionne, découpe ou efface des zones à partir de plusieurs objets superposés, simplement en glissant ou en cliquant sur les régions.",
+      "tags": [
+        "Fusion de formes",
+        "Découpe",
+        "Objets superposés"
+      ],
+      "tip": "Alt+glisser sur une zone pour la soustraire au lieu de l'ajouter au tracé résultant."
+    },
+    {
+      "id": "persp",
+      "icon": "◱",
+      "name": "Grille de perspective",
+      "shortcut": "Maj+P",
+      "category": "cat-transf",
+      "categoryLabel": "Transformation",
+      "desc": "Affiche une grille en perspective (1, 2 ou 3 points de fuite) permettant de dessiner et placer des objets avec un effet de profondeur réaliste.",
+      "tags": [
+        "Perspective",
+        "Points de fuite",
+        "Profondeur"
+      ],
+      "tip": "Utilisez l'outil Sélection en perspective (Maj+V) pour déplacer un objet existant dans la grille."
+    },
+    {
+      "id": "blend",
+      "icon": "⇄",
+      "name": "Fusion",
+      "shortcut": "W",
+      "category": "cat-draw",
+      "categoryLabel": "Dessin",
+      "desc": "Crée une série de formes ou de couleurs intermédiaires entre deux objets, générant des dégradés de forme ou des effets d'animation.",
+      "tags": [
+        "Interpolation",
+        "Dégradé de formes",
+        "Effets"
+      ],
+      "tip": "Double-cliquez sur l'outil pour régler le nombre d'étapes ou la distance entre les objets intermédiaires."
+    },
+    {
+      "id": "symbol",
+      "icon": "❖",
+      "name": "Pulvérisateur de symboles",
+      "shortcut": "Maj+S",
+      "category": "cat-draw",
+      "categoryLabel": "Dessin",
+      "desc": "Projette plusieurs instances d'un symbole du panneau Symboles sur le plan de travail, comme avec une bombe de peinture.",
+      "tags": [
+        "Symboles",
+        "Instances multiples",
+        "Projection"
+      ],
+      "tip": "Cliquez sans glisser pour ajouter une seule instance à la fois plutôt qu'un nuage de symboles."
+    },
+    {
+      "id": "graph",
+      "icon": "📊",
+      "name": "Graphique",
+      "shortcut": "J",
+      "category": "cat-shape",
+      "categoryLabel": "Forme",
+      "desc": "Crée des graphiques de données (à colonnes, à barres, linéaires, circulaires...) en glissant une zone, puis en saisissant les valeurs.",
+      "tags": [
+        "Données",
+        "Graphique",
+        "Colonnes"
+      ],
+      "tip": "Une fois le graphique créé, changez son type via le menu Objet > Graphique > Type sans ressaisir les données."
+    },
+    {
+      "id": "artboard",
+      "icon": "⬚",
+      "name": "Plan de travail",
+      "shortcut": "Maj+O",
+      "category": "cat-nav",
+      "categoryLabel": "Navigation",
+      "desc": "Crée, redimensionne, déplace ou duplique des plans de travail (les pages de votre document) directement dans la fenêtre.",
+      "tags": [
+        "Plan de travail",
+        "Document",
+        "Mise en page"
+      ],
+      "tip": "Alt+glissez un plan de travail existant pour en dupliquer un avec son contenu."
+    },
+    {
+      "id": "gradient",
+      "icon": "▥",
+      "name": "Dégradé",
+      "shortcut": "G",
+      "category": "cat-color",
+      "categoryLabel": "Couleur",
+      "desc": "Applique et ajuste un dégradé directement sur l'objet sélectionné : angle, position et étendue en glissant sur le tracé.",
+      "tags": [
+        "Dégradé",
+        "Couleur",
+        "Transition"
+      ],
+      "tip": "Double-cliquez sur un curseur de couleur directement sur l'objet pour changer sa teinte sans ouvrir le panneau."
+    },
+    {
+      "id": "eyedropper",
+      "icon": "💧",
+      "name": "Pipette",
+      "shortcut": "I",
+      "category": "cat-color",
+      "categoryLabel": "Couleur",
+      "desc": "Prélève les attributs (couleur, contour, police, effets) d'un objet ou d'une image pour les appliquer à l'objet sélectionné.",
+      "tags": [
+        "Prélèvement",
+        "Couleur",
+        "Attributs"
+      ],
+      "tip": "Double-cliquez sur l'outil pour choisir précisément quels attributs sont copiés."
+    },
+    {
+      "id": "blob",
+      "icon": "●",
+      "name": "Pinceau Blob",
+      "shortcut": "Maj+B",
+      "category": "cat-draw",
+      "categoryLabel": "Dessin",
+      "desc": "Dessine directement des formes pleines (et non des tracés fins) qui fusionnent automatiquement entre elles si elles se chevauchent.",
+      "tags": [
+        "Forme pleine",
+        "Fusion automatique",
+        "Dessin libre"
+      ],
+      "tip": "Repassez sur un trait existant de la même couleur pour l'épaissir ou le fusionner avec le nouveau."
+    },
+    {
+      "id": "spray",
+      "icon": "✂",
+      "name": "Tranche",
+      "shortcut": "Maj+K",
+      "category": "cat-nav",
+      "categoryLabel": "Navigation",
+      "desc": "Découpe la mise en page en zones rectangulaires (tranches) pour l'exportation web, chacune pouvant être optimisée et exportée séparément.",
+      "tags": [
+        "Export web",
+        "Découpage",
+        "Optimisation"
+      ],
+      "tip": "Utilisez Objet > Tranche pour créer des tranches à partir de repères ou d'objets sélectionnés plutôt qu'à main levée."
+    },
+    {
+      "id": "hand",
+      "icon": "✋",
+      "name": "Main",
+      "shortcut": "H",
+      "category": "cat-nav",
+      "categoryLabel": "Navigation",
+      "desc": "Déplace la vue dans la fenêtre du document sans modifier les objets, en glissant le plan de travail comme une feuille sur une table.",
+      "tags": [
+        "Navigation",
+        "Défilement",
+        "Vue"
+      ],
+      "tip": "Maintenez la Barre d'espace enfoncée depuis n'importe quel autre outil pour activer la Main temporairement."
+    },
+    {
+      "id": "zoom",
+      "icon": "🔍",
+      "name": "Zoom",
+      "shortcut": "Z",
+      "category": "cat-nav",
+      "categoryLabel": "Navigation",
+      "desc": "Agrandit ou réduit l'affichage du document. Cliquez pour zoomer, Alt+clic pour dézoomer, glissez pour zoomer sur une zone précise.",
+      "tags": [
+        "Zoom",
+        "Affichage",
+        "Navigation"
+      ],
+      "tip": "Ctrl+0 (Cmd+0) ajuste la vue au plan de travail ; Ctrl+1 (Cmd+1) affiche à 100 %."
+    },
+    {
+      "id": "fillstroke",
+      "icon": "🎨",
+      "name": "Fond et contour",
+      "shortcut": "",
+      "category": "cat-color",
+      "categoryLabel": "Couleur",
+      "desc": "Définit les couleurs de remplissage et de contour de l'objet sélectionné ; permet aussi d'inverser ou de rétablir les couleurs par défaut.",
+      "tags": [
+        "Remplissage",
+        "Contour",
+        "Couleur"
+      ],
+      "tip": "X permute l'outil actif entre remplissage et contour ; Maj+X les échange l'un avec l'autre ; D rétablit noir/blanc."
+    },
+    {
+      "id": "zoom2",
+      "icon": "🖥",
+      "name": "Mode d'affichage",
+      "shortcut": "F",
+      "category": "cat-nav",
+      "categoryLabel": "Navigation",
+      "desc": "Bascule entre les modes d'affichage de la fenêtre : standard, plein écran avec barre de menus, ou plein écran sans interface.",
+      "tags": [
+        "Mode d'écran",
+        "Affichage",
+        "Plein écran"
+      ],
+      "tip": "Utile pour présenter un travail sans être distrait par les palettes et menus."
+    },
+    {
+      "id": "p_couleur",
+      "icon": "🎨",
+      "name": "Panneau Couleur",
+      "shortcut": "",
+      "category": "cat-panel",
+      "categoryLabel": "Panneau",
+      "desc": "Permet de composer une couleur de remplissage ou de contour en ajustant ses valeurs (RVB, CMJN, TSL...) avec des curseurs.",
+      "tags": [
+        "Couleur",
+        "RVB/CMJN",
+        "Curseurs"
+      ],
+      "tip": "Maj+clic sur le spectre de couleurs en bas du panneau pour choisir une couleur globale en un clic."
+    },
+    {
+      "id": "p_guidecoul",
+      "icon": "🎯",
+      "name": "Panneau Guide des couleurs",
+      "shortcut": "",
+      "category": "cat-panel",
+      "categoryLabel": "Panneau",
+      "desc": "Suggère des harmonies de couleurs (complémentaires, analogues, triades...) à partir d'une couleur de base sélectionnée.",
+      "tags": [
+        "Harmonie de couleurs",
+        "Palette",
+        "Suggestions"
+      ],
+      "tip": "Cliquez sur « Modifier ou appliquer les couleurs » pour recolorier tout un objet avec l'harmonie choisie."
+    },
+    {
+      "id": "p_nuancier",
+      "icon": "◼",
+      "name": "Panneau Nuancier",
+      "shortcut": "",
+      "category": "cat-panel",
+      "categoryLabel": "Panneau",
+      "desc": "Stocke les couleurs, dégradés et motifs enregistrés du document pour les réappliquer rapidement d'un clic.",
+      "tags": [
+        "Couleurs enregistrées",
+        "Bibliothèque",
+        "Nuances"
+      ],
+      "tip": "Glissez une couleur du panneau Couleur directement dans le Nuancier pour l'enregistrer."
+    },
+    {
+      "id": "p_formes",
+      "icon": "⬠",
+      "name": "Panneau Bibliothèques de formes",
+      "shortcut": "",
+      "category": "cat-panel",
+      "categoryLabel": "Panneau",
+      "desc": "Donne accès à des ensembles de formes prédéfinies (icônes, motifs, éléments graphiques) prêtes à glisser dans le document.",
+      "tags": [
+        "Formes prédéfinies",
+        "Bibliothèque",
+        "Ressources"
+      ],
+      "tip": "Glissez-déposez une forme directement sur le plan de travail pour l'ajouter au document."
+    },
+    {
+      "id": "p_symboles",
+      "icon": "❖",
+      "name": "Panneau Symboles",
+      "shortcut": "Maj+Ctrl+F11",
+      "category": "cat-panel",
+      "categoryLabel": "Panneau",
+      "desc": "Contient les symboles réutilisables du document ; sert de source pour le Pulvérisateur de symboles et les instances liées.",
+      "tags": [
+        "Symboles",
+        "Instances",
+        "Réutilisation"
+      ],
+      "tip": "Double-cliquez sur un symbole pour entrer en mode édition et modifier toutes ses instances à la fois."
+    },
+    {
+      "id": "p_contour",
+      "icon": "▭",
+      "name": "Panneau Contour",
+      "shortcut": "Ctrl+F10",
+      "category": "cat-panel",
+      "categoryLabel": "Panneau",
+      "desc": "Règle l'épaisseur, le style de coin, le fanon et les pointillés du contour de l'objet sélectionné.",
+      "tags": [
+        "Épaisseur",
+        "Pointillés",
+        "Style de trait"
+      ],
+      "tip": "Cochez « Aligner les pointillés » pour que le motif de tirets se répartisse symétriquement sur le tracé."
+    },
+    {
+      "id": "p_degrade",
+      "icon": "▥",
+      "name": "Panneau Dégradé",
+      "shortcut": "Ctrl+F9",
+      "category": "cat-panel",
+      "categoryLabel": "Panneau",
+      "desc": "Construit un dégradé linéaire, radial ou libre en ajoutant, déplaçant et colorant des curseurs sur la rampe de dégradé.",
+      "tags": [
+        "Dégradé",
+        "Curseurs de couleur",
+        "Angle"
+      ],
+      "tip": "Double-cliquez sur un curseur pour lui assigner une couleur du Nuancier ou du panneau Couleur."
+    },
+    {
+      "id": "p_transpar",
+      "icon": "◐",
+      "name": "Panneau Transparence",
+      "shortcut": "Maj+Ctrl+F10",
+      "category": "cat-panel",
+      "categoryLabel": "Panneau",
+      "desc": "Règle l'opacité et le mode de fusion d'un objet, et permet de créer des masques d'écrêtage ou des groupes opaques.",
+      "tags": [
+        "Opacité",
+        "Modes de fusion",
+        "Masque"
+      ],
+      "tip": "Glissez un objet du haut de la pile sur la vignette de masque pour créer un masque d'écrêtage rapide."
+    },
+    {
+      "id": "p_aspect",
+      "icon": "ℹ",
+      "name": "Panneau Aspect",
+      "shortcut": "Maj+F6",
+      "category": "cat-panel",
+      "categoryLabel": "Panneau",
+      "desc": "Liste tous les attributs appliqués à l'objet sélectionné (remplissages, contours, effets) et permet de les réordonner ou modifier.",
+      "tags": [
+        "Attributs",
+        "Effets",
+        "Empilement"
+      ],
+      "tip": "Cliquez sur l'icône Dupliquer l'élément sélectionné pour ajouter un second remplissage ou contour au même objet."
+    },
+    {
+      "id": "p_stylesgr",
+      "icon": "✦",
+      "name": "Panneau Styles graphiques",
+      "shortcut": "Maj+F5",
+      "category": "cat-panel",
+      "categoryLabel": "Panneau",
+      "desc": "Enregistre des combinaisons d'attributs d'apparence sous forme de style réutilisable, applicable en un clic à d'autres objets.",
+      "tags": [
+        "Styles réutilisables",
+        "Apparence",
+        "Cohérence visuelle"
+      ],
+      "tip": "Alt+cliquez un style pour le remplacer sur l'objet plutôt que de l'ajouter en plus des attributs existants."
+    },
+    {
+      "id": "p_calques",
+      "icon": "📑",
+      "name": "Panneau Calques",
+      "shortcut": "F7",
+      "category": "cat-panel",
+      "categoryLabel": "Panneau",
+      "desc": "Organise le document en calques et sous-calques empilés, pour structurer, verrouiller, masquer ou réordonner les objets.",
+      "tags": [
+        "Calques",
+        "Organisation",
+        "Empilement"
+      ],
+      "tip": "Alt+cliquez le triangle d'un calque pour déplier ou replier tous ses sous-niveaux d'un coup."
+    },
+    {
+      "id": "p_export",
+      "icon": "⬇",
+      "name": "Panneau Ressources d'exportation",
+      "shortcut": "",
+      "category": "cat-panel",
+      "categoryLabel": "Panneau",
+      "desc": "Rassemble les objets marqués pour l'export et permet de générer plusieurs formats et résolutions en une seule opération.",
+      "tags": [
+        "Export",
+        "Formats multiples",
+        "Résolutions"
+      ],
+      "tip": "Glissez un objet directement dans ce panneau pour le marquer comme ressource à exporter."
+    },
+    {
+      "id": "p_plans",
+      "icon": "🗂",
+      "name": "Panneau Plans de travail",
+      "shortcut": "",
+      "category": "cat-panel",
+      "categoryLabel": "Panneau",
+      "desc": "Liste tous les plans de travail du document, permet de les réordonner, renommer, dupliquer ou naviguer entre eux.",
+      "tags": [
+        "Plans de travail",
+        "Pages",
+        "Navigation"
+      ],
+      "tip": "Double-cliquez le nom d'un plan de travail dans la liste pour centrer immédiatement la vue dessus."
+    },
+    {
+      "id": "p_comments",
+      "icon": "💬",
+      "name": "Panneau Commentaires",
+      "shortcut": "",
+      "category": "cat-panel",
+      "categoryLabel": "Panneau",
+      "desc": "Affiche les commentaires laissés sur le document (relecture, révision partagée) et permet d'y répondre ou de les résoudre.",
+      "tags": [
+        "Commentaires",
+        "Révision",
+        "Collaboration"
+      ],
+      "tip": "Cliquez sur un commentaire dans la liste pour être automatiquement amené à l'endroit concerné du document."
+    },
+    {
+      "id": "t_formatdoc",
+      "icon": "📄",
+      "name": "Format du document",
+      "shortcut": "",
+      "category": "cat-panel",
+      "categoryLabel": "Document",
+      "desc": "Barre d'état affichant et permettant de modifier rapidement les réglages globaux du document actif (plan de travail, mode couleur, etc.).",
+      "tags": [
+        "Document",
+        "Réglages",
+        "Barre d'état"
+      ],
+      "tip": "Un accès rapide pratique pour vérifier le mode couleur (RVB/CMJN) sans ouvrir Fichier > Format du document."
+    },
+    {
+      "id": "ajout-ancrage",
+      "icon": "+",
+      "name": "Ajout de point d'ancrage",
+      "shortcut": "+",
+      "category": "cat-draw",
+      "categoryLabel": "Dessin",
+      "desc": "Ajoute un nouveau point d'ancrage sur un tracé existant, à l'endroit cliqué sur le segment.",
+      "tags": [
+        "Point d'ancrage",
+        "Édition de tracé",
+        "Plume"
+      ],
+      "tip": "S'active automatiquement en survolant un tracé sélectionné avec l'outil Plume, sans changer d'outil."
+    },
+    {
+      "id": "pen_delete",
+      "icon": "−",
+      "name": "Suppression de point d'ancrage",
+      "shortcut": "-",
+      "category": "cat-draw",
+      "categoryLabel": "Dessin",
+      "desc": "Supprime un point d'ancrage d'un tracé sans casser sa continuité ; le tracé se referme proprement.",
+      "tags": [
+        "Point d'ancrage",
+        "Édition de tracé",
+        "Plume"
+      ],
+      "tip": "Cliquez directement sur un point existant avec l'outil Plume actif pour le supprimer, sans changer d'outil."
+    },
+    {
+      "id": "pen_anchor",
+      "icon": "∧",
+      "name": "Point d'ancrage",
+      "shortcut": "Maj+C",
+      "category": "cat-draw",
+      "categoryLabel": "Dessin",
+      "desc": "Convertit un point d'ancrage lisse (courbe) en point d'angle, ou inversement, en cliquant ou en glissant dessus.",
+      "tags": [
+        "Conversion de point",
+        "Courbe",
+        "Angle"
+      ],
+      "tip": "Glissez à partir d'un point d'angle pour lui donner des poignées et le rendre lisse."
+    },
+    {
+      "id": "line_arc",
+      "icon": "⌒",
+      "name": "Arc",
+      "shortcut": "",
+      "category": "cat-shape",
+      "categoryLabel": "Forme",
+      "desc": "Trace un arc de cercle ou d'ellipse en cliquant-glissant sur le plan de travail.",
+      "tags": [
+        "Arc",
+        "Courbe",
+        "Forme"
+      ],
+      "tip": "Utilisez les flèches du clavier pendant le glissement pour ajouter des segments d'arc supplémentaires."
+    },
+    {
+      "id": "line_spiral",
+      "icon": "🌀",
+      "name": "Spirale",
+      "shortcut": "",
+      "category": "cat-shape",
+      "categoryLabel": "Forme",
+      "desc": "Trace une spirale dont le rayon, la décroissance et le nombre de spires sont réglables pendant le tracé.",
+      "tags": [
+        "Spirale",
+        "Forme géométrique",
+        "Décoratif"
+      ],
+      "tip": "Utilisez les flèches du clavier pendant le glissement pour ajouter ou retirer des segments."
+    },
+    {
+      "id": "line_gridrect",
+      "icon": "▦",
+      "name": "Grille rectangulaire",
+      "shortcut": "",
+      "category": "cat-shape",
+      "categoryLabel": "Forme",
+      "desc": "Génère une grille de lignes horizontales et verticales, avec un nombre de divisions réglable.",
+      "tags": [
+        "Grille",
+        "Lignes",
+        "Mise en page"
+      ],
+      "tip": "Cliquez une fois sur le plan de travail pour ouvrir une boîte de dialogue avec des réglages précis."
+    },
+    {
+      "id": "line_gridpolar",
+      "icon": "◎",
+      "name": "Grille à coordonnées polaires",
+      "shortcut": "",
+      "category": "cat-shape",
+      "categoryLabel": "Forme",
+      "desc": "Génère une grille circulaire composée de cercles concentriques et de lignes radiales.",
+      "tags": [
+        "Grille circulaire",
+        "Radial",
+        "Mise en page"
+      ],
+      "tip": "Idéal pour construire des cadrans, diagrammes circulaires ou motifs radiaux."
+    },
+    {
+      "id": "rect_round",
+      "icon": "▢",
+      "name": "Rectangle arrondi",
+      "shortcut": "",
+      "category": "cat-shape",
+      "categoryLabel": "Forme",
+      "desc": "Dessine un rectangle aux coins arrondis, dont le rayon d'arrondi se règle avec les flèches pendant le tracé.",
+      "tags": [
+        "Coins arrondis",
+        "Rectangle",
+        "Forme"
+      ],
+      "tip": "Flèche du haut/bas pendant le glissement pour augmenter ou réduire le rayon des coins."
+    },
+    {
+      "id": "rect_ellipse",
+      "icon": "◯",
+      "name": "Ellipse",
+      "shortcut": "L",
+      "category": "cat-shape",
+      "categoryLabel": "Forme",
+      "desc": "Dessine des ellipses et des cercles en cliquant-glissant sur le plan de travail.",
+      "tags": [
+        "Ellipse",
+        "Cercle",
+        "Forme"
+      ],
+      "tip": "Maintenez Maj pour un cercle parfait."
+    },
+    {
+      "id": "rect_polygon",
+      "icon": "⬠",
+      "name": "Polygone",
+      "shortcut": "",
+      "category": "cat-shape",
+      "categoryLabel": "Forme",
+      "desc": "Dessine un polygone régulier dont le nombre de côtés est réglable pendant le tracé.",
+      "tags": [
+        "Polygone",
+        "Côtés réglables",
+        "Forme"
+      ],
+      "tip": "Flèche du haut/bas pendant le glissement pour ajouter ou retirer des côtés."
+    },
+    {
+      "id": "rect_star",
+      "icon": "★",
+      "name": "Étoile",
+      "shortcut": "",
+      "category": "cat-shape",
+      "categoryLabel": "Forme",
+      "desc": "Dessine une étoile dont le nombre de branches est réglable pendant le tracé.",
+      "tags": [
+        "Étoile",
+        "Branches réglables",
+        "Forme"
+      ],
+      "tip": "Ctrl+glisser (Cmd+glisser) pour garder les pointes internes alignées pendant le redimensionnement."
+    },
+    {
+      "id": "rect_flare",
+      "icon": "✹",
+      "name": "Halo",
+      "shortcut": "",
+      "category": "cat-shape",
+      "categoryLabel": "Forme",
+      "desc": "Crée un effet d'étincelle lumineuse avec un centre brillant et des rayons, utile pour simuler des reflets.",
+      "tags": [
+        "Effet lumineux",
+        "Reflet",
+        "Décoratif"
+      ],
+      "tip": "Cliquez-glissez pour définir le centre, puis cliquez à nouveau pour fixer la portée des rayons."
+    },
+    {
+      "id": "pencil_shaper",
+      "icon": "◆",
+      "name": "Shaper",
+      "shortcut": "Maj+N",
+      "category": "cat-draw",
+      "categoryLabel": "Dessin",
+      "desc": "Transforme des gribouillis à main levée en formes géométriques nettes (rectangles, cercles, triangles...) reconnues automatiquement.",
+      "tags": [
+        "Reconnaissance de formes",
+        "Main levée",
+        "Formes nettes"
+      ],
+      "tip": "Dessinez grossièrement une forme fermée : Illustrator la convertit en forme vectorielle propre et modifiable."
+    },
+    {
+      "id": "pencil_smooth",
+      "icon": "〰",
+      "name": "Arrondi",
+      "shortcut": "",
+      "category": "cat-draw",
+      "categoryLabel": "Dessin",
+      "desc": "Adoucit les irrégularités d'un tracé existant en glissant le long de ses segments, en réduisant le nombre de points.",
+      "tags": [
+        "Lissage",
+        "Édition de tracé",
+        "Simplification"
+      ],
+      "tip": "Repassez plusieurs fois sur la même zone pour un lissage plus prononcé."
+    },
+    {
+      "id": "pencil_erase",
+      "icon": "▱",
+      "name": "Gomme (tracé)",
+      "shortcut": "",
+      "category": "cat-draw",
+      "categoryLabel": "Dessin",
+      "desc": "Efface une portion d'un tracé sélectionné en glissant dessus ; les extrémités restantes sont automatiquement reliées.",
+      "tags": [
+        "Effacement",
+        "Tracé",
+        "Édition"
+      ],
+      "tip": "Fonctionne uniquement sur un tracé déjà sélectionné avec les outils Crayon ou Sélection."
+    },
+    {
+      "id": "pencil_join",
+      "icon": "⌇",
+      "name": "Jonction",
+      "shortcut": "",
+      "category": "cat-draw",
+      "categoryLabel": "Dessin",
+      "desc": "Relie deux extrémités de tracé ouvertes en un seul clic, en prolongeant ou en reliant directement les points.",
+      "tags": [
+        "Jonction",
+        "Fermeture de tracé",
+        "Points"
+      ],
+      "tip": "Cliquez entre deux extrémités proches pour les relier automatiquement d'une ligne droite."
+    },
+    {
+      "id": "eraser_scissors",
+      "icon": "✂",
+      "name": "Ciseaux",
+      "shortcut": "C",
+      "category": "cat-draw",
+      "categoryLabel": "Dessin",
+      "desc": "Coupe un tracé en un point précis, créant deux extrémités ouvertes distinctes.",
+      "tags": [
+        "Découpe",
+        "Tracé",
+        "Point de coupe"
+      ],
+      "tip": "Cliquez directement sur le tracé ; un point d'ancrage n'a pas besoin d'exister déjà à cet endroit."
+    },
+    {
+      "id": "eraser_knife",
+      "icon": "🔪",
+      "name": "Cutter",
+      "shortcut": "",
+      "category": "cat-draw",
+      "categoryLabel": "Dessin",
+      "desc": "Découpe des objets en glissant librement une ligne de coupe à travers eux, créant des tracés fermés indépendants.",
+      "tags": [
+        "Découpe libre",
+        "Objets fermés",
+        "Édition"
+      ],
+      "tip": "Maintenez Alt pour couper en ligne droite plutôt qu'à main levée."
+    },
+    {
+      "id": "rotate_mirror",
+      "icon": "⇋",
+      "name": "Miroir",
+      "shortcut": "O",
+      "category": "cat-transf",
+      "categoryLabel": "Transformation",
+      "desc": "Retourne un objet selon un axe de symétrie (horizontal, vertical ou personnalisé), déplaçable par simple clic avant de glisser.",
+      "tags": [
+        "Symétrie",
+        "Réflexion",
+        "Transformation"
+      ],
+      "tip": "Alt+clic pour positionner l'axe précisément et ouvrir la boîte de dialogue Miroir."
+    },
+    {
+      "id": "puppet_shear",
+      "icon": "▱",
+      "name": "Déformation",
+      "shortcut": "",
+      "category": "cat-transf",
+      "categoryLabel": "Transformation",
+      "desc": "Incline un objet selon un angle et un axe donnés, en glissant depuis un point de référence déplaçable.",
+      "tags": [
+        "Inclinaison",
+        "Déformation",
+        "Transformation"
+      ],
+      "tip": "Maintenez Maj en glissant pour contraindre l'inclinaison à des angles précis."
+    },
+    {
+      "id": "puppet_reshape",
+      "icon": "✎",
+      "name": "Modelage",
+      "shortcut": "",
+      "category": "cat-transf",
+      "categoryLabel": "Transformation",
+      "desc": "Ajuste localement la forme d'un tracé en déplaçant certains points, tout en préservant ses courbes générales.",
+      "tags": [
+        "Modelage",
+        "Édition de tracé",
+        "Ajustement local"
+      ],
+      "tip": "Sélectionnez d'abord les points à conserver comme référence avant de glisser les autres."
+    },
+    {
+      "id": "warp_warp",
+      "icon": "↝",
+      "name": "Déformation (liquéfaction)",
+      "shortcut": "",
+      "category": "cat-transf",
+      "categoryLabel": "Transformation",
+      "desc": "Pousse et étire la forme dans le sens du glissement du curseur, comme une pâte molle.",
+      "tags": [
+        "Liquéfaction",
+        "Déformation",
+        "Pinceau de forme"
+      ],
+      "tip": "Réduisez le diamètre du pinceau (touches [ et ]) pour des déformations plus localisées."
+    },
+    {
+      "id": "warp_twirl",
+      "icon": "🌀",
+      "name": "Tourbillon",
+      "shortcut": "",
+      "category": "cat-transf",
+      "categoryLabel": "Transformation",
+      "desc": "Fait tourbillonner la zone touchée autour du point de contact, créant un effet de remous.",
+      "tags": [
+        "Tourbillon",
+        "Remous",
+        "Déformation"
+      ],
+      "tip": "Maintenez le clic sans bouger pour intensifier l'effet de tourbillon progressivement."
+    },
+    {
+      "id": "warp_pucker",
+      "icon": "⊖",
+      "name": "Contraction",
+      "shortcut": "",
+      "category": "cat-transf",
+      "categoryLabel": "Transformation",
+      "desc": "Creuse la forme vers l'intérieur en direction du point de contact, comme si on l'aspirait.",
+      "tags": [
+        "Contraction",
+        "Creux",
+        "Déformation"
+      ],
+      "tip": "Combinez avec l'outil Dilatation pour créer des effets organiques (ballons, bulles)."
+    },
+    {
+      "id": "warp_bloat",
+      "icon": "⊕",
+      "name": "Dilatation",
+      "shortcut": "",
+      "category": "cat-transf",
+      "categoryLabel": "Transformation",
+      "desc": "Gonfle la forme vers l'extérieur à partir du point de contact, comme si on la remplissait d'air.",
+      "tags": [
+        "Dilatation",
+        "Gonflement",
+        "Déformation"
+      ],
+      "tip": "Effet inverse de la Contraction : les deux se trouvent dans le même sous-groupe d'outils."
+    },
+    {
+      "id": "warp_scallop",
+      "icon": "﹏",
+      "name": "Festons",
+      "shortcut": "",
+      "category": "cat-transf",
+      "categoryLabel": "Transformation",
+      "desc": "Ajoute des vagues arrondies vers l'intérieur le long des contours touchés par l'outil.",
+      "tags": [
+        "Festons",
+        "Vagues",
+        "Contour décoratif"
+      ],
+      "tip": "Double-cliquez sur l'outil pour régler la complexité et le détail des festons."
+    },
+    {
+      "id": "warp_crystallize",
+      "icon": "✦",
+      "name": "Cristallisation",
+      "shortcut": "",
+      "category": "cat-transf",
+      "categoryLabel": "Transformation",
+      "desc": "Ajoute des pointes vers l'extérieur le long des contours touchés, comme des cristaux ou des rayons.",
+      "tags": [
+        "Cristallisation",
+        "Pointes",
+        "Contour décoratif"
+      ],
+      "tip": "Réduisez le diamètre du pinceau pour des pointes plus fines et nombreuses."
+    },
+    {
+      "id": "warp_wrinkle",
+      "icon": "≈",
+      "name": "Froncés",
+      "shortcut": "",
+      "category": "cat-transf",
+      "categoryLabel": "Transformation",
+      "desc": "Ajoute des plis irréguliers aléatoires le long des contours touchés, pour un effet froissé.",
+      "tags": [
+        "Froncés",
+        "Plis",
+        "Contour décoratif"
+      ],
+      "tip": "Double-cliquez sur l'outil pour régler l'intensité horizontale et verticale des plis."
+    },
+    {
+      "id": "warp2_puppet",
+      "icon": "📌",
+      "name": "Déformation de la marionnette",
+      "shortcut": "",
+      "category": "cat-transf",
+      "categoryLabel": "Transformation",
+      "desc": "Déforme un objet en douceur à l'aide de points d'épingle placés sur ses articulations, comme une marionnette.",
+      "tags": [
+        "Déformation",
+        "Épingles",
+        "Maillage"
+      ],
+      "tip": "Ajoutez plusieurs épingles pour isoler les zones qui doivent rester fixes pendant la déformation."
+    },
+    {
+      "id": "warp3_livepaint",
+      "icon": "🪣",
+      "name": "Pot de peinture dynamique",
+      "shortcut": "K",
+      "category": "cat-shape",
+      "categoryLabel": "Forme",
+      "desc": "Remplit de couleur, d'un simple clic, n'importe quelle zone fermée détectée automatiquement entre plusieurs tracés superposés.",
+      "tags": [
+        "Remplissage",
+        "Zones détectées",
+        "Peinture dynamique"
+      ],
+      "tip": "Les zones se repeignent automatiquement si vous déplacez un des tracés qui les délimitent."
+    },
+    {
+      "id": "warp3_livepaintsel",
+      "icon": "▤",
+      "name": "Sélection de peinture dynamique",
+      "shortcut": "Maj+L",
+      "category": "cat-shape",
+      "categoryLabel": "Forme",
+      "desc": "Sélectionne individuellement une face (zone remplie) ou une arête (segment de contour) d'un groupe de peinture dynamique.",
+      "tags": [
+        "Sélection",
+        "Faces et arêtes",
+        "Peinture dynamique"
+      ],
+      "tip": "Survolez le groupe pour voir la face ou l'arête en surbrillance avant de cliquer."
+    },
+    {
+      "id": "persp_select",
+      "icon": "▱",
+      "name": "Sélection de perspective",
+      "shortcut": "Maj+V",
+      "category": "cat-transf",
+      "categoryLabel": "Transformation",
+      "desc": "Déplace et redimensionne un objet existant à l'intérieur de la grille de perspective, en respectant automatiquement l'angle du plan choisi.",
+      "tags": [
+        "Perspective",
+        "Sélection",
+        "Plan de grille"
+      ],
+      "tip": "Cliquez sur le badge de plan (haut/gauche/droite) avant de glisser pour choisir le plan de travail actif."
+    },
+    {
+      "id": "eyedropper_measure",
+      "icon": "📏",
+      "name": "Mesure",
+      "shortcut": "",
+      "category": "cat-color",
+      "categoryLabel": "Couleur",
+      "desc": "Mesure la distance et l'angle entre deux points cliqués, et affiche le résultat dans le panneau Infos.",
+      "tags": [
+        "Mesure",
+        "Distance",
+        "Angle"
+      ],
+      "tip": "Maintenez Maj pour contraindre la mesure à un angle de 45°."
+    },
+    {
+      "id": "hand_rotateview",
+      "icon": "↻",
+      "name": "Rotation de l'affichage",
+      "shortcut": "Maj+H",
+      "category": "cat-nav",
+      "categoryLabel": "Navigation",
+      "desc": "Pivote temporairement toute la vue du plan de travail pour dessiner plus confortablement, sans toucher à l'orientation réelle des objets.",
+      "tags": [
+        "Rotation de vue",
+        "Confort de dessin",
+        "Navigation"
+      ],
+      "tip": "Appuyez sur Échap ou choisissez 0° dans la barre d'option pour rétablir l'orientation d'origine."
+    },
+    {
+      "id": "hand_printtiling",
+      "icon": "🖨",
+      "name": "Lecture d'impression",
+      "shortcut": "",
+      "category": "cat-nav",
+      "categoryLabel": "Navigation",
+      "desc": "Affiche et permet d'ajuster la façon dont le plan de travail sera découpé sur plusieurs pages à l'impression.",
+      "tags": [
+        "Impression",
+        "Découpage en pages",
+        "Mise en page"
+      ],
+      "tip": "Glissez la ligne de marge pour décaler la zone imprimable sur le plan de travail."
+    },
+    {
+      "id": "spray_select",
+      "icon": "▭",
+      "name": "Sélection de tranche",
+      "shortcut": "",
+      "category": "cat-nav",
+      "categoryLabel": "Navigation",
+      "desc": "Sélectionne, déplace ou redimensionne une tranche existante créée pour l'export web.",
+      "tags": [
+        "Tranche",
+        "Sélection",
+        "Export web"
+      ],
+      "tip": "Double-cliquez une tranche pour ouvrir ses options d'export (nom, format, qualité)."
+    },
+    {
+      "id": "type_area",
+      "icon": "▤",
+      "name": "Texte captif",
+      "shortcut": "",
+      "category": "cat-text",
+      "categoryLabel": "Texte",
+      "desc": "Crée un bloc de texte à l'intérieur de n'importe quelle forme fermée, qui sert de cadre au texte.",
+      "tags": [
+        "Texte captif",
+        "Bloc de texte",
+        "Forme"
+      ],
+      "tip": "Cliquez sur le contour d'une forme fermée pour que le texte s'y adapte automatiquement."
+    },
+    {
+      "id": "type_path",
+      "icon": "〰",
+      "name": "Texte curviligne",
+      "shortcut": "",
+      "category": "cat-text",
+      "categoryLabel": "Texte",
+      "desc": "Fait suivre le texte le long d'un tracé ouvert ou fermé, lettre par lettre.",
+      "tags": [
+        "Texte curviligne",
+        "Tracé",
+        "Typographie créative"
+      ],
+      "tip": "Glissez le curseur en I le long du tracé pour ajuster le point de départ du texte."
+    },
+    {
+      "id": "type_vertical",
+      "icon": "⇅",
+      "name": "Texte vertical",
+      "shortcut": "",
+      "category": "cat-text",
+      "categoryLabel": "Texte",
+      "desc": "Crée du texte ponctuel avec une orientation verticale, caractère par caractère de haut en bas.",
+      "tags": [
+        "Texte vertical",
+        "Orientation",
+        "Typographie"
+      ],
+      "tip": "Utile pour les mises en page inspirées des écritures verticales est-asiatiques."
+    },
+    {
+      "id": "type_areavert",
+      "icon": "▥",
+      "name": "Texte captif vertical",
+      "shortcut": "",
+      "category": "cat-text",
+      "categoryLabel": "Texte",
+      "desc": "Crée un bloc de texte vertical à l'intérieur d'une forme fermée.",
+      "tags": [
+        "Texte captif",
+        "Vertical",
+        "Bloc de texte"
+      ],
+      "tip": "Combine les comportements du Texte captif et du Texte vertical."
+    },
+    {
+      "id": "type_pathvert",
+      "icon": "〰",
+      "name": "Texte curviligne vertical",
+      "shortcut": "",
+      "category": "cat-text",
+      "categoryLabel": "Texte",
+      "desc": "Fait suivre le texte verticalement le long d'un tracé, plutôt qu'horizontalement.",
+      "tags": [
+        "Texte curviligne",
+        "Vertical",
+        "Tracé"
+      ],
+      "tip": "Pratique pour des étiquettes ou titres suivant un tracé courbe avec une orientation verticale."
+    },
+    {
+      "id": "type_touch",
+      "icon": "✥",
+      "name": "Retouche de texte",
+      "shortcut": "Maj+T",
+      "category": "cat-text",
+      "categoryLabel": "Texte",
+      "desc": "Sélectionne un caractère individuel pour ajuster sa position, sa rotation ou son échelle indépendamment du reste du texte.",
+      "tags": [
+        "Retouche",
+        "Caractère individuel",
+        "Typographie créative"
+      ],
+      "tip": "Cliquez directement sur une lettre dans le document pour afficher sa poignée de manipulation."
+    },
+    {
+      "id": "symbol_shift",
+      "icon": "↔",
+      "name": "Déplaceur",
+      "shortcut": "",
+      "category": "cat-draw",
+      "categoryLabel": "Dessin",
+      "desc": "Repositionne les instances de symboles en les poussant dans le sens du glissement.",
+      "tags": [
+        "Symboles",
+        "Repositionnement",
+        "Instances"
+      ],
+      "tip": "Maintenez Maj pour aussi faire varier légèrement l'ordre d'empilement des instances déplacées."
+    },
+    {
+      "id": "symbol_scrunch",
+      "icon": "⊙",
+      "name": "Agglutinateur",
+      "shortcut": "",
+      "category": "cat-draw",
+      "categoryLabel": "Dessin",
+      "desc": "Rapproche ou, avec Alt, éloigne les instances de symboles les unes des autres.",
+      "tags": [
+        "Symboles",
+        "Densité",
+        "Instances"
+      ],
+      "tip": "Alt+glisser inverse l'effet : les instances s'écartent au lieu de se resserrer."
+    },
+    {
+      "id": "symbol_size",
+      "icon": "⤢",
+      "name": "Redimensionneur",
+      "shortcut": "",
+      "category": "cat-draw",
+      "categoryLabel": "Dessin",
+      "desc": "Agrandit les instances de symboles au contact ; Alt+glisser les réduit.",
+      "tags": [
+        "Symboles",
+        "Taille",
+        "Instances"
+      ],
+      "tip": "Maintenez Maj en plus d'Alt pour redimensionner en conservant l'opacité relative."
+    },
+    {
+      "id": "symbol_spin",
+      "icon": "↻",
+      "name": "Rotateur",
+      "shortcut": "",
+      "category": "cat-draw",
+      "categoryLabel": "Dessin",
+      "desc": "Oriente les instances de symboles dans le sens du glissement du curseur.",
+      "tags": [
+        "Symboles",
+        "Rotation",
+        "Instances"
+      ],
+      "tip": "Un petit repère fléché apparaît sur chaque instance pour visualiser son orientation actuelle."
+    },
+    {
+      "id": "symbol_stain",
+      "icon": "🎨",
+      "name": "Colorant",
+      "shortcut": "",
+      "category": "cat-draw",
+      "categoryLabel": "Dessin",
+      "desc": "Teinte les instances de symboles avec la couleur de remplissage actuellement sélectionnée.",
+      "tags": [
+        "Symboles",
+        "Couleur",
+        "Instances"
+      ],
+      "tip": "Passez plusieurs fois au même endroit pour intensifier progressivement la teinte appliquée."
+    },
+    {
+      "id": "symbol_screen",
+      "icon": "◐",
+      "name": "Estompeur",
+      "shortcut": "",
+      "category": "cat-draw",
+      "categoryLabel": "Dessin",
+      "desc": "Augmente ou, avec Alt, réduit la transparence des instances de symboles touchées.",
+      "tags": [
+        "Symboles",
+        "Transparence",
+        "Instances"
+      ],
+      "tip": "Utile pour créer un effet de profondeur en estompant les symboles les plus éloignés."
+    },
+    {
+      "id": "symbol_style",
+      "icon": "✦",
+      "name": "Styliseur",
+      "shortcut": "",
+      "category": "cat-draw",
+      "categoryLabel": "Dessin",
+      "desc": "Applique progressivement un style graphique du panneau Styles graphiques aux instances de symboles touchées.",
+      "tags": [
+        "Symboles",
+        "Style graphique",
+        "Instances"
+      ],
+      "tip": "Sélectionnez d'abord un style dans le panneau Styles graphiques avant d'utiliser cet outil."
+    }
+  ]
+}
