@@ -282,7 +282,7 @@ function setCode(l,t,w,h,id) {
   if (mode === 'main') {
     codeOut.value = '<div class="hs" data-tool="'+id+'" style="left:'+l.toFixed(3)+'%;top:'+t.toFixed(3)+'%;width:'+w.toFixed(3)+'%;height:'+h.toFixed(3)+'%;"></div>';
   } else if (mode === 'sub') {
-    codeOut.value = '<div class="st-zone" data-subtool="'+id+'" style="left:'+l.toFixed(3)+'%;top:'+t.toFixed(3)+'%;width:'+w.toFixed(3)+'%;height:'+h.toFixed(3)+'%;"></div>';
+    codeOut.value = 'left:'+l.toFixed(3)+'%;top:'+t.toFixed(3)+'%;width:'+w.toFixed(3)+'%;height:'+h.toFixed(3)+'%;';
   } else {
     codeOut.value = 'left:'+l.toFixed(3)+'%;top:'+t.toFixed(3);
   }
