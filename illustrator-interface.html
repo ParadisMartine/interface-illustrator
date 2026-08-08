@@ -244,7 +244,7 @@ html,body{width:100%;height:100%;background:#111;display:flex;align-items:center
   <div class="hs" data-tool="t_formatdoc" style="left:62.976%;top:5.674%;width:11.131%;height:4.357%;"></div>
 
   <!-- ═══ Popups sous-outils (séparés des hotspots, liés par #sub-<data-tool>) ═══ -->
-  <div class="subtool-popup" id="sub-direct">
+  <div class="subtool-popup" id="sub-selection_directe">
     <div class="st-img-wrap">
       <img src="img/sous_outils/selection_directe.png" style="left:6.6%;top:15.171%;width:23.099%;height:7.965%;">
       <div class="st-zone" data-subtool="selection_directe_normal" style="left:6.624%;top:15.297%;width:22.876%;height:3.540%;"></div>
@@ -252,7 +252,7 @@ html,body{width:100%;height:100%;background:#111;display:flex;align-items:center
     </div>
   </div>
 
-  <div class="subtool-popup" id="sub-pen">
+  <div class="subtool-popup" id="sub-plume">
     <div class="st-img-wrap">
       <img src="img/sous_outils/plume.png" style="left:6.6%;top:23.672%;">
        <div class="st-zone" data-subtool="plume_normal" style="left:6.624%;top:22.695%;width:24.659%;height:3.666%;"></div>
@@ -264,7 +264,7 @@ html,body{width:100%;height:100%;background:#111;display:flex;align-items:center
   </div>
 
 
-  <div class="subtool-popup" id="sub-rect">
+  <div class="subtool-popup" id="sub-rectangle">
     <div class="st-img-wrap">
       <img src="img/sous_outils/formes.png" style="left:6.6%;top:30.091%;">
       <div class="st-zone" data-subtool="rectangle_arrondi" style="left:__%;top:__%;width:__%;height:__%;"></div> <!-- TODO: mesurer avec le calculateur de zones -->
@@ -275,7 +275,7 @@ html,body{width:100%;height:100%;background:#111;display:flex;align-items:center
     </div>
   </div>
 
-  <div class="subtool-popup" id="sub-pencil">
+  <div class="subtool-popup" id="sub-crayon">
     <div class="st-img-wrap">
       <img src="img/sous_outils/shaper.png" style="left:6.6%;top:30.091%;">
       <div class="st-zone" data-subtool="forme_normal" style="left:__%;top:__%;width:__%;height:__%;"></div> <!-- TODO: mesurer avec le calculateur de zones -->
@@ -285,14 +285,14 @@ html,body{width:100%;height:100%;background:#111;display:flex;align-items:center
     </div>
   </div>
 
-  <div class="subtool-popup" id="sub-brush">
+  <div class="subtool-popup" id="sub-pinceau">
     <div class="st-img-wrap">
       <img src="img/sous_outils/pinceau.png" style="left:6.6%;top:33.739%;">
       <div class="st-zone" data-subtool="forme_tache" style="left:__%;top:__%;width:__%;height:__%;"></div> <!-- TODO: mesurer avec le calculateur de zones -->
     </div>
   </div>
 
-  <div class="subtool-popup" id="sub-eraser">
+  <div class="subtool-popup" id="sub-gomme">
     <div class="st-img-wrap">
       <img src="img/sous_outils/gomme.png" style="left:6.6%;top:33.739%;">
       <div class="st-zone" data-subtool="ciseaux" style="left:__%;top:__%;width:__%;height:__%;"></div> <!-- TODO: mesurer avec le calculateur de zones -->
@@ -300,14 +300,14 @@ html,body{width:100%;height:100%;background:#111;display:flex;align-items:center
     </div>
   </div>
 
-  <div class="subtool-popup" id="sub-rotate">
+  <div class="subtool-popup" id="sub-rotation">
     <div class="st-img-wrap">
       <img src="img/sous_outils/rotation.png" style="left:6.6%;top:37.487%;">
       <div class="st-zone" data-subtool="miroir" style="left:__%;top:__%;width:__%;height:__%;"></div> <!-- TODO: mesurer avec le calculateur de zones -->
     </div>
   </div>
 
-  <div class="subtool-popup" id="sub-puppet">
+  <div class="subtool-popup" id="sub-mise_echelle">
     <div class="st-img-wrap">
       <img src="img/sous_outils/echelle.png" style="left:6.6%;top:37.487%;">
       <div class="st-zone" data-subtool="deformation" style="left:__%;top:__%;width:__%;height:__%;"></div> <!-- TODO: mesurer avec le calculateur de zones -->
@@ -315,7 +315,7 @@ html,body{width:100%;height:100%;background:#111;display:flex;align-items:center
     </div>
   </div>
 
-  <div class="subtool-popup" id="sub-warp">
+  <div class="subtool-popup" id="sub-largeur">
     <div class="st-img-wrap">
       <img src="img/sous_outils/largeur.png" style="left:6.6%;top:41.135%;">
       <div class="st-zone" data-subtool="liquefaction" style="left:__%;top:__%;width:__%;height:__%;"></div> <!-- TODO: mesurer avec le calculateur de zones -->
@@ -328,14 +328,14 @@ html,body{width:100%;height:100%;background:#111;display:flex;align-items:center
     </div>
   </div>
 
-  <div class="subtool-popup" id="sub-warp2">
+  <div class="subtool-popup" id="sub-transformation_manuelle">
     <div class="st-img-wrap">
       <img src="img/sous_outils/transformation.png" style="left:6.6%;top:41.135%;">
       <div class="st-zone" data-subtool="deformation_marionnette" style="left:__%;top:__%;width:__%;height:__%;"></div> <!-- TODO: mesurer avec le calculateur de zones -->
     </div>
   </div>
 
-  <div class="subtool-popup" id="sub-warp3">
+  <div class="subtool-popup" id="sub-concepteur_forme">
     <div class="st-img-wrap">
       <img src="img/sous_outils/concepteur.png" style="left:6.6%;top:44.782%;">
       <div class="st-zone" data-subtool="peinture_dynamique" style="left:__%;top:__%;width:__%;height:__%;"></div> <!-- TODO: mesurer avec le calculateur de zones -->
@@ -343,21 +343,21 @@ html,body{width:100%;height:100%;background:#111;display:flex;align-items:center
     </div>
   </div>
 
-  <div class="subtool-popup" id="sub-persp">
+  <div class="subtool-popup" id="sub-grille_perspective">
     <div class="st-img-wrap">
       <img src="img/sous_outils/perspective.png" style="left:6.6%;top:44.782%;">
       <div class="st-zone" data-subtool="selection_perspective" style="left:__%;top:__%;width:__%;height:__%;"></div> <!-- TODO: mesurer avec le calculateur de zones -->
     </div>
   </div>
 
-  <div class="subtool-popup" id="sub-eyedropper">
+  <div class="subtool-popup" id="sub-pipette">
     <div class="st-img-wrap">
       <img src="img/sous_outils/mesure.png" style="left:6.6%;top:55.826%;">
       <div class="st-zone" data-subtool="mesure" style="left:__%;top:__%;width:__%;height:__%;"></div> <!-- TODO: mesurer avec le calculateur de zones -->
     </div>
   </div>
 
-  <div class="subtool-popup" id="sub-hand">
+  <div class="subtool-popup" id="sub-main">
     <div class="st-img-wrap">
       <img src="img/sous_outils/main.png" style="left:6.6%;top:63.222%;">
       <div class="st-zone" data-subtool="rotation_affichage" style="left:__%;top:__%;width:__%;height:__%;"></div> <!-- TODO: mesurer avec le calculateur de zones -->
@@ -365,14 +365,14 @@ html,body{width:100%;height:100%;background:#111;display:flex;align-items:center
     </div>
   </div>
 
-  <div class="subtool-popup" id="sub-spray">
+  <div class="subtool-popup" id="sub-tranche">
     <div class="st-img-wrap">
       <img src="img/sous_outils/tranche.png" style="left:6.6%;top:59.473%;">
       <div class="st-zone" data-subtool="selection_tranche" style="left:__%;top:__%;width:__%;height:__%;"></div> <!-- TODO: mesurer avec le calculateur de zones -->
     </div>
   </div>
 
-  <div class="subtool-popup" id="sub-type">
+  <div class="subtool-popup" id="sub-texte">
     <div class="st-img-wrap">
       <img src="img/sous_outils/texte.png" style="left:6.6%;top:26.444%;">
       <div class="st-zone" data-subtool="texte_captif" style="left:__%;top:__%;width:__%;height:__%;"></div> <!-- TODO: mesurer avec le calculateur de zones -->
@@ -384,7 +384,7 @@ html,body{width:100%;height:100%;background:#111;display:flex;align-items:center
     </div>
   </div>
 
-  <div class="subtool-popup" id="sub-line">
+  <div class="subtool-popup" id="sub-segment_ligne">
     <div class="st-img-wrap">
       <img src="img/sous_outils/trait.png" style="left:6.6%;top:26.444%;">
       <div class="st-zone" data-subtool="arc" style="left:__%;top:__%;width:__%;height:__%;"></div> <!-- TODO: mesurer avec le calculateur de zones -->
