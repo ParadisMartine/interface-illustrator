@@ -582,7 +582,11 @@ function openSubPopup(popup, hsEl){
   popup.classList.add('visible');
   currentSubPopup = popup;
   currentSubHs    = hsEl;
-  positionCardBesideImage(popup);
+  if(popup.getAttribute('deplacePupup') === 'vrai'){
+    positionCardBesideImage(popup);
+  } else {
+    resetCardPosition();
+  }
 }
 
 function closeSubPopup(popup){
