@@ -60,6 +60,9 @@ html,body{width:100%;height:100%;background:#111;font-family:'Inter',sans-serif;
 .hist-code{font-size:9px;color:#666;font-family:'Space Mono',monospace;word-break:break-all;margin-bottom:5px;}
 .hist-copy{padding:3px 8px;border-radius:3px;border:1px solid #3a3a3a;background:#2a2a2a;color:#aaa;font-size:9px;cursor:pointer;font-family:'Inter',sans-serif;transition:all .15s;}
 .hist-copy:hover{background:#FF6E14;border-color:#FF6E14;color:#fff;}
+.hist-actions{display:flex;gap:6px;}
+.hist-del{padding:3px 8px;border-radius:3px;border:1px solid #3a3a3a;background:#2a2a2a;color:#aaa;font-size:9px;cursor:pointer;font-family:'Inter',sans-serif;transition:all .15s;}
+.hist-del:hover{background:#a33;border-color:#a33;color:#fff;}
 </style>
 </head>
 <body>
@@ -280,11 +283,11 @@ window.addEventListener('mouseup', function(e) {
 
 function setCode(l,t,w,h,id) {
   if (mode === 'main') {
-    codeOut.value = '<div class="hs" data-tool="'+id+'" style="left:'+l.toFixed(3)+'%;top:'+t.toFixed(3)+'%;width:'+w.toFixed(3)+'%;height:'+h.toFixed(3)+'%;"></div>';
+    codeOut.value = 'style="left:'+l.toFixed(3)+'%;top:'+t.toFixed(3)+'%;width:'+w.toFixed(3)+'%;height:'+h.toFixed(3)+'%;"';
   } else if (mode === 'sub') {
-    codeOut.value = 'left:'+l.toFixed(3)+'%;top:'+t.toFixed(3)+'%;width:'+w.toFixed(3)+'%;height:'+h.toFixed(3)+'%;';
+    codeOut.value = 'style="left:'+l.toFixed(3)+'%;top:'+t.toFixed(3)+'%;width:'+w.toFixed(3)+'%;height:'+h.toFixed(3)+'%;"';
   } else {
-    codeOut.value = 'left:'+l.toFixed(3)+'%;top:'+t.toFixed(3);
+    codeOut.value = 'style="left:'+l.toFixed(3)+'%;top:'+t.toFixed(3)+'%;"';
   }
 }
 
@@ -316,13 +319,35 @@ function addHistItem(id,code,m) {
   item.innerHTML = '<div class="hist-id">'+id+'</div>'
     +'<div class="hist-mode">'+(m==='sub'?'📋 Sous-menu':m==='img'?'🖼 Image':'🖥 Interface')+'</div>'
     +'<div class="hist-code">'+escHtml(code)+'</div>';
+  var actions = document.createElement('div');
+  actions.className = 'hist-actions';
   var btn = document.createElement('button');
   btn.className = 'hist-copy';
   btn.textContent = '📋 Copier';
   btn.addEventListener('click', function(){ copyItem(id); });
-  item.appendChild(btn);
+  actions.appendChild(btn);
+  var delBtn = document.createElement('button');
+  delBtn.className = 'hist-del';
+  delBtn.textContent = '🗑 Supprimer';
+  delBtn.addEventListener('click', function(){ deleteItem(id); });
+  actions.appendChild(delBtn);
+  item.appendChild(actions);
   list.prepend(item);
   if (!histOpen) toggleHistory();
+}
+
+function deleteItem(id) {
+  var idx = saved.findIndex(function(r){ return r.id===id; });
+  if (idx === -1) return;
+  saved[idx].div.remove();
+  saved.splice(idx, 1);
+  var item = document.getElementById('hi-'+id);
+  if (item) item.remove();
+  document.getElementById('badge').textContent = saved.length;
+  if (saved.length === 0) {
+    codeOut.value = "← Dessinez un rectangle sur l'image";
+    document.getElementById('wh').textContent = '';
+  }
 }
 
 function escHtml(s){ return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }

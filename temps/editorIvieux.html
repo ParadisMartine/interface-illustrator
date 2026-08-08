@@ -122,17 +122,6 @@ button.danger:hover{border-color:#b3392b;}
 }
 .row.open .row-chevron{transform:rotate(180deg);}
 
-.row-arrows{display:flex;flex-direction:column;gap:2px;flex-shrink:0;}
-.row-arrow{
-  width:22px;height:18px;padding:0;
-  border:1px solid var(--line);border-radius:5px;background:#fff;
-  color:var(--muted);font-size:10px;line-height:1;
-  display:flex;align-items:center;justify-content:center;
-}
-.row-arrow:hover:not(:disabled){border-color:var(--accent);color:var(--accent);}
-.row-arrow:disabled{opacity:.3;cursor:default;}
-.row-arrow:disabled:hover{border-color:var(--line);color:var(--muted);}
-
 .row-body{
   display:none;
   padding:4px 20px 24px 68px;
@@ -388,30 +377,6 @@ function renderRow(tool, idx){
     (tool.categoryLabel ? '<span class="row-badge">' + tool.categoryLabel + '</span>' : '') +
     '<span class="row-chevron">▾</span>';
 
-  var arrows = document.createElement('div');
-  arrows.className = 'row-arrows';
-  var upBtn = document.createElement('button');
-  upBtn.className = 'row-arrow';
-  upBtn.textContent = '▲';
-  upBtn.title = 'Monter';
-  upBtn.disabled = idx === 0;
-  upBtn.addEventListener('click', function(e){
-    e.stopPropagation();
-    moveTool(idx, -1);
-  });
-  var downBtn = document.createElement('button');
-  downBtn.className = 'row-arrow';
-  downBtn.textContent = '▼';
-  downBtn.title = 'Descendre';
-  downBtn.disabled = idx === DATA.tools.length - 1;
-  downBtn.addEventListener('click', function(e){
-    e.stopPropagation();
-    moveTool(idx, 1);
-  });
-  arrows.appendChild(upBtn);
-  arrows.appendChild(downBtn);
-  head.querySelector('.row-chevron').insertAdjacentElement('beforebegin', arrows);
-
   head.addEventListener('click', function(){
     row.classList.toggle('open');
   });
@@ -485,16 +450,6 @@ function renderForm(tool, idx, rowEl){
   wrap.appendChild(foot);
 
   return wrap;
-}
-
-// ── Réordonner ───────────────────────────────────────
-function moveTool(idx, delta){
-  var newIdx = idx + delta;
-  if(newIdx < 0 || newIdx >= DATA.tools.length) return;
-  var tmp = DATA.tools[idx];
-  DATA.tools[idx] = DATA.tools[newIdx];
-  DATA.tools[newIdx] = tmp;
-  render();
 }
 
 function refreshHeader(rowEl, tool){
