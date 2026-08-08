@@ -1298,7 +1298,7 @@
       "tip": "Double-cliquez sur l'outil pour choisir précisément quels attributs sont copiés."
     },
     {
-      "id": "mesure",
+      "id": "cote",
       "icon": "📏",
       "name": "Cote",
       "category": "cat-couleur",
