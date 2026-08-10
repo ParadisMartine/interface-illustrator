@@ -70,7 +70,7 @@ html,body{width:100%;height:100%;background:#111;display:flex;align-items:center
 /* Zone d'affichage — pointer-events:none, seules les cartes captent */
 .card-anchor{
   position:absolute;
-  left:18%;top:14.5%;width:56.5%;bottom:6%;
+  left:10%;top:14.5%;width:56.5%;bottom:6%;
   display:flex;align-items:flex-start;justify-content:center;
   overflow-y:auto;overflow-x:hidden;
   scrollbar-width:thin;scrollbar-color:#ddd transparent;
@@ -199,7 +199,9 @@ html,body{width:100%;height:100%;background:#111;display:flex;align-items:center
   <div class="hs has-sub" data-tool="selection_directe" style="left:3.393%;top:15.198%;width:3.095%;height:3.850%;"></div>
    <div class="hs has-sub" data-tool="plume" style="left:0.595%;top:22.695%;width:2.738%;height:3.749%;"></div>
   <div class="hs" data-tool="baguette_magique" style="left:0.595%;top:19.048%;width:2.738%;height:3.647%;"></div>
+
   <div class="hs" data-tool="lasso" style="left:3.393%;top:19.048%;width:3.095%;height:3.647%;"></div>
+ 
   <div class="hs" data-tool="courbure" style="left:3.393%;top:22.695%;width:3.095%;height:3.749%;"></div>
   <div class="hs has-sub" data-tool="texte" style="left:0.595%;top:26.444%;width:2.738%;height:3.647%;"></div>
   <div class="hs has-sub" data-tool="segment_ligne" style="left:3.393%;top:26.444%;width:3.095%;height:3.647%;"></div>
@@ -551,7 +553,7 @@ cards.forEach(function(card){
 });
 
 // ── Sous-outils popup ──────────────────────────────
-var wrap = document.getElementById('wrap');
+var wrap = document.getElementBycard-anchorId('wrap');
 var currentSubPopup = null;
 var currentSubHs    = null;
 
