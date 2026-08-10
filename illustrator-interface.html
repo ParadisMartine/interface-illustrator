@@ -562,7 +562,7 @@ function positionCardBesideImage(popup){
   if(!img) return;
   var wrapRect = wrap.getBoundingClientRect();
   var imgRect  = img.getBoundingClientRect();
-  var left  = (imgRect.right - wrapRect.left);
+  var left  = (imgRect.right - wrapRect.left) + 10;
   var maxW  = wrapRect.width - left - 10;
   cardAnchor.style.left          = left + 'px';
   cardAnchor.style.right         = 'auto';
