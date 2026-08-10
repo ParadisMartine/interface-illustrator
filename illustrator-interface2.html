@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Illustrator — Guide Interactif</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Mono:wght@700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html,body{width:100%;height:100%;background:#111;display:flex;align-items:center;justify-content:center;overflow:hidden;font-family:'Inter',sans-serif;}
+/* test de modif fichier*/
+.wrap{
+  position:relative;
+  width:100vw;
+  height:calc(100vw * 987/1680);
+  max-height:100vh;
+  max-width:calc(100vh * 1680/987);
+  font-size:0.952vw;
+}
+@media (min-aspect-ratio: 1680/987){
+  .wrap{font-size:1.621vh;}
+}
+.wrap>img.bg{position:absolute;inset:0;width:100%;height:100%;display:block;pointer-events:none;user-select:none;}
+
+/* Hotspots */
+.hs{position:absolute;cursor:pointer;border-radius:3px;z-index:10;transition:background .12s;}
+.hs:hover {outline:2px solid rgba(255,110,20,.7);}
+.hs.active{background:rgba(255,110,20,.30);outline:2px solid #FF6E14;}
+.hs.pinned{background:rgba(255,110,20,.30);outline:2px solid #FF6E14;}
+
+/* Popup sous-outils — overlay plein .wrap, en % comme .hs */
+.subtool-popup{
+  position:absolute;
+  left:0; top:0; width:100%; height:100%;
+  z-index:200;
+  display:none;
+  pointer-events:none;
+}
+.subtool-popup.visible{display:block;}
+
+/* ── Zones cliquables sur l'image du popup ──
+   Positionnées en % de .wrap, comme l'image et les .hs.
+
+   Structure dans le popup :
+     <div class="st-img-wrap">
+       <img src="sous-outils.png" style="left:..%;top:..%;">
+       <div class="st-zone" data-subtool="ID" style="left:..%;top:..%;width:..%;height:..%;"></div>
+     </div>
+*/
+.st-img-wrap{
+  position:absolute;
+  left:0; top:0; width:100%; height:100%;
+}
+.st-img-wrap img{position:absolute;display:block;}
+.st-zone{
+  position:absolute;
+  cursor:pointer;
+  border-radius:2px;
+  transition:background .12s;
+  z-index:5;
+  pointer-events:auto;
+}
+.st-zone:hover{
+  outline:2px solid rgba(255,110,20,.8);
+}
+.st-zone.pinned{
+  background:rgba(255,110,20,.30);
+  outline:2px solid #FF6E14;
+}
+
+/* Zone d'affichage — pointer-events:none, seules les cartes captent */
+.card-anchor{
+  position:absolute;
+  left:18%;top:14.5%;width:56.5%;bottom:6%;
+  display:flex;align-items:flex-start;justify-content:center;
+  overflow-y:auto;overflow-x:hidden;
+  scrollbar-width:thin;scrollbar-color:#ddd transparent;
+  pointer-events:none;
+  z-index:20;
+}
+.card-anchor::-webkit-scrollbar{width:4px;}
+.card-anchor::-webkit-scrollbar-thumb{background:#ccc;border-radius:2px;}
+
+/* Carte par défaut */
+.tc-default{
+  pointer-events:auto;
+  width:90%;max-width:30em;margin-top:3.125em;
+  background:rgba(255,255,255,.96);border-radius:0.75em;padding:1.5em 1.75em;
+  box-shadow:0 0.25em 1.5em rgba(0,0,0,.12);text-align:center;
+  font-size:1.15em;
+}
+.tc-default h2{font-family:'Space Mono',monospace;font-size:1.0625em;color:#111;margin-bottom:0.625em;}
+.tc-default p{font-size:0.75em;color:#888;line-height:1.8;}
+.tc-arrows{
+  display:flex;align-items:center;justify-content:center;
+  gap:0.5em;margin-top:0.875em;
+}
+.tc-arrow-left{
+  font-size:1.125em;color:#FF6E14;
+  animation:arrowLR 2s ease-in-out infinite;
+}
+.tc-arrow-text{
+  font-size:0.75em;color:#FF6E14;font-weight:500;
+  font-family:'Space Mono',monospace;
+  animation:arrowLR 2s ease-in-out infinite;
+}
+.tc-arrow-right{
+  font-size:1.125em;color:#FF6E14;
+  animation:arrowLR 2s ease-in-out infinite;
+}
+@keyframes arrowLR{
+  0%  {opacity:.5;transform:translateX(-6px);}
+  25% {opacity:1; transform:translateX(0px);}
+  50% {opacity:.5;transform:translateX(6px);}
+  75% {opacity:1; transform:translateX(0px);}
+  100%{opacity:.5;transform:translateX(-6px);}
+}
+@keyframes arrowFade{
+  0%  {opacity:.4;}
+  50% {opacity:1;}
+  100%{opacity:.4;}
+}
+
+/* Tool card */
+.tool-card{
+  pointer-events:auto;
+  display:none;
+  width:90%;max-width:30em;margin-top:3.125em;
+  background:rgba(255,255,255,.96);border-radius:0.75em;
+  box-shadow:0 0.25em 1.5em rgba(0,0,0,.12);overflow:hidden;
+  animation:tcIn .18s ease;
+  font-size:1.15em;
+}
+.tool-card.tc-visible{display:block;}
+@keyframes tcIn{from{opacity:0;transform:translateY(0.3125em);}to{opacity:1;transform:translateY(0);}}
+
+.tc-top{padding:1.25em 1.5em;}
+.tc-header{display:flex;align-items:center;gap:0.75em;padding-bottom:0.75em;margin-bottom:0.75em;border-bottom:0.094em solid #f0f0f0;position:relative;}
+.tc-icon{width:2.5em;height:2.5em;flex-shrink:0;background:#f5f5f5;border:0.0625em solid #e8e8e8;border-radius:0.5em;display:flex;align-items:center;justify-content:center;font-size:1.25em;}
+.tc-icon svg{width:1.5em;height:1.5em;}
+.tc-titles{flex:1;min-width:0;}
+.tc-name{font-size:0.9375em;font-weight:600;color:#111;line-height:1.2;}
+.tc-shortcut{font-family:'Space Mono',monospace;font-size:0.6875em;font-weight:700;color:#FF6E14;margin-top:0.1875em;}
+.tc-badge{position:absolute;top:0;right:0;font-size:0.625em;font-weight:600;text-transform:uppercase;letter-spacing:.5px;padding:0.125em 0.5625em;border-radius:1.25em;white-space:nowrap;}
+.cat-sel   {background:#dbeeff;color:#1a5fb0;}
+.cat-draw  {background:#dcf5dc;color:#1a6a1a;}
+.cat-shape {background:#fff0db;color:#a85f00;}
+.cat-text  {background:#eedeff;color:#6b18b0;}
+.cat-transf{background:#fefadb;color:#7a6e00;}
+.cat-nav   {background:#dbfff8;color:#006b5a;}
+.cat-color {background:#fce8db;color:#a03000;}
+.cat-panel {background:#f0f0f0;color:#444;}
+.tc-desc{font-size:0.781em;color:#333;line-height:1.7;margin-bottom:0.625em;}
+.tc-tags{display:flex;flex-wrap:wrap;gap:0.25em;margin-bottom:0.625em;}
+.tc-tag{background:#f2f2f2;color:#555;font-size:0.625em;padding:0.125em 0.5em;border-radius:1.25em;border:0.0625em solid #e5e5e5;}
+.tc-tip{background:#fff8f2;border-left:0.1875em solid #FF6E14;border-radius:0 0.3125em 0.3125em 0;padding:0.4375em 0.625em;font-size:0.6875em;color:#555;line-height:1.6;}
+
+/* Bouton En savoir plus */
+.tc-more-btn{
+  display:none;width:100%;padding:0.5625em 1.5em;
+  background:#fafafa;border:none;border-top:0.0625em solid #f0f0f0;
+  cursor:pointer;font-family:'Inter',sans-serif;
+  font-size:0.719em;font-weight:500;color:#999;
+  text-align:left;align-items:center;transition:background .15s,color .15s;
+}
+.tc-more-btn:hover{background:#f5f0ff;color:#6b18b0;}
+.tc-more-btn.open{background:#fff8f2;color:#FF6E14;}
+.tc-more-btn .arr{float:right;display:inline-block;transition:transform .25s;}
+.tc-more-btn.open .arr{transform:rotate(180deg);}
+
+/* Section extra */
+.tc-extra{
+  max-height:0;overflow:hidden;
+  transition:max-height .35s cubic-bezier(0.4,0,0.2,1),padding .35s;
+  padding:0 1.5em;
+}
+.tc-extra.open{max-height:1400px;padding:1.125em 1.5em 1.5em;border-top:0.0625em solid #f0f0f0;}
+
+/* Blocs dans tc-extra */
+.tc-media{margin-bottom:0.875em;}
+.tc-media:last-child{margin-bottom:0;}
+.tc-media img{width:100%;border-radius:0.375em;display:block;border:0.0625em solid #eee;}
+.tc-media-grid{display:grid;grid-template-columns:1fr 1fr;gap:0.5em;margin-bottom:0.875em;}
+.tc-media-grid .tc-media{margin-bottom:0;}
+.tc-caption{font-size:0.625em;color:#aaa;text-align:center;margin-top:0.3125em;}
+.tc-section{margin-bottom:0.875em;}
+.tc-section:last-child{margin-bottom:0;}
+.tc-section-title{font-size:0.625em;font-weight:600;text-transform:uppercase;letter-spacing:.6px;color:#bbb;margin-bottom:0.375em;}
+.tc-section-text{font-size:0.75em;color:#444;line-height:1.7;}
+.tc-list{padding-left:1em;font-size:0.75em;color:#444;line-height:1.9;}
+.tc-list li::marker{color:#FF6E14;}
+.tc-video{position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:0.375em;}
+.tc-video iframe{position:absolute;inset:0;width:100%;height:100%;border:none;}
+</style>
+</head>
+<body>
+<div class="wrap" id="wrap">
+  <img class="bg" src="img/Interfaces/interface.png" alt="Adobe Illustrator">                 
+  <div class="hs" data-tool="selection" style="left:0.595%;top:15.198%;width:2.738%;height:3.850%;"></div>
+  <div class="hs has-sub" data-tool="selection_directe" style="left:3.393%;top:15.198%;width:3.095%;height:3.850%;"></div>
+   <div class="hs has-sub" data-tool="plume" style="left:0.595%;top:22.695%;width:2.738%;height:3.749%;"></div>
+  <div class="hs" data-tool="baguette_magique" style="left:0.595%;top:19.048%;width:2.738%;height:3.647%;"></div>
+
+  <div class="hs" data-tool="lasso" style="left:3.393%;top:19.048%;width:3.095%;height:3.647%;"></div>
+ 
+  <div class="hs" data-tool="courbure" style="left:3.393%;top:22.695%;width:3.095%;height:3.749%;"></div>
+  <div class="hs has-sub" data-tool="texte" style="left:0.595%;top:26.444%;width:2.738%;height:3.647%;"></div>
+  <div class="hs has-sub" data-tool="segment_ligne" style="left:3.393%;top:26.444%;width:3.095%;height:3.647%;"></div>
+  <div class="hs has-sub" data-tool="rectangle" style="left:0.595%;top:30.091%;width:2.738%;height:3.647%;"></div>
+  <div class="hs has-sub" data-tool="pinceau" style="left:3.393%;top:30.091%;width:3.095%;height:3.647%;"></div>
+  <div class="hs has-sub" data-tool="forme" style="left:0.595%;top:33.739%;width:2.738%;height:3.749%;"></div>
+  <div class="hs has-sub" data-tool="gomme" style="left:3.393%;top:33.739%;width:3.095%;height:3.749%;"></div>
+  <div class="hs has-sub" data-tool="rotation" style="left:0.595%;top:37.487%;width:2.738%;height:3.647%;"></div>
+  <div class="hs has-sub" data-tool="mise_echelle" style="left:3.393%;top:37.487%;width:3.095%;height:3.647%;"></div>
+  <div class="hs has-sub" data-tool="largeur" style="left:0.595%;top:41.135%;width:2.738%;height:3.647%;"></div>
+  <div class="hs has-sub" data-tool="transformation_manuelle" style="left:3.393%;top:41.135%;width:3.095%;height:3.647%;"></div>
+  <div class="hs has-sub" data-tool="concepteur_forme" style="left:0.595%;top:44.782%;width:2.738%;height:3.647%;"></div>
+  <div class="hs has-sub" data-tool="grille_perspective" style="left:3.393%;top:44.782%;width:3.095%;height:3.647%;"></div>
+  <div class="hs" data-tool="filet" style="left:0.595%;top:48.430%;width:2.738%;height:3.749%;"></div>
+  <div class="hs" data-tool="degrade" style="left:3.393%;top:48.430%;width:3.095%;height:3.749%;"></div>
+  <div class="hs" data-tool="cote" style="left:0.595%;top:52.178%;width:2.738%;height:3.647%;"></div>
+  <div class="hs has-sub" data-tool="pipette" style="left:3.393%;top:52.178%;width:3.095%;height:3.647%;"></div>
+  <div class="hs" data-tool="fusion" style="left:0.595%;top:55.826%;width:2.738%;height:3.647%;"></div>
+  <div class="hs" data-tool="pulverisateur_symboles" style="left:3.393%;top:55.826%;width:3.095%;height:3.647%;"></div>
+  <div class="hs" data-tool="graphique" style="left:0.595%;top:59.473%;width:2.738%;height:3.749%;"></div>
+  <div class="hs" data-tool="plan_travail" style="left:3.393%;top:59.473%;width:3.095%;height:3.749%;"></div>
+  <div class="hs has-sub" data-tool="tranche" style="left:0.595%;top:63.222%;width:2.738%;height:3.647%;"></div>
+  <div class="hs has-sub" data-tool="main" style="left:3.393%;top:63.222%;width:3.095%;height:3.647%;"></div>
+  <div class="hs" data-tool="curviligne" style="left:0.595%;top:66.869%;width:2.738%;height:3.850%;"></div>
+  <div class="hs" data-tool="zoom" style="left:3.393%;top:66.869%;width:3.095%;height:3.850%;"></div>
+  <div class="hs" data-tool="p_couleur" style="left:75.476%;top:13.982%;width:8.274%;height:3.749%;"></div>
+  <div class="hs" data-tool="p_guidecoul" style="left:75.476%;top:18.440%;width:12.440%;height:3.749%;"></div>
+  <div class="hs" data-tool="p_nuancier" style="left:75.536%;top:24.519%;width:8.512%;height:3.749%;"></div>
+  <div class="hs" data-tool="p_formes" style="left:75.476%;top:28.774%;width:7.798%;height:4.154%;"></div>
+  <div class="hs" data-tool="p_symboles" style="left:75.476%;top:33.232%;width:8.631%;height:3.749%;"></div>
+  <div class="hs" data-tool="p_contour" style="left:75.476%;top:39.514%;width:8.274%;height:3.749%;"></div>
+  <div class="hs" data-tool="p_degrade" style="left:75.476%;top:43.769%;width:8.274%;height:3.749%;"></div>
+  <div class="hs" data-tool="p_transpar" style="left:75.476%;top:48.227%;width:10.179%;height:3.749%;"></div>
+  <div class="hs" data-tool="p_aspect" style="left:75.476%;top:54.509%;width:7.798%;height:3.749%;"></div>
+  <div class="hs" data-tool="p_stylesgr" style="left:75.476%;top:58.764%;width:11.845%;height:3.749%;"></div>
+  <div class="hs" data-tool="p_calques" style="left:75.476%;top:65.046%;width:8.214%;height:3.749%;"></div>
+  <div class="hs" data-tool="p_export" style="left:75.476%;top:69.301%;width:15.536%;height:3.749%;"></div>
+  <div class="hs" data-tool="p_plans" style="left:75.476%;top:73.556%;width:11.012%;height:3.749%;"></div>
+  <div class="hs" data-tool="p_commentaires" style="left:75.476%;top:79.635%;width:10.833%;height:3.749%;"></div>
+  <div class="hs" data-tool="t_formatdoc" style="left:62.976%;top:5.674%;width:11.131%;height:4.357%;"></div>
+
+  <!-- ═══ Popups sous-outils (séparés des hotspots, liés par #sub-<data-tool>) ═══ -->
+  <div class="subtool-popup" id="sub-selection_directe" deplacePupup="faux">
+    <div class="st-img-wrap">
+      <img src="img/sous_outils/selection_directe.png" style="left:6.6%;top:15.171%;width:23.099%;height:7.965%;">
+      <div class="st-zone" data-subtool="selection_directe_normal" style="left:6.624%;top:15.297%;width:22.876%;height:3.540%;"></div>
+      <div class="st-zone" data-subtool="selection_directe_progressive" style="left:6.699%;top:18.964%;width:22.802%;height:4.298%;"></div>
+    </div>
+  </div>
+
+  <div class="subtool-popup" id="sub-plume" deplacePupup="vrai">
+    <div class="st-img-wrap">
+      <img src="img/sous_outils/plume.png" style="left:6.6%;top:23.672%;">
+       <div class="st-zone" data-subtool="plume_normal" style="left:6.624%;top:22.695%;width:24.659%;height:3.666%;"></div>
+      <div class="st-zone" data-subtool="ajout_ancrage" style="left:6.624%;top:23.009%;width:24.659%;height:3.666%;"></div>
+      <div class="st-zone" data-subtool="suppression_ancrage" style="left:6.624%;top:26.802%;width:24.733%;height:3.287%;"></div>
+      <div class="st-zone" data-subtool="point_ancrage" style="left:6.624%;top:30.342%;width:24.807%;height:3.287%;"></div> 
+      <div class="st-zone" data-subtool="point_ancrage" style="left:6.699%;top:33.755%;width:24.733%;height:3.793%;"></div> 
+    </div>
+  </div>
+
+
+  <div class="subtool-popup" id="sub-rectangle" deplacePupup="faux">
+    <div class="st-img-wrap">
+      <img src="img/sous_outils/formes.png" style="left:6.6%;top:30.091%;">
+      <div class="st-zone" data-subtool="rectangle_arrondi" style="left:__%;top:__%;width:__%;height:__%;"></div> <!-- TODO: mesurer avec le calculateur de zones -->
+      <div class="st-zone" data-subtool="ellipse" style="left:__%;top:__%;width:__%;height:__%;"></div> <!-- TODO: mesurer avec le calculateur de zones -->
+      <div class="st-zone" data-subtool="polygone" style="left:__%;top:__%;width:__%;height:__%;"></div> <!-- TODO: mesurer avec le calculateur de zones -->
+      <div class="st-zone" data-subtool="etoile" style="left:__%;top:__%;width:__%;height:__%;"></div> <!-- TODO: mesurer avec le calculateur de zones -->
+      <div class="st-zone" data-subtool="halo" style="left:__%;top:__%;width:__%;height:__%;"></div> <!-- TODO: mesurer avec le calculateur de zones -->
+    </div>
+  </div>
+
+  <div class="subtool-popup" id="sub-forme" deplacePupup="faux">
+    <div class="st-img-wrap">
+      <img src="img/sous_outils/shaper.png" style="left:6.6%;top:33.739%;">
+      <div class="st-zone" data-subtool="forme_normal" style="left:__%;top:__%;width:__%;height:__%;"></div> <!-- TODO: mesurer avec le calculateur de zones -->
+      <div class="st-zone" data-subtool="crayon" style="left:__%;top:__%;width:__%;height:__%;"></div> <!-- TODO: mesurer avec le calculateur de zones -->
+      <div class="st-zone" data-subtool="arrondi" style="left:__%;top:__%;width:__%;height:__%;"></div> <!-- TODO: mesurer avec le calculateur de zones -->
+      <div class="st-zone" data-subtool="gomme_trace" style="left:__%;top:__%;width:__%;height:__%;"></div> <!-- TODO: mesurer avec le calculateur de zones -->
+      <div class="st-zone" data-subtool="jonction" style="left:__%;top:__%;width:__%;height:__%;"></div> <!-- TODO: mesurer avec le calculateur de zones -->
+    </div>
+  </div>
+
+  <div class="subtool-popup" id="sub-pinceau" deplacePupup="faux">
+    <div class="st-img-wrap">
+      <img src="img/sous_outils/pinceau.png" style="left:6.6%;top:30.091%;">
+      <div class="st-zone" data-subtool="forme_tache" style="left:__%;top:__%;width:__%;height:__%;"></div> <!-- TODO: mesurer avec le calculateur de zones -->
+    </div>
+  </div>
+
+  <div class="subtool-popup" id="sub-gomme" deplacePupup="faux">
+    <div class="st-img-wrap">
+      <img src="img/sous_outils/gomme.png" style="left:6.6%;top:33.739%;">
+      <div class="st-zone" data-subtool="ciseaux" style="left:__%;top:__%;width:__%;height:__%;"></div> <!-- TODO: mesurer avec le calculateur de zones -->
+      <div class="st-zone" data-subtool="couteau" style="left:__%;top:__%;width:__%;height:__%;"></div> <!-- TODO: mesurer avec le calculateur de zones -->
+    </div>
+  </div>
+
+  <div class="subtool-popup" id="sub-rotation" deplacePupup="faux">
+    <div class="st-img-wrap">
+      <img src="img/sous_outils/rotation.png" style="left:6.6%;top:37.487%;">
+      <div class="st-zone" data-subtool="miroir" style="left:__%;top:__%;width:__%;height:__%;"></div> <!-- TODO: mesurer avec le calculateur de zones -->
+    </div>
+  </div>
+
+  <div class="subtool-popup" id="sub-mise_echelle" deplacePupup="faux">
+    <div class="st-img-wrap">
+      <img src="img/sous_outils/echelle.png" style="left:6.6%;top:37.487%;">
+      <div class="st-zone" data-subtool="deformation" style="left:__%;top:__%;width:__%;height:__%;"></div> <!-- TODO: mesurer avec le calculateur de zones -->
+      <div class="st-zone" data-subtool="modelage" style="left:__%;top:__%;width:__%;height:__%;"></div> <!-- TODO: mesurer avec le calculateur de zones -->
+    </div>
+  </div>
+
+  <div class="subtool-popup" id="sub-largeur" deplacePupup="faux">
+    <div class="st-img-wrap">
+      <img src="img/sous_outils/largeur.png" style="left:6.6%;top:41.135%;">
+      <div class="st-zone" data-subtool="liquefaction" style="left:__%;top:__%;width:__%;height:__%;"></div> <!-- TODO: mesurer avec le calculateur de zones -->
+      <div class="st-zone" data-subtool="tourbillon" style="left:__%;top:__%;width:__%;height:__%;"></div> <!-- TODO: mesurer avec le calculateur de zones -->
+      <div class="st-zone" data-subtool="contraction" style="left:__%;top:__%;width:__%;height:__%;"></div> <!-- TODO: mesurer avec le calculateur de zones -->
+      <div class="st-zone" data-subtool="dilatation" style="left:__%;top:__%;width:__%;height:__%;"></div> <!-- TODO: mesurer avec le calculateur de zones -->
+      <div class="st-zone" data-subtool="festons" style="left:__%;top:__%;width:__%;height:__%;"></div> <!-- TODO: mesurer avec le calculateur de zones -->
+      <div class="st-zone" data-subtool="cristallisation" style="left:__%;top:__%;width:__%;height:__%;"></div> <!-- TODO: mesurer avec le calculateur de zones -->
+      <div class="st-zone" data-subtool="fronces" style="left:__%;top:__%;width:__%;height:__%;"></div> <!-- TODO: mesurer avec le calculateur de zones -->
+    </div>
+  </div>
+
+  <div class="subtool-popup" id="sub-transformation_manuelle" deplacePupup="faux">
+    <div class="st-img-wrap">
+      <img src="img/sous_outils/transformation.png" style="left:6.6%;top:41.135%;">
+      <div class="st-zone" data-subtool="deformation_marionnette" style="left:__%;top:__%;width:__%;height:__%;"></div> <!-- TODO: mesurer avec le calculateur de zones -->
+    </div>
+  </div>
+
+  <div class="subtool-popup" id="sub-concepteur_forme" deplacePupup="faux">
+    <div class="st-img-wrap">
+      <img src="img/sous_outils/concepteur.png" style="left:6.6%;top:44.782%;">
+      <div class="st-zone" data-subtool="peinture_dynamique" style="left:__%;top:__%;width:__%;height:__%;"></div> <!-- TODO: mesurer avec le calculateur de zones -->
+      <div class="st-zone" data-subtool="selection_peinture_dynamique" style="left:__%;top:__%;width:__%;height:__%;"></div> <!-- TODO: mesurer avec le calculateur de zones -->
+    </div>
+  </div>
+
+  <div class="subtool-popup" id="sub-grille_perspective" deplacePupup="faux">
+    <div class="st-img-wrap">
+      <img src="img/sous_outils/perspective.png" style="left:6.6%;top:44.782%;">
+      <div class="st-zone" data-subtool="selection_perspective" style="left:__%;top:__%;width:__%;height:__%;"></div> <!-- TODO: mesurer avec le calculateur de zones -->
+    </div>
+  </div>
+
+  <div class="subtool-popup" id="sub-pipette" deplacePupup="faux">
+    <div class="st-img-wrap">
+      <img src="img/sous_outils/mesure.png" style="left:6.6%;top:52.178%;">
+      <div class="st-zone" data-subtool="cote" style="left:__%;top:__%;width:__%;height:__%;"></div> <!-- TODO: mesurer avec le calculateur de zones -->
+    </div>
+  </div>
+
+  <div class="subtool-popup" id="sub-main" deplacePupup="faux">
+    <div class="st-img-wrap">
+      <img src="img/sous_outils/main.png" style="left:6.6%;top:63.222%;">
+      <div class="st-zone" data-subtool="rotation_affichage" style="left:__%;top:__%;width:__%;height:__%;"></div> <!-- TODO: mesurer avec le calculateur de zones -->
+      <div class="st-zone" data-subtool="lecture_impression" style="left:__%;top:__%;width:__%;height:__%;"></div> <!-- TODO: mesurer avec le calculateur de zones -->
+    </div>
+  </div>
+
+  <div class="subtool-popup" id="sub-tranche" deplacePupup="faux">
+    <div class="st-img-wrap">
+      <img src="img/sous_outils/tranche.png" style="left:6.6%;top:63.222%;">
+      <div class="st-zone" data-subtool="selection_tranche" style="left:__%;top:__%;width:__%;height:__%;"></div> <!-- TODO: mesurer avec le calculateur de zones -->
+    </div>
+  </div>
+
+  <div class="subtool-popup" id="sub-texte" deplacePupup="faux">
+    <div class="st-img-wrap">
+      <img src="img/sous_outils/texte.png" style="left:6.6%;top:26.444%;">
+      <div class="st-zone" data-subtool="texte_captif" style="left:__%;top:__%;width:__%;height:__%;"></div> <!-- TODO: mesurer avec le calculateur de zones -->
+      <div class="st-zone" data-subtool="texte_curviligne" style="left:__%;top:__%;width:__%;height:__%;"></div> <!-- TODO: mesurer avec le calculateur de zones -->
+      <div class="st-zone" data-subtool="texte_vertical" style="left:__%;top:__%;width:__%;height:__%;"></div> <!-- TODO: mesurer avec le calculateur de zones -->
+      <div class="st-zone" data-subtool="texte_captif_vertical" style="left:__%;top:__%;width:__%;height:__%;"></div> <!-- TODO: mesurer avec le calculateur de zones -->
+      <div class="st-zone" data-subtool="texte_curviligne_vertical" style="left:__%;top:__%;width:__%;height:__%;"></div> <!-- TODO: mesurer avec le calculateur de zones -->
+      <div class="st-zone" data-subtool="retouche_texte" style="left:__%;top:__%;width:__%;height:__%;"></div> <!-- TODO: mesurer avec le calculateur de zones -->
+    </div>
+  </div>
+
+  <div class="subtool-popup" id="sub-segment_ligne" deplacePupup="faux">
+    <div class="st-img-wrap">
+      <img src="img/sous_outils/trait.png" style="left:6.6%;top:26.444%;">
+      <div class="st-zone" data-subtool="arc" style="left:__%;top:__%;width:__%;height:__%;"></div> <!-- TODO: mesurer avec le calculateur de zones -->
+      <div class="st-zone" data-subtool="spirale" style="left:__%;top:__%;width:__%;height:__%;"></div> <!-- TODO: mesurer avec le calculateur de zones -->
+      <div class="st-zone" data-subtool="grille_rectangulaire" style="left:__%;top:__%;width:__%;height:__%;"></div> <!-- TODO: mesurer avec le calculateur de zones -->
+      <div class="st-zone" data-subtool="grille_polaire" style="left:__%;top:__%;width:__%;height:__%;"></div> <!-- TODO: mesurer avec le calculateur de zones -->
+    </div>
+  </div>
+
+  <div class="card-anchor" id="card-anchor">
+    <div class="tc-default" id="tc-default">
+      <h2>Guide des Outils</h2>
+      <p>Cliquez sur un outil pour voir sa description.</p>
+      <div class="tc-arrows">
+        <span class="tc-arrow-left">←</span>
+        <span class="tc-arrow-text">cliquez sur les outils</span>
+        <span class="tc-arrow-right">→</span>
+      </div>
+    </div>
+
+    <!-- Les fiches (.tool-card) sont générées dynamiquement
+         depuis tools-data.json (chargé via fetch, voir fin de script). -->
+
+  </div>
+</div>
+
+<script>
+// ── Chargement des données puis génération/initialisation ──
+fetch('tools-data.json')
+  .then(function(res){
+    if(!res.ok) throw new Error('HTTP ' + res.status);
+    return res.json();
+  })
+  .then(function(json){
+    initGuide(json.tools || []);
+  })
+  .catch(function(err){
+    console.error('Impossible de charger tools-data.json :', err);
+    var anchor = document.getElementById('card-anchor');
+    if(anchor) anchor.insertAdjacentHTML('beforeend',
+      '<p style="color:#b3392b;padding:12px;">Erreur de chargement de tools-data.json ' +
+      '(vérifiez qu\'il est bien dans le même dossier et que la page est servie via un ' +
+      'serveur local, pas ouverte en double-clic).</p>');
+  });
+
+function initGuide(TOOLS_DATA){
+// ── Génération des fiches (.tool-card) depuis TOOLS_DATA ──
+(function(){
+  var anchor = document.getElementById('card-anchor');
+
+  TOOLS_DATA.forEach(function(tool){
+    var card = document.createElement('div');
+    card.className = 'tool-card';
+    card.dataset.tool = tool.id;
+
+    var tagsHtml = (tool.tags || []).map(function(t){
+      return '<span class="tc-tag">' + t + '</span>';
+    }).join('');
+
+    var html = ''
+      + '<div class="tc-top">'
+      +   '<div class="tc-header">'
+      +     '<div class="tc-icon">' + (tool.icon || '') + '</div>'
+      +     '<div class="tc-titles">'
+      +       '<div class="tc-name">' + tool.name + '</div>'
+      +       (tool.shortcut ? '<div class="tc-shortcut">Raccourci : ' + tool.shortcut + '</div>' : '')
+      +     '</div>'
+      +     '<span class="tc-badge ' + (tool.category || '') + '">' + (tool.categoryLabel || '') + '</span>'
+      +   '</div>'
+      +   '<p class="tc-desc">' + tool.desc + '</p>'
+      +   (tagsHtml ? '<div class="tc-tags">' + tagsHtml + '</div>' : '')
+      +   (tool.tip ? '<div class="tc-tip">💡 ' + tool.tip + '</div>' : '')
+      + '</div>';
+
+    if(tool.extra && tool.extra.length){
+      html += '<div class="tc-extra">';
+      tool.extra.forEach(function(section){
+        html += '<div class="tc-section">';
+        if(section.title) html += '<div class="tc-section-title">' + section.title + '</div>';
+        if(section.list){
+          html += '<ul class="tc-list">' + section.list.map(function(li){ return '<li>' + li + '</li>'; }).join('') + '</ul>';
+        }
+        if(section.text){
+          html += '<p class="tc-section-text">' + section.text + '</p>';
+        }
+        html += '</div>';
+      });
+      html += '</div>';
+    }
+
+    card.innerHTML = html;
+    anchor.appendChild(card);
+  });
+})();
+
+var defEl  = document.getElementById('tc-default');
+var cardAnchor = document.getElementById('card-anchor');
+var cards  = document.querySelectorAll('.tool-card');
+var hotspots = document.querySelectorAll('.hs');
+
+// Index id -> carte
+var map = {};
+cards.forEach(function(c){ map[c.dataset.tool] = c; });
+
+// État
+var pinned     = null; // id de la carte actuellement affichée (clic)
+var openHsTool = null; // data-tool du hotspot principal dont le popup est ouvert
+
+// ── Afficher une carte ─────────────────────────────
+function doShow(id){
+  defEl.style.display = 'none';
+  cards.forEach(function(c){ c.classList.remove('tc-visible'); });
+  var c = map[id];
+  if(c) c.classList.add('tc-visible');
+  else  defEl.style.display = 'block';
+  hotspots.forEach(function(h){
+    h.classList.remove('active','pinned');
+    if(h.dataset.tool === (openHsTool || id)) h.classList.add('pinned');
+  });
+}
+
+// ── Masquer tout ───────────────────────────────────
+function doHide(){
+  pinned = null;
+  openHsTool = null;
+  cards.forEach(function(c){
+    c.classList.remove('tc-visible');
+    closeExtra(c);
+  });
+  hotspots.forEach(function(h){ h.classList.remove('active','pinned'); });
+  document.querySelectorAll('.st-zone').forEach(function(z){ z.classList.remove('pinned'); });
+  defEl.style.display = 'block';
+  if(currentSubPopup) closeSubPopup(currentSubPopup);
+}
+
+// ── Extra ──────────────────────────────────────────
+function openExtra(card){
+  var extra = card.querySelector('.tc-extra');
+  var btn   = card.querySelector('.tc-more-btn');
+  if(!extra || extra.classList.contains('open')) return;
+  extra.classList.add('open');
+  if(btn){ btn.classList.add('open'); btn.querySelector('.arr').textContent='▴'; }
+}
+function closeExtra(card){
+  var extra = card.querySelector('.tc-extra');
+  var btn   = card.querySelector('.tc-more-btn');
+  if(extra) extra.classList.remove('open');
+  if(btn){ btn.classList.remove('open'); btn.querySelector('.arr').textContent='▾'; }
+}
+
+// Injecter bouton "En savoir plus" sur chaque carte avec tc-extra
+cards.forEach(function(card){
+  var extra = card.querySelector('.tc-extra');
+  if(!extra) return;
+  var btn = document.createElement('button');
+  btn.className = 'tc-more-btn';
+  btn.innerHTML = 'En savoir plus <i class="arr">▾</i>';
+  btn.addEventListener('click', function(e){
+    e.stopPropagation();
+    if(extra.classList.contains('open')) closeExtra(card);
+    else openExtra(card);
+  });
+  card.insertBefore(btn, extra);
+  btn.style.display = 'flex';
+});
+
+// ── Sous-outils popup ──────────────────────────────
+var wrap = document.getElementById('wrap');
+var currentSubPopup = null;
+var currentSubHs    = null;
+
+// Repositionne la carte d'info à 10px à droite de l'image du sous-menu ouvert
+// (le haut reste fixe, comme en position par défaut).
+function positionCardBesideImage(popup){
+  var img = popup.querySelector('.st-img-wrap img');
+  if(!img) return;
+  var wrapRect = wrap.getBoundingClientRect();
+  var imgRect  = img.getBoundingClientRect();
+  var left  = (imgRect.right - wrapRect.left) + 10;
+  var maxW  = wrapRect.width - left - 10;
+  cardAnchor.style.left          = left + 'px';
+  cardAnchor.style.right         = 'auto';
+  cardAnchor.style.width         = Math.max(maxW, 0) + 'px';
+  cardAnchor.style.justifyContent = 'flex-start';
+}
+
+// Rétablit la carte d'info centrée dans la partie blanche (position CSS par défaut).
+function resetCardPosition(){
+  cardAnchor.removeAttribute('style');
+}
+
+function openSubPopup(popup, hsEl){
+  if(currentSubPopup && currentSubPopup !== popup) closeSubPopup(currentSubPopup);
+  if(popup.parentElement !== wrap) wrap.appendChild(popup);
+  popup.classList.add('visible');
+  currentSubPopup = popup;
+  currentSubHs    = hsEl;
+  if(popup.getAttribute('deplacePupup') === 'vrai'){
+    positionCardBesideImage(popup);
+  } else {
+    resetCardPosition();
+  }
+}
+
+function closeSubPopup(popup){
+  if(!popup) return;
+  popup.classList.remove('visible');
+  if(currentSubPopup === popup){ currentSubPopup = null; currentSubHs = null; }
+  resetCardPosition();
+}
+
+// Recalcule la position si la fenêtre est redimensionnée pendant qu'un sous-menu est ouvert.
+window.addEventListener('resize', function(){
+  if(currentSubPopup) positionCardBesideImage(currentSubPopup);
+});
+
+// Initialisation des popups de sous-outils
+document.querySelectorAll('.hs.has-sub').forEach(function(hsEl){
+  var popup = document.getElementById('sub-' + hsEl.dataset.tool);
+  if(!popup) return;
+  var parentId = hsEl.dataset.tool;
+
+  popup.querySelectorAll('.st-zone').forEach(function(zone){
+    var subId = zone.dataset.subtool;
+
+    zone.addEventListener('click', function(e){
+      e.stopPropagation();
+      if(!subId || !map[subId]) return;
+
+      if(pinned === subId){
+        zone.classList.remove('pinned');
+        pinned = parentId;
+        doShow(parentId);
+      } else {
+        popup.querySelectorAll('.st-zone').forEach(function(z){ z.classList.remove('pinned'); });
+        zone.classList.add('pinned');
+        pinned = subId;
+        doShow(subId);
+      }
+    });
+  });
+});
+
+// Clic sur un hotspot has-sub → ouvrir/fermer le popup + toggle fiche
+document.querySelectorAll('.hs.has-sub').forEach(function(el){
+  var popup = document.getElementById('sub-' + el.dataset.tool);
+  if(!popup) return;
+  el.addEventListener('click', function(e){
+    e.stopPropagation();
+    var id = el.dataset.tool;
+    if(openHsTool === id){
+      doHide();
+    } else {
+      pinned = id;
+      openHsTool = id;
+      doShow(id);
+      var card = map[id];
+      if(card) openExtra(card);
+      popup.querySelectorAll('.st-zone').forEach(function(z){ z.classList.remove('pinned'); });
+      openSubPopup(popup, el);
+    }
+  });
+});
+
+// Clic sur le fond → fermer le popup ouvert
+wrap.addEventListener('click', function(e){
+  if(currentSubPopup && !e.target.closest('.subtool-popup') && !e.target.closest('.hs.has-sub')){
+    closeSubPopup(currentSubPopup);
+  }
+});
+
+// ── Hotspots simples (sans sous-outils) ─────────────
+document.querySelectorAll('.hs:not(.has-sub)').forEach(function(el){
+  var id = el.dataset.tool;
+
+  el.addEventListener('click', function(){
+    if(pinned === id){
+      doHide();
+    } else {
+      pinned = id;
+      openHsTool = null;
+      doShow(id);
+      var card = map[id];
+      if(card) openExtra(card);
+      if(currentSubPopup){
+        closeSubPopup(currentSubPopup);
+      }
+      document.querySelectorAll('.st-zone').forEach(function(z){ z.classList.remove('pinned'); });
+    }
+  });
+});
+
+// Image du sous-outil à sa grandeur native, scalée en % de .wrap
+// (1680×987 = référence), sans étirement ni perte de proportions.
+document.querySelectorAll('.st-img-wrap img').forEach(function(img){
+  function apply(){
+    img.style.width  = (img.naturalWidth  / 1680 * 100) + '%';
+    img.style.height = (img.naturalHeight / 987  * 100) + '%';
+  }
+  if(img.complete && img.naturalWidth) apply();
+  else img.addEventListener('load', apply);
+});
+
+} // fin initGuide()
+</script>
+</body>
+</html>
