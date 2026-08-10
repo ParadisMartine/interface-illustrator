@@ -26,6 +26,7 @@ html,body{width:100%;height:100%;background:#111;display:flex;align-items:center
 .hs:hover {outline:2px solid rgba(255,110,20,.7);}
 .hs.active{background:rgba(255,110,20,.30);outline:2px solid #FF6E14;}
 .hs.pinned{background:rgba(255,110,20,.30);outline:2px solid #FF6E14;}
+.hs.linked{background:rgba(80,160,255,.25);outline:2px solid #4a8abf;}
 
 /* Popup sous-outils — overlay plein .wrap, en % comme .hs */
 .subtool-popup{
@@ -70,7 +71,7 @@ html,body{width:100%;height:100%;background:#111;display:flex;align-items:center
 /* Zone d'affichage — pointer-events:none, seules les cartes captent */
 .card-anchor{
   position:absolute;
-  left:12%;top:14.5%;width:56.5%;bottom:6%;
+  left:18%;top:14.5%;width:56.5%;bottom:6%;
   display:flex;align-items:flex-start;justify-content:center;
   overflow-y:auto;overflow-x:hidden;
   scrollbar-width:thin;scrollbar-color:#ddd transparent;
@@ -199,7 +200,9 @@ html,body{width:100%;height:100%;background:#111;display:flex;align-items:center
   <div class="hs has-sub" data-tool="selection_directe" style="left:3.393%;top:15.198%;width:3.095%;height:3.850%;"></div>
    <div class="hs has-sub" data-tool="plume" style="left:0.595%;top:22.695%;width:2.738%;height:3.749%;"></div>
   <div class="hs" data-tool="baguette_magique" style="left:0.595%;top:19.048%;width:2.738%;height:3.647%;"></div>
+
   <div class="hs" data-tool="lasso" style="left:3.393%;top:19.048%;width:3.095%;height:3.647%;"></div>
+ 
   <div class="hs" data-tool="courbure" style="left:3.393%;top:22.695%;width:3.095%;height:3.749%;"></div>
   <div class="hs has-sub" data-tool="texte" style="left:0.595%;top:26.444%;width:2.738%;height:3.647%;"></div>
   <div class="hs has-sub" data-tool="segment_ligne" style="left:3.393%;top:26.444%;width:3.095%;height:3.647%;"></div>
@@ -242,7 +245,7 @@ html,body{width:100%;height:100%;background:#111;display:flex;align-items:center
   <div class="hs" data-tool="t_formatdoc" style="left:62.976%;top:5.674%;width:11.131%;height:4.357%;"></div>
 
   <!-- ═══ Popups sous-outils (séparés des hotspots, liés par #sub-<data-tool>) ═══ -->
-  <div class="subtool-popup" id="sub-selection_directe" deplacePupup="vrai">
+  <div class="subtool-popup" id="sub-selection_directe" deplacePupup="faux">
     <div class="st-img-wrap">
       <img src="img/sous_outils/selection_directe.png" style="left:6.6%;top:15.171%;width:23.099%;height:7.965%;">
       <div class="st-zone" data-subtool="selection_directe_normal" style="left:6.624%;top:15.297%;width:22.876%;height:3.540%;"></div>
@@ -261,28 +264,8 @@ html,body{width:100%;height:100%;background:#111;display:flex;align-items:center
     </div>
   </div>
 
-  <div class="subtool-popup" id="sub-texte" deplacePupup="vrai">
-    <div class="st-img-wrap">
-      <img src="img/sous_outils/texte.png" style="left:6.6%;top:26.444%;">
-      <div class="st-zone" data-subtool="texte_captif" style="left:__%;top:__%;width:__%;height:__%;"></div> <!-- TODO: mesurer avec le calculateur de zones -->
-      <div class="st-zone" data-subtool="texte_curviligne" style="left:__%;top:__%;width:__%;height:__%;"></div> <!-- TODO: mesurer avec le calculateur de zones -->
-      <div class="st-zone" data-subtool="texte_vertical" style="left:__%;top:__%;width:__%;height:__%;"></div> <!-- TODO: mesurer avec le calculateur de zones -->
-      <div class="st-zone" data-subtool="texte_captif_vertical" style="left:__%;top:__%;width:__%;height:__%;"></div> <!-- TODO: mesurer avec le calculateur de zones -->
-      <div class="st-zone" data-subtool="texte_curviligne_vertical" style="left:__%;top:__%;width:__%;height:__%;"></div> <!-- TODO: mesurer avec le calculateur de zones -->
-      <div class="st-zone" data-subtool="retouche_texte" style="left:__%;top:__%;width:__%;height:__%;"></div> <!-- TODO: mesurer avec le calculateur de zones -->
-    </div>
-  </div>
 
-  <div class="subtool-popup" id="sub-segment_ligne" deplacePupup="vrai">
-    <div class="st-img-wrap">
-      <img src="img/sous_outils/trait.png" style="left:6.6%;top:26.444%;">
-      <div class="st-zone" data-subtool="arc" style="left:__%;top:__%;width:__%;height:__%;"></div> <!-- TODO: mesurer avec le calculateur de zones -->
-      <div class="st-zone" data-subtool="spirale" style="left:__%;top:__%;width:__%;height:__%;"></div> <!-- TODO: mesurer avec le calculateur de zones -->
-      <div class="st-zone" data-subtool="grille_rectangulaire" style="left:__%;top:__%;width:__%;height:__%;"></div> <!-- TODO: mesurer avec le calculateur de zones -->
-      <div class="st-zone" data-subtool="grille_polaire" style="left:__%;top:__%;width:__%;height:__%;"></div> <!-- TODO: mesurer avec le calculateur de zones -->
-    </div>
-  </div>
-  <div class="subtool-popup" id="sub-rectangle" deplacePupup="vrai">
+  <div class="subtool-popup" id="sub-rectangle" deplacePupup="faux">
     <div class="st-img-wrap">
       <img src="img/sous_outils/formes.png" style="left:6.6%;top:30.091%;">
       <div class="st-zone" data-subtool="rectangle_arrondi" style="left:__%;top:__%;width:__%;height:__%;"></div> <!-- TODO: mesurer avec le calculateur de zones -->
@@ -293,7 +276,7 @@ html,body{width:100%;height:100%;background:#111;display:flex;align-items:center
     </div>
   </div>
 
-  <div class="subtool-popup" id="sub-forme" deplacePupup="vrai">
+  <div class="subtool-popup" id="sub-forme" deplacePupup="faux">
     <div class="st-img-wrap">
       <img src="img/sous_outils/shaper.png" style="left:6.6%;top:33.739%;">
       <div class="st-zone" data-subtool="forme_normal" style="left:__%;top:__%;width:__%;height:__%;"></div> <!-- TODO: mesurer avec le calculateur de zones -->
@@ -304,14 +287,14 @@ html,body{width:100%;height:100%;background:#111;display:flex;align-items:center
     </div>
   </div>
 
-  <div class="subtool-popup" id="sub-pinceau" deplacePupup="vrai">
+  <div class="subtool-popup" id="sub-pinceau" deplacePupup="faux">
     <div class="st-img-wrap">
       <img src="img/sous_outils/pinceau.png" style="left:6.6%;top:30.091%;">
       <div class="st-zone" data-subtool="forme_tache" style="left:__%;top:__%;width:__%;height:__%;"></div> <!-- TODO: mesurer avec le calculateur de zones -->
     </div>
   </div>
 
-  <div class="subtool-popup" id="sub-gomme" deplacePupup="vrai">
+  <div class="subtool-popup" id="sub-gomme" deplacePupup="faux">
     <div class="st-img-wrap">
       <img src="img/sous_outils/gomme.png" style="left:6.6%;top:33.739%;">
       <div class="st-zone" data-subtool="ciseaux" style="left:__%;top:__%;width:__%;height:__%;"></div> <!-- TODO: mesurer avec le calculateur de zones -->
@@ -326,7 +309,7 @@ html,body{width:100%;height:100%;background:#111;display:flex;align-items:center
     </div>
   </div>
 
-  <div class="subtool-popup" id="sub-mise_echelle" deplacePupup="vrai">
+  <div class="subtool-popup" id="sub-mise_echelle" deplacePupup="faux">
     <div class="st-img-wrap">
       <img src="img/sous_outils/echelle.png" style="left:6.6%;top:37.487%;">
       <div class="st-zone" data-subtool="deformation" style="left:__%;top:__%;width:__%;height:__%;"></div> <!-- TODO: mesurer avec le calculateur de zones -->
@@ -334,7 +317,7 @@ html,body{width:100%;height:100%;background:#111;display:flex;align-items:center
     </div>
   </div>
 
-  <div class="subtool-popup" id="sub-largeur" deplacePupup="vrai">
+  <div class="subtool-popup" id="sub-largeur" deplacePupup="faux">
     <div class="st-img-wrap">
       <img src="img/sous_outils/largeur.png" style="left:6.6%;top:41.135%;">
       <div class="st-zone" data-subtool="liquefaction" style="left:__%;top:__%;width:__%;height:__%;"></div> <!-- TODO: mesurer avec le calculateur de zones -->
@@ -347,14 +330,14 @@ html,body{width:100%;height:100%;background:#111;display:flex;align-items:center
     </div>
   </div>
 
-  <div class="subtool-popup" id="sub-transformation_manuelle" deplacePupup="vrai">
+  <div class="subtool-popup" id="sub-transformation_manuelle" deplacePupup="faux">
     <div class="st-img-wrap">
       <img src="img/sous_outils/transformation.png" style="left:6.6%;top:41.135%;">
       <div class="st-zone" data-subtool="deformation_marionnette" style="left:__%;top:__%;width:__%;height:__%;"></div> <!-- TODO: mesurer avec le calculateur de zones -->
     </div>
   </div>
 
-  <div class="subtool-popup" id="sub-concepteur_forme" deplacePupup="vrai">
+  <div class="subtool-popup" id="sub-concepteur_forme" deplacePupup="faux">
     <div class="st-img-wrap">
       <img src="img/sous_outils/concepteur.png" style="left:6.6%;top:44.782%;">
       <div class="st-zone" data-subtool="peinture_dynamique" style="left:__%;top:__%;width:__%;height:__%;"></div> <!-- TODO: mesurer avec le calculateur de zones -->
@@ -362,7 +345,7 @@ html,body{width:100%;height:100%;background:#111;display:flex;align-items:center
     </div>
   </div>
 
-  <div class="subtool-popup" id="sub-grille_perspective" deplacePupup="vrai">
+  <div class="subtool-popup" id="sub-grille_perspective" deplacePupup="faux">
     <div class="st-img-wrap">
       <img src="img/sous_outils/perspective.png" style="left:6.6%;top:44.782%;">
       <div class="st-zone" data-subtool="selection_perspective" style="left:__%;top:__%;width:__%;height:__%;"></div> <!-- TODO: mesurer avec le calculateur de zones -->
@@ -376,13 +359,13 @@ html,body{width:100%;height:100%;background:#111;display:flex;align-items:center
     </div>
   </div>
 
-  <div class="subtool-popup" id="sub-pulverisateur_symboles" deplacePupup="faux">
+    <div class="subtool-popup" id="sub-pulverisateur" deplacePupup="faux">
     <div class="st-img-wrap">
-      <img src="img/sous_outils/symboles.png" style="left:6.6%;top:52.178%;">
-      <div class="st-zone" data-subtool="pulverisateur_symboles"style="left:6.648%;top:56.040%;width:28.098%;height:29.590%;"></div> <!-- TODO: mesurer avec le calculateur de zones -->
+      <img src="img/sous_outils/symboles.png" style="left:6.6%;top:55.826%;">
+
     </div>
   </div>
-  
+
 
   <div class="subtool-popup" id="sub-main" deplacePupup="faux">
     <div class="st-img-wrap">
@@ -399,13 +382,27 @@ html,body{width:100%;height:100%;background:#111;display:flex;align-items:center
     </div>
   </div>
 
+  <div class="subtool-popup" id="sub-texte" deplacePupup="faux">
+    <div class="st-img-wrap">
+      <img src="img/sous_outils/texte.png" style="left:6.6%;top:26.444%;">
+      <div class="st-zone" data-subtool="texte_captif" style="left:__%;top:__%;width:__%;height:__%;"></div> <!-- TODO: mesurer avec le calculateur de zones -->
+      <div class="st-zone" data-subtool="texte_curviligne" style="left:__%;top:__%;width:__%;height:__%;"></div> <!-- TODO: mesurer avec le calculateur de zones -->
+      <div class="st-zone" data-subtool="texte_vertical" style="left:__%;top:__%;width:__%;height:__%;"></div> <!-- TODO: mesurer avec le calculateur de zones -->
+      <div class="st-zone" data-subtool="texte_captif_vertical" style="left:__%;top:__%;width:__%;height:__%;"></div> <!-- TODO: mesurer avec le calculateur de zones -->
+      <div class="st-zone" data-subtool="texte_curviligne_vertical" style="left:__%;top:__%;width:__%;height:__%;"></div> <!-- TODO: mesurer avec le calculateur de zones -->
+      <div class="st-zone" data-subtool="retouche_texte" style="left:__%;top:__%;width:__%;height:__%;"></div> <!-- TODO: mesurer avec le calculateur de zones -->
+    </div>
+  </div>
 
-
-
-
-
-  <!-- Fiche accueil -->
-
+  <div class="subtool-popup" id="sub-segment_ligne" deplacePupup="faux">
+    <div class="st-img-wrap">
+      <img src="img/sous_outils/trait.png" style="left:6.6%;top:26.444%;">
+      <div class="st-zone" data-subtool="arc" style="left:__%;top:__%;width:__%;height:__%;"></div> <!-- TODO: mesurer avec le calculateur de zones -->
+      <div class="st-zone" data-subtool="spirale" style="left:__%;top:__%;width:__%;height:__%;"></div> <!-- TODO: mesurer avec le calculateur de zones -->
+      <div class="st-zone" data-subtool="grille_rectangulaire" style="left:__%;top:__%;width:__%;height:__%;"></div> <!-- TODO: mesurer avec le calculateur de zones -->
+      <div class="st-zone" data-subtool="grille_polaire" style="left:__%;top:__%;width:__%;height:__%;"></div> <!-- TODO: mesurer avec le calculateur de zones -->
+    </div>
+  </div>
 
   <div class="card-anchor" id="card-anchor">
     <div class="tc-default" id="tc-default">
@@ -513,9 +510,25 @@ function doShow(id){
   var c = map[id];
   if(c) c.classList.add('tc-visible');
   else  defEl.style.display = 'block';
+  var activeId = openHsTool || id;
   hotspots.forEach(function(h){
     h.classList.remove('active','pinned');
-    if(h.dataset.tool === (openHsTool || id)) h.classList.add('pinned');
+    if(h.dataset.tool === activeId) h.classList.add('pinned');
+  });
+  applyLinkedHighlight(activeId);
+}
+
+// ── Surbrillance liée (attribut surligner="id1,id2" sur un .hs) ─────
+function applyLinkedHighlight(activeId){
+  hotspots.forEach(function(h){ h.classList.remove('linked'); });
+  var src = document.querySelector('.hs[data-tool="' + activeId + '"]');
+  var attr = src && src.getAttribute('surligner');
+  if(!attr) return;
+  attr.split(',').forEach(function(targetId){
+    targetId = targetId.trim();
+    if(!targetId) return;
+    var target = document.querySelector('.hs[data-tool="' + targetId + '"]');
+    if(target) target.classList.add('linked');
   });
 }
 
@@ -527,7 +540,7 @@ function doHide(){
     c.classList.remove('tc-visible');
     closeExtra(c);
   });
-  hotspots.forEach(function(h){ h.classList.remove('active','pinned'); });
+  hotspots.forEach(function(h){ h.classList.remove('active','pinned','linked'); });
   document.querySelectorAll('.st-zone').forEach(function(z){ z.classList.remove('pinned'); });
   defEl.style.display = 'block';
   if(currentSubPopup) closeSubPopup(currentSubPopup);
