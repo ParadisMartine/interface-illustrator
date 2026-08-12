@@ -54,7 +54,7 @@ html,body{width:100%;height:100%;background:#111;display:flex;align-items:center
 }
 .card-anchor{
   position:absolute;
-  left:18%;top:14.5%;width:56.5%;bottom:6%;
+  left:12%;top:14.5%;width:56.5%;bottom:6%;
   display:flex;align-items:flex-start;justify-content:center;
   overflow-y:auto;overflow-x:hidden;
   scrollbar-width:thin;scrollbar-color:#ddd transparent;
@@ -128,7 +128,7 @@ html,body{width:100%;height:100%;background:#111;display:flex;align-items:center
 .cat-nav   {background:#dbfff8;color:#006b5a;}
 .cat-color {background:#fce8db;color:#a03000;}
 .cat-panel {background:#f0f0f0;color:#444;}
-.tc-desc{font-size:0.781em;color:#333;line-height:1.7;margin-bottom:0.625em;white-space:pre-line;}
+.tc-desc{font-size:0.781em;color:#333;line-height:1.7;margin-bottom:0.625em;}
 .tc-tags{display:flex;flex-wrap:wrap;gap:0.25em;margin-bottom:0.625em;}
 .tc-tag{background:#f2f2f2;color:#555;font-size:0.625em;padding:0.125em 0.5em;border-radius:1.25em;border:0.0625em solid #e5e5e5;}
 .tc-tip{background:#fff8f2;border-left:0.1875em solid #FF6E14;border-radius:0 0.3125em 0.3125em 0;padding:0.4375em 0.625em;font-size:0.6875em;color:#555;line-height:1.6;}
@@ -168,53 +168,70 @@ html,body{width:100%;height:100%;background:#111;display:flex;align-items:center
 <body>
 <div class="wrap" id="wrap">
   <img class="bg" src="img/Interfaces/interface.png" alt="Adobe Illustrator">                 
-  <div class="hs" data-tool="selection" style="left:0.595%;top:15.198%;width:2.738%;height:3.850%;"></div>
-  <div class="hs has-sub" data-tool="selection_directe" style="left:3.393%;top:15.198%;width:3.095%;height:3.850%;"></div>
-   <div class="hs has-sub" data-tool="plume" style="left:0.595%;top:22.695%;width:2.738%;height:3.749%;"></div>
-  <div class="hs" data-tool="baguette_magique" style="left:0.595%;top:19.048%;width:2.738%;height:3.647%;"></div>
-  <div class="hs" data-tool="lasso" style="left:3.393%;top:19.048%;width:3.095%;height:3.647%;"></div>
-  <div class="hs" data-tool="courbure" style="left:3.393%;top:22.695%;width:3.095%;height:3.749%;"></div>
-  <div class="hs has-sub" data-tool="texte" style="left:0.595%;top:26.444%;width:2.738%;height:3.647%;"></div>
-  <div class="hs has-sub" data-tool="segment_ligne" style="left:3.393%;top:26.444%;width:3.095%;height:3.647%;"></div>
-  <div class="hs has-sub" data-tool="rectangle" style="left:0.595%;top:30.091%;width:2.738%;height:3.647%;"></div>
-  <div class="hs has-sub" data-tool="pinceau" style="left:3.393%;top:30.091%;width:3.095%;height:3.647%;"></div>
-  <div class="hs has-sub" data-tool="forme" style="left:0.595%;top:33.739%;width:2.738%;height:3.749%;"></div>
-  <div class="hs has-sub" data-tool="gomme" style="left:3.393%;top:33.739%;width:3.095%;height:3.749%;"></div>
-  <div class="hs has-sub" data-tool="rotation" style="left:0.595%;top:37.487%;width:2.738%;height:3.647%;"></div>
-  <div class="hs has-sub" data-tool="mise_echelle" style="left:3.393%;top:37.487%;width:3.095%;height:3.647%;"></div>
-  <div class="hs has-sub" data-tool="largeur" style="left:0.595%;top:41.135%;width:2.738%;height:3.647%;"></div>
-  <div class="hs has-sub" data-tool="transformation_manuelle" style="left:3.393%;top:41.135%;width:3.095%;height:3.647%;"></div>
-  <div class="hs has-sub" data-tool="concepteur_forme" style="left:0.595%;top:44.782%;width:2.738%;height:3.647%;"></div>
-  <div class="hs has-sub" data-tool="grille_perspective" style="left:3.393%;top:44.782%;width:3.095%;height:3.647%;"></div>
-  <div class="hs" data-tool="filet" style="left:0.595%;top:48.430%;width:2.738%;height:3.749%;"></div>
-  <div class="hs" data-tool="degrade" style="left:3.393%;top:48.430%;width:3.095%;height:3.749%;"></div>
-  <div class="hs" data-tool="cote" style="left:0.595%;top:52.178%;width:2.738%;height:3.647%;"></div>
-  <div class="hs has-sub" data-tool="pipette" style="left:3.393%;top:52.178%;width:3.095%;height:3.647%;"></div>
-  <div class="hs" data-tool="fusion" style="left:0.595%;top:55.826%;width:2.738%;height:3.647%;"></div>
-  <div class="hs has-sub" data-tool="pulverisateur_symboles" style="left:3.393%;top:55.826%;width:3.095%;height:3.749%;"></div>
-  <div class="hs" data-tool="graphique" style="left:0.595%;top:59.473%;width:2.738%;height:3.749%;"></div>
-  <div class="hs" data-tool="plan_travail" style="left:3.393%;top:59.473%;width:3.095%;height:3.749%;"></div>
-  <div class="hs has-sub" data-tool="tranche" style="left:0.595%;top:63.222%;width:2.738%;height:3.647%;"></div>
-  <div class="hs has-sub" data-tool="main" style="left:3.393%;top:63.222%;width:3.095%;height:3.647%;"></div>
-  <div class="hs" data-tool="curviligne" style="left:0.595%;top:66.869%;width:2.738%;height:3.850%;"></div>
-  <div class="hs" data-tool="zoom" style="left:3.393%;top:66.869%;width:3.095%;height:3.850%;"></div>
-  <div class="hs" data-tool="p_couleur" style="left:75.476%;top:13.982%;width:8.274%;height:3.749%;"></div>
-  <div class="hs" data-tool="p_guidecoul" style="left:75.476%;top:18.440%;width:12.440%;height:3.749%;"></div>
-  <div class="hs" data-tool="p_nuancier" style="left:75.536%;top:24.519%;width:8.512%;height:3.749%;"></div>
-  <div class="hs" data-tool="p_formes" style="left:75.476%;top:28.774%;width:7.798%;height:4.154%;"></div>
-  <div class="hs" data-tool="p_symboles" style="left:75.476%;top:33.232%;width:8.631%;height:3.749%;"></div>
-  <div class="hs" data-tool="p_contour" style="left:75.476%;top:39.514%;width:8.274%;height:3.749%;"></div>
-  <div class="hs" data-tool="p_degrade" style="left:75.476%;top:43.769%;width:8.274%;height:3.749%;"></div>
-  <div class="hs" data-tool="p_transpar" style="left:75.476%;top:48.227%;width:10.179%;height:3.749%;"></div>
-  <div class="hs" data-tool="p_aspect" style="left:75.476%;top:54.509%;width:7.798%;height:3.749%;"></div>
-  <div class="hs" data-tool="p_stylesgr" style="left:75.476%;top:58.764%;width:11.845%;height:3.749%;"></div>
-  <div class="hs" data-tool="p_calques" style="left:75.476%;top:65.046%;width:8.214%;height:3.749%;"></div>
-  <div class="hs" data-tool="p_export" style="left:75.476%;top:69.301%;width:15.536%;height:3.749%;"></div>
-  <div class="hs" data-tool="p_plans" style="left:75.476%;top:73.556%;width:11.012%;height:3.749%;"></div>
-  <div class="hs" data-tool="p_commentaires" style="left:75.476%;top:79.635%;width:10.833%;height:3.749%;"></div>
-  <div class="hs" data-tool="t_formatdoc" style="left:62.976%;top:5.674%;width:11.131%;height:4.357%;"></div>
+  <div class="hs" data-tool="selection" surligner="null" style="left:0.595%;top:15.198%;width:2.738%;height:3.850%;"></div>
+  <div class="hs has-sub" data-tool="selection_directe" surligner="null" style="left:3.393%;top:15.198%;width:3.095%;height:3.850%;"></div>
+   <div class="hs has-sub" data-tool="plume" surligner="null" style="left:0.595%;top:22.695%;width:2.738%;height:3.749%;"></div>
+  <div class="hs" data-tool="baguette_magique" surligner="null" style="left:0.595%;top:19.048%;width:2.738%;height:3.647%;"></div>
+  <div class="hs" data-tool="lasso" surligner="null" style="left:3.393%;top:19.048%;width:3.095%;height:3.647%;"></div>
+  <div class="hs" data-tool="courbure" surligner="null" style="left:3.393%;top:22.695%;width:3.095%;height:3.749%;"></div>
+  <div class="hs has-sub" data-tool="texte" surligner="null" style="left:0.595%;top:26.444%;width:2.738%;height:3.647%;"></div>
+  <div class="hs has-sub" data-tool="segment_ligne" surligner="null" style="left:3.393%;top:26.444%;width:3.095%;height:3.647%;"></div>
+  <div class="hs has-sub" data-tool="rectangle" surligner="null" style="left:0.595%;top:30.091%;width:2.738%;height:3.647%;"></div>
+  <div class="hs has-sub" data-tool="pinceau" surligner="null" style="left:3.393%;top:30.091%;width:3.095%;height:3.647%;"></div>
+  <div class="hs has-sub" data-tool="forme" surligner="null" style="left:0.595%;top:33.739%;width:2.738%;height:3.749%;"></div>
+  <div class="hs has-sub" data-tool="gomme" surligner="null" style="left:3.393%;top:33.739%;width:3.095%;height:3.749%;"></div>
+  <div class="hs has-sub" data-tool="rotation" surligner="null" style="left:0.595%;top:37.487%;width:2.738%;height:3.647%;"></div>
+  <div class="hs has-sub" data-tool="mise_echelle" surligner="null" style="left:3.393%;top:37.487%;width:3.095%;height:3.647%;"></div>
+  <div class="hs has-sub" data-tool="largeur" surligner="null" style="left:0.595%;top:41.135%;width:2.738%;height:3.647%;"></div>
+  <div class="hs has-sub" data-tool="transformation_manuelle" surligner="null" style="left:3.393%;top:41.135%;width:3.095%;height:3.647%;"></div>
+  <div class="hs has-sub" data-tool="concepteur_forme" surligner="null" style="left:0.595%;top:44.782%;width:2.738%;height:3.647%;"></div>
+  <div class="hs has-sub" data-tool="grille_perspective" surligner="null" style="left:3.393%;top:44.782%;width:3.095%;height:3.647%;"></div>
+  <div class="hs" data-tool="filet" surligner="null" style="left:0.595%;top:48.430%;width:2.738%;height:3.749%;"></div>
+  <div class="hs" data-tool="degrade" surligner="p_degrade" style="left:3.393%;top:48.430%;width:3.095%;height:3.749%;"></div>
+  <div class="hs" data-tool="cote" surligner="null" style="left:0.595%;top:52.178%;width:2.738%;height:3.647%;"></div>
+  <div class="hs has-sub" data-tool="pipette" surligner="null" style="left:3.393%;top:52.178%;width:3.095%;height:3.647%;"></div>
+  <div class="hs" data-tool="fusion" surligner="null" style="left:0.595%;top:55.826%;width:2.738%;height:3.647%;"></div>
+  <div class="hs has-sub" data-tool="pulverisateur_symboles" surligner="null" style="left:3.393%;top:55.826%;width:3.095%;height:3.749%;"></div>
+  <div class="hs" data-tool="graphique" surligner="null" style="left:0.595%;top:59.473%;width:2.738%;height:3.749%;"></div>
+  <div class="hs" data-tool="plan_travail" surligner="null" style="left:3.393%;top:59.473%;width:3.095%;height:3.749%;"></div>
+  <div class="hs has-sub" data-tool="tranche" surligner="null" style="left:0.595%;top:63.222%;width:2.738%;height:3.647%;"></div>
+  <div class="hs has-sub" data-tool="main" surligner="null" style="left:3.393%;top:63.222%;width:3.095%;height:3.647%;"></div>
+  <div class="hs" data-tool="curviligne" surligner="null" style="left:0.595%;top:66.869%;width:2.738%;height:3.850%;"></div>
+  <div class="hs" data-tool="zoom" surligner="null" style="left:3.393%;top:66.869%;width:3.095%;height:3.850%;"></div>
+  <div class="hs" data-tool="p_couleur" surligner="null" style="left:75.476%;top:13.982%;width:8.274%;height:3.749%;"></div>
+  <div class="hs" data-tool="p_guidecoul" surligner="null" style="left:75.476%;top:18.440%;width:12.440%;height:3.749%;"></div>
+  <div class="hs" data-tool="p_nuancier" surligner="null" style="left:75.536%;top:24.519%;width:8.512%;height:3.749%;"></div>
+  <div class="hs" data-tool="p_formes" surligner="null" style="left:75.476%;top:28.774%;width:7.798%;height:4.154%;"></div>
+  <div class="hs" data-tool="p_symboles" surligner="null" style="left:75.476%;top:33.232%;width:8.631%;height:3.749%;"></div>
+  <div class="hs" data-tool="p_contour" surligner="null" style="left:75.476%;top:39.514%;width:8.274%;height:3.749%;"></div>
+  <div class="hs" data-tool="p_degrade" surligner="degrade" style="left:75.476%;top:43.769%;width:8.274%;height:3.749%;"></div>
+  <div class="hs" data-tool="p_transpar" surligner="null" style="left:75.476%;top:48.227%;width:10.179%;height:3.749%;"></div>
+  <div class="hs" data-tool="p_aspect" surligner="null" style="left:75.476%;top:54.509%;width:7.798%;height:3.749%;"></div>
+  <div class="hs" data-tool="p_stylesgr" surligner="null" style="left:75.476%;top:58.764%;width:11.845%;height:3.749%;"></div>
+  <div class="hs" data-tool="p_calques" surligner="null" style="left:75.476%;top:65.046%;width:8.214%;height:3.749%;"></div>
+  <div class="hs" data-tool="p_export" surligner="null" style="left:75.476%;top:69.301%;width:15.536%;height:3.749%;"></div>
+  <div class="hs" data-tool="p_plans" surligner="null" style="left:75.476%;top:73.556%;width:11.012%;height:3.749%;"></div>
+  <div class="hs" data-tool="p_commentaires" surligner="null" style="left:75.476%;top:79.635%;width:10.833%;height:3.749%;"></div>
+  <div class="hs" data-tool="t_formatdoc" surligner="null" style="left:62.976%;top:5.674%;width:11.131%;height:4.357%;"></div>
 
-  <div class="subtool-popup" id="sub-selection_directe" deplacePupup="faux">
+ 
+  <!-- Structure pour les sous sections
+   
+    <div class="subtool-popup" id="nom de la section " deplacePupup="faux">
+    <div class="st-img-wrap">
+      <img src="img/chemin vers l'image" style="position de l'image">
+      <div class="st-zone" data-subtool="première sous section " style="caculé avec "illustrator-zones.html"></div>
+        <div class="st-zone" data-subtool="deuxième sous section " style="caculé avec "illustrator-zones.html"></div>
+    </div>
+  </div>
+   
+  
+  -->
+
+
+  
+  
+  <div class="subtool-popup" id="sub-selection_directe" deplacePupup="vrai">
     <div class="st-img-wrap">
       <img src="img/sous_outils/selection_directe.png" style="left:6.6%;top:15.171%;width:23.099%;height:7.965%;">
       <div class="st-zone" data-subtool="selection_directe_normal" style="left:6.624%;top:15.297%;width:22.876%;height:3.540%;"></div>
@@ -224,17 +241,37 @@ html,body{width:100%;height:100%;background:#111;display:flex;align-items:center
 
   <div class="subtool-popup" id="sub-plume" deplacePupup="vrai">
     <div class="st-img-wrap">
-      <img src="img/sous_outils/plume.png" style="left:6.6%;top:23.672%;">
-       <div class="st-zone" data-subtool="plume_normal" style="left:6.624%;top:22.695%;width:24.659%;height:3.666%;"></div>
-      <div class="st-zone" data-subtool="ajout_ancrage" style="left:6.624%;top:23.009%;width:24.659%;height:3.666%;"></div>
-      <div class="st-zone" data-subtool="suppression_ancrage" style="left:6.624%;top:26.802%;width:24.733%;height:3.287%;"></div>
-      <div class="st-zone" data-subtool="point_ancrage" style="left:6.624%;top:30.342%;width:24.807%;height:3.287%;"></div> 
-      <div class="st-zone" data-subtool="point_ancrage" style="left:6.699%;top:33.755%;width:24.733%;height:3.793%;"></div> 
+      <img src="img/sous_outils/plume.png" style="left:6.6%;top:22.695%;">
+       <div class="st-zone" data-subtool="plume_normal" style="left:6.696%;top:22.695%;width:25.100%;height:3.568%;"></div>
+      <div class="st-zone" data-subtool="ajout_ancrage"style="left:6.586%;top:26.488%;width:25.210%;height:3.474%;"></div>
+      <div class="st-zone" data-subtool="suppression_ancrage"style="left:6.531%;top:29.962%;width:25.265%;height:3.756%;"></div>
+      <div class="st-zone" data-subtool="point_ancrage" style="left:6.586%;top:34.000%;width:25.210%;height:3.756%;"></div> 
     </div>
   </div>
 
+  <div class="subtool-popup" id="sub-texte" deplacePupup="vrai">
+    <div class="st-img-wrap">
+      <img src="img/sous_outils/texte.png" style="left:6.6%;top:26.444%;">
+      <div class="st-zone" data-subtool="texte_captif" style="left:__%;top:__%;width:__%;height:__%;"></div> <!-- TODO: mesurer avec le calculateur de zones -->
+      <div class="st-zone" data-subtool="texte_curviligne" style="left:__%;top:__%;width:__%;height:__%;"></div> <!-- TODO: mesurer avec le calculateur de zones -->
+      <div class="st-zone" data-subtool="texte_vertical" style="left:__%;top:__%;width:__%;height:__%;"></div> <!-- TODO: mesurer avec le calculateur de zones -->
+      <div class="st-zone" data-subtool="texte_captif_vertical" style="left:__%;top:__%;width:__%;height:__%;"></div> <!-- TODO: mesurer avec le calculateur de zones -->
+      <div class="st-zone" data-subtool="texte_curviligne_vertical" style="left:__%;top:__%;width:__%;height:__%;"></div> <!-- TODO: mesurer avec le calculateur de zones -->
+      <div class="st-zone" data-subtool="retouche_texte" style="left:__%;top:__%;width:__%;height:__%;"></div> <!-- TODO: mesurer avec le calculateur de zones -->
+    </div>
+  </div>
 
-  <div class="subtool-popup" id="sub-rectangle" deplacePupup="faux">
+  <div class="subtool-popup" id="sub-segment_ligne" deplacePupup="vrai">
+    <div class="st-img-wrap">
+      <img src="img/sous_outils/trait.png" style="left:6.6%;top:26.444%;">
+      <div class="st-zone" data-subtool="arc" style="left:__%;top:__%;width:__%;height:__%;"></div> <!-- TODO: mesurer avec le calculateur de zones -->
+      <div class="st-zone" data-subtool="spirale" style="left:__%;top:__%;width:__%;height:__%;"></div> <!-- TODO: mesurer avec le calculateur de zones -->
+      <div class="st-zone" data-subtool="grille_rectangulaire" style="left:__%;top:__%;width:__%;height:__%;"></div> <!-- TODO: mesurer avec le calculateur de zones -->
+      <div class="st-zone" data-subtool="grille_polaire" style="left:__%;top:__%;width:__%;height:__%;"></div> <!-- TODO: mesurer avec le calculateur de zones -->
+    </div>
+  </div>
+
+  <div class="subtool-popup" id="sub-rectangle" deplacePupup="vrai">
     <div class="st-img-wrap">
       <img src="img/sous_outils/formes.png" style="left:6.6%;top:30.091%;">
       <div class="st-zone" data-subtool="rectangle_arrondi" style="left:__%;top:__%;width:__%;height:__%;"></div> <!-- TODO: mesurer avec le calculateur de zones -->
@@ -245,7 +282,7 @@ html,body{width:100%;height:100%;background:#111;display:flex;align-items:center
     </div>
   </div>
 
-  <div class="subtool-popup" id="sub-forme" deplacePupup="faux">
+  <div class="subtool-popup" id="sub-forme" deplacePupup="vrai">
     <div class="st-img-wrap">
       <img src="img/sous_outils/shaper.png" style="left:6.6%;top:33.739%;">
       <div class="st-zone" data-subtool="forme_normal" style="left:__%;top:__%;width:__%;height:__%;"></div> <!-- TODO: mesurer avec le calculateur de zones -->
@@ -256,14 +293,14 @@ html,body{width:100%;height:100%;background:#111;display:flex;align-items:center
     </div>
   </div>
 
-  <div class="subtool-popup" id="sub-pinceau" deplacePupup="faux">
+  <div class="subtool-popup" id="sub-pinceau" deplacePupup="vrai">
     <div class="st-img-wrap">
       <img src="img/sous_outils/pinceau.png" style="left:6.6%;top:30.091%;">
       <div class="st-zone" data-subtool="forme_tache" style="left:__%;top:__%;width:__%;height:__%;"></div> <!-- TODO: mesurer avec le calculateur de zones -->
     </div>
   </div>
 
-  <div class="subtool-popup" id="sub-gomme" deplacePupup="faux">
+  <div class="subtool-popup" id="sub-gomme" deplacePupup="vrai">
     <div class="st-img-wrap">
       <img src="img/sous_outils/gomme.png" style="left:6.6%;top:33.739%;">
       <div class="st-zone" data-subtool="ciseaux" style="left:__%;top:__%;width:__%;height:__%;"></div> <!-- TODO: mesurer avec le calculateur de zones -->
@@ -271,14 +308,14 @@ html,body{width:100%;height:100%;background:#111;display:flex;align-items:center
     </div>
   </div>
 
-  <div class="subtool-popup" id="sub-rotation" deplacePupup="faux">
+  <div class="subtool-popup" id="sub-rotation" deplacePupup="vrai">
     <div class="st-img-wrap">
       <img src="img/sous_outils/rotation.png" style="left:6.6%;top:37.487%;">
       <div class="st-zone" data-subtool="miroir" style="left:__%;top:__%;width:__%;height:__%;"></div> <!-- TODO: mesurer avec le calculateur de zones -->
     </div>
   </div>
 
-  <div class="subtool-popup" id="sub-mise_echelle" deplacePupup="faux">
+  <div class="subtool-popup" id="sub-mise_echelle" deplacePupup="vrai">
     <div class="st-img-wrap">
       <img src="img/sous_outils/echelle.png" style="left:6.6%;top:37.487%;">
       <div class="st-zone" data-subtool="deformation" style="left:__%;top:__%;width:__%;height:__%;"></div> <!-- TODO: mesurer avec le calculateur de zones -->
@@ -286,7 +323,7 @@ html,body{width:100%;height:100%;background:#111;display:flex;align-items:center
     </div>
   </div>
 
-  <div class="subtool-popup" id="sub-largeur" deplacePupup="faux">
+  <div class="subtool-popup" id="sub-largeur" deplacePupup="vrai">
     <div class="st-img-wrap">
       <img src="img/sous_outils/largeur.png" style="left:6.6%;top:41.135%;">
       <div class="st-zone" data-subtool="liquefaction" style="left:__%;top:__%;width:__%;height:__%;"></div> <!-- TODO: mesurer avec le calculateur de zones -->
@@ -299,14 +336,14 @@ html,body{width:100%;height:100%;background:#111;display:flex;align-items:center
     </div>
   </div>
 
-  <div class="subtool-popup" id="sub-transformation_manuelle" deplacePupup="faux">
+  <div class="subtool-popup" id="sub-transformation_manuelle" deplacePupup="vrai">
     <div class="st-img-wrap">
       <img src="img/sous_outils/transformation.png" style="left:6.6%;top:41.135%;">
       <div class="st-zone" data-subtool="deformation_marionnette" style="left:__%;top:__%;width:__%;height:__%;"></div> <!-- TODO: mesurer avec le calculateur de zones -->
     </div>
   </div>
 
-  <div class="subtool-popup" id="sub-concepteur_forme" deplacePupup="faux">
+  <div class="subtool-popup" id="sub-concepteur_forme" deplacePupup="vrai">
     <div class="st-img-wrap">
       <img src="img/sous_outils/concepteur.png" style="left:6.6%;top:44.782%;">
       <div class="st-zone" data-subtool="peinture_dynamique" style="left:__%;top:__%;width:__%;height:__%;"></div> <!-- TODO: mesurer avec le calculateur de zones -->
@@ -314,7 +351,7 @@ html,body{width:100%;height:100%;background:#111;display:flex;align-items:center
     </div>
   </div>
 
-  <div class="subtool-popup" id="sub-grille_perspective" deplacePupup="faux">
+  <div class="subtool-popup" id="sub-grille_perspective" deplacePupup="vrai">
     <div class="st-img-wrap">
       <img src="img/sous_outils/perspective.png" style="left:6.6%;top:44.782%;">
       <div class="st-zone" data-subtool="selection_perspective" style="left:__%;top:__%;width:__%;height:__%;"></div> <!-- TODO: mesurer avec le calculateur de zones -->
@@ -352,27 +389,7 @@ html,body{width:100%;height:100%;background:#111;display:flex;align-items:center
     </div>
   </div>
 
-  <div class="subtool-popup" id="sub-texte" deplacePupup="faux">
-    <div class="st-img-wrap">
-      <img src="img/sous_outils/texte.png" style="left:6.6%;top:26.444%;">
-      <div class="st-zone" data-subtool="texte_captif" style="left:__%;top:__%;width:__%;height:__%;"></div> <!-- TODO: mesurer avec le calculateur de zones -->
-      <div class="st-zone" data-subtool="texte_curviligne" style="left:__%;top:__%;width:__%;height:__%;"></div> <!-- TODO: mesurer avec le calculateur de zones -->
-      <div class="st-zone" data-subtool="texte_vertical" style="left:__%;top:__%;width:__%;height:__%;"></div> <!-- TODO: mesurer avec le calculateur de zones -->
-      <div class="st-zone" data-subtool="texte_captif_vertical" style="left:__%;top:__%;width:__%;height:__%;"></div> <!-- TODO: mesurer avec le calculateur de zones -->
-      <div class="st-zone" data-subtool="texte_curviligne_vertical" style="left:__%;top:__%;width:__%;height:__%;"></div> <!-- TODO: mesurer avec le calculateur de zones -->
-      <div class="st-zone" data-subtool="retouche_texte" style="left:__%;top:__%;width:__%;height:__%;"></div> <!-- TODO: mesurer avec le calculateur de zones -->
-    </div>
-  </div>
 
-  <div class="subtool-popup" id="sub-segment_ligne" deplacePupup="faux">
-    <div class="st-img-wrap">
-      <img src="img/sous_outils/trait.png" style="left:6.6%;top:26.444%;">
-      <div class="st-zone" data-subtool="arc" style="left:__%;top:__%;width:__%;height:__%;"></div> <!-- TODO: mesurer avec le calculateur de zones -->
-      <div class="st-zone" data-subtool="spirale" style="left:__%;top:__%;width:__%;height:__%;"></div> <!-- TODO: mesurer avec le calculateur de zones -->
-      <div class="st-zone" data-subtool="grille_rectangulaire" style="left:__%;top:__%;width:__%;height:__%;"></div> <!-- TODO: mesurer avec le calculateur de zones -->
-      <div class="st-zone" data-subtool="grille_polaire" style="left:__%;top:__%;width:__%;height:__%;"></div> <!-- TODO: mesurer avec le calculateur de zones -->
-    </div>
-  </div>
 
   <div class="card-anchor" id="card-anchor">
     <div class="tc-default" id="tc-default">
@@ -484,7 +501,7 @@ function applyLinkedHighlight(activeId){
   hotspots.forEach(function(h){ h.classList.remove('linked'); });
   var src = document.querySelector('.hs[data-tool="' + activeId + '"]');
   var attr = src && src.getAttribute('surligner');
-  if(!attr) return;
+  if(!attr || attr=="null") return;
   attr.split(',').forEach(function(targetId){
     targetId = targetId.trim();
     if(!targetId) return;

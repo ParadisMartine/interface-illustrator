@@ -7,7 +7,7 @@
       "shortcut": "V",
       "category": "cat-sel",
       "categoryLabel": "Sélection",
-      "desc": "Sélectionne et déplace des objets entiers.\nCliquez sur un objet pour le sélectionner\nCliquez et glissez dans une zone vide pour sélectionner plusieurs objets .",
+      "desc": "Permet de sélectionner et déplace des objets entiers.\n\n- Cliquez sur un objet pour le sélectionner\n- Cliquez dans une zone vide, et glissez, pour sélectionner plusieurs objets .",
       "tags": [
         "Sélection",
         "Déplacement",
