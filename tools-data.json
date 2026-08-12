@@ -5,15 +5,15 @@
       "icon": "▶",
       "name": "Outil Sélection",
       "shortcut": "V",
-      "category": "cat-selection",
+      "category": "cat-sel",
       "categoryLabel": "Sélection",
-      "desc": "Sélectionne et déplace des objets entiers. Cliquez sur un objet pour le sélectionner, glissez dans une zone vide pour une sélection rectangulaire.",
+      "desc": "Sélectionne et déplace des objets entiers.\nCliquez sur un objet pour le sélectionner\nCliquez et glissez dans une zone vide pour sélectionner plusieurs objets .",
       "tags": [
         "Sélection",
         "Déplacement",
         "Transformation"
       ],
-      "tip": "Maj+clic : ajouter à la sélection. Alt+glisser : dupliquer. Ctrl+A : tout sélectionner.",
+      "tip": "Maj+clic : ajouter à la sélection. \nAlt+glisser : dupliquer la sélection. ",
       "extra": [
         {
           "title": "Raccourcis clavier",
