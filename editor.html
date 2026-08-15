@@ -285,14 +285,14 @@ button.danger:hover{border-color:#b3392b;}
 var DATA = null; // { tools: [...] }
 
 var CATEGORY_OPTIONS = [
-  ["cat-sel", "Sélection"],
-  ["cat-draw", "Dessin"],
-  ["cat-shape", "Forme"],
-  ["cat-text", "Texte"],
+  ["cat-selection", "Sélection"],
+  ["cat-dessin", "Dessin"],
+  ["cat-forme", "Forme"],
+  ["cat-texte", "Texte"],
   ["cat-transf", "Transformation"],
   ["cat-nav", "Navigation"],
-  ["cat-color", "Couleur"],
-  ["cat-panel", "Panneau"]
+  ["cat-couleur", "Couleur"],
+  ["cat-panneau", "Panneau"]
 ];
 
 function showToast(msg){
@@ -336,12 +336,47 @@ function load(){
 }
 
 // ── Chargement manuel via sélecteur de fichier (sans serveur) ──
+var fileHandle = null; // FileSystemFileHandle si ouvert via showOpenFilePicker (Chrome/Edge)
+
+function setSaveMode(direct){
+  var btn = document.getElementById('downloadBtn');
+  btn.textContent = direct ? '💾 Enregistrer tools-data.json' : '⬇ Télécharger tools-data.json';
+}
+
 document.getElementById('filePickerBtn').addEventListener('click', function(){
-  document.getElementById('fileInput').click();
+  if(window.showOpenFilePicker){
+    window.showOpenFilePicker({
+      types: [{ description: 'JSON', accept: {'application/json': ['.json']} }],
+      excludeAcceptAllOption: false,
+      multiple: false
+    }).then(function(handles){
+      fileHandle = handles[0];
+      return fileHandle.getFile();
+    }).then(function(file){
+      return file.text();
+    }).then(function(text){
+      var json = JSON.parse(text);
+      DATA = json;
+      if(!DATA.tools) DATA.tools = [];
+      render();
+      setStatus('Chargé', true);
+      document.getElementById('filePicker').style.display = 'none';
+      setSaveMode(true);
+    }).catch(function(err){
+      if(err && err.name === 'AbortError') return; // annulé par l'utilisateur
+      console.error(err);
+      showToast('Impossible d\'ouvrir le fichier.');
+    });
+  } else {
+    // Navigateur sans File System Access API (Firefox, Safari) : ancien flux
+    document.getElementById('fileInput').click();
+  }
 });
 document.getElementById('fileInput').addEventListener('change', function(e){
   var file = e.target.files[0];
   if(!file) return;
+  fileHandle = null;
+  setSaveMode(false);
   var reader = new FileReader();
   reader.onload = function(evt){
     try{
@@ -457,16 +492,21 @@ function renderForm(tool, idx, rowEl){
     tool.desc = v;
   }), 'Texte principal de la fiche.'));
 
+  // Manipulation
+  wrap.appendChild(field('Manipulation', textArea(tool.manipulation || '', function(v){
+    tool.manipulation = v;
+  }), 'Une étape par ligne (un "- " en tête est retiré automatiquement). Affiché en liste à puces dans le menu ouvrant "Manipulations", avec les Raccourcis clavier (voir "En savoir plus" ci-dessous).'));
+
   // Tags
   wrap.appendChild(field('Mots-clés', tagsEditor(tool)));
 
   // Conseil
-  wrap.appendChild(field('Conseil', textArea(tool.tip || '', function(v){
+  wrap.appendChild(field('Astuces (Conseil)', textArea(tool.tip || '', function(v){
     tool.tip = v;
-  }, 60), 'Affiché avec 💡 au bas de la fiche.'));
+  }, 60), 'Une astuce par ligne. Affiché en liste à puces dans son propre menu ouvrant "Astuces".'));
 
   // Extra (En savoir plus)
-  wrap.appendChild(field('Contenu "En savoir plus"', extraEditor(tool)));
+  wrap.appendChild(field('Contenu "En savoir plus"', extraEditor(tool), 'Astuce : une section dont le titre est exactement "Raccourcis clavier" est automatiquement déplacée dans le menu "Manipulations" plutôt qu\'ici.'));
 
   // Footer : supprimer
   var foot = document.createElement('div');
@@ -756,6 +796,7 @@ document.getElementById('downloadBtn').addEventListener('click', function(){
     if(!tool.shortcut) delete tool.shortcut;
     if(tool.tags && tool.tags.length === 0) delete tool.tags;
     if(!tool.tip) delete tool.tip;
+    if(!tool.manipulation) delete tool.manipulation;
     if(tool.extra){
       tool.extra.forEach(function(section){
         if(!section.text) delete section.text;
@@ -769,7 +810,21 @@ document.getElementById('downloadBtn').addEventListener('click', function(){
     }
   });
 
-  var blob = new Blob([JSON.stringify(clean, null, 2)], {type:'application/json'});
+  var jsonText = JSON.stringify(clean, null, 2);
+
+  if(fileHandle){
+    fileHandle.createWritable().then(function(writable){
+      return writable.write(jsonText).then(function(){ return writable.close(); });
+    }).then(function(){
+      showToast('tools-data.json enregistré directement.');
+    }).catch(function(err){
+      console.error(err);
+      showToast('Échec de l\'enregistrement direct — vérifiez les permissions du fichier.');
+    });
+    return;
+  }
+
+  var blob = new Blob([jsonText], {type:'application/json'});
   var url = URL.createObjectURL(blob);
   var a = document.createElement('a');
   a.href = url;

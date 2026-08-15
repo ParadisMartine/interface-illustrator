@@ -129,7 +129,7 @@ html,body{width:100%;height:100%;background:#111;display:flex;align-items:center
 .cat-color {background:#fce8db;color:#a03000;}
 .cat-panel {background:#f0f0f0;color:#444;}
 .tc-desc{font-size:0.781em;color:#333;line-height:1.7;margin-bottom:0.625em;white-space:pre-line;}
-.tc-tags{display:flex;flex-wrap:wrap;gap:0.25em;margin-bottom:0.625em;}
+.tc-tags{display:flex;flex-wrap:wrap;gap:0.25em;margin-bottom:0.625em;padding-bottom:1.125em;border-bottom:0.0625em solid #f0f0f0;}
 .tc-tag{background:#f2f2f2;color:#555;font-size:0.625em;padding:0.125em 0.5em;border-radius:1.25em;border:0.0625em solid #e5e5e5;}
 .tc-tip{background:#fff8f2;border-left:0.1875em solid #FF6E14;border-radius:0 0.3125em 0.3125em 0;padding:0.4375em 0.625em;font-size:0.6875em;color:#555;line-height:1.6;}
 .tc-more-btn{
@@ -143,12 +143,15 @@ html,body{width:100%;height:100%;background:#111;display:flex;align-items:center
 .tc-more-btn.open{background:#fff8f2;color:#FF6E14;}
 .tc-more-btn .arr{float:right;display:inline-block;transition:transform .25s;}
 .tc-more-btn.open .arr{transform:rotate(180deg);}
+.tc-extra + .tc-more-btn{margin-top:0.75em;}
 .tc-extra{
   max-height:0;overflow:hidden;
   transition:max-height .35s cubic-bezier(0.4,0,0.2,1),padding .35s;
   padding:0 1.5em;
 }
-.tc-extra.open{max-height:1400px;padding:1.125em 1.5em 1.5em;border-top:0.0625em solid #f0f0f0;}
+.tc-extra.open{max-height:22em;overflow-y:auto;padding:1.125em 1.5em 1.5em;border-top:0.0625em solid #f0f0f0;scrollbar-width:thin;scrollbar-color:#ddd transparent;}
+.tc-extra.open::-webkit-scrollbar{width:4px;}
+.tc-extra.open::-webkit-scrollbar-thumb{background:#ccc;border-radius:2px;}
 .tc-media{margin-bottom:0.875em;}
 .tc-media:last-child{margin-bottom:0;}
 .tc-media img{width:100%;border-radius:0.375em;display:block;border:0.0625em solid #eee;}
@@ -156,6 +159,7 @@ html,body{width:100%;height:100%;background:#111;display:flex;align-items:center
 .tc-media-grid .tc-media{margin-bottom:0;}
 .tc-caption{font-size:0.625em;color:#aaa;text-align:center;margin-top:0.3125em;}
 .tc-section{margin-bottom:0.875em;}
+.tc-list + .tc-section{margin-top:0.875em;}
 .tc-section:last-child{margin-bottom:0;}
 .tc-section-title{font-size:0.625em;font-weight:600;text-transform:uppercase;letter-spacing:.6px;color:#bbb;margin-bottom:0.375em;}
 .tc-section-text{font-size:0.75em;color:#444;line-height:1.7;}
@@ -167,13 +171,17 @@ html,body{width:100%;height:100%;background:#111;display:flex;align-items:center
 </head>
 <body>
 <div class="wrap" id="wrap">
-  <img class="bg" src="img/Interfaces/interface.png" alt="Adobe Illustrator">                 
+  <img class="bg" src="img/Interfaces/interface.png" alt="Adobe Illustrator">
+
   <div class="hs" data-tool="selection" style="left:0.595%;top:15.198%;width:2.738%;height:3.850%;"></div>
+
   <div class="hs has-sub" data-tool="selection_directe" style="left:3.393%;top:15.198%;width:3.095%;height:3.850%;"></div>
    <div class="hs has-sub" data-tool="plume" style="left:0.595%;top:22.695%;width:2.738%;height:3.749%;"></div>
+
   <div class="hs" data-tool="baguette_magique" style="left:0.595%;top:19.048%;width:2.738%;height:3.647%;"></div>
   <div class="hs" data-tool="lasso" style="left:3.393%;top:19.048%;width:3.095%;height:3.647%;"></div>
   <div class="hs" data-tool="courbure" style="left:3.393%;top:22.695%;width:3.095%;height:3.749%;"></div>
+  
   <div class="hs has-sub" data-tool="texte" style="left:0.595%;top:26.444%;width:2.738%;height:3.647%;"></div>
   <div class="hs has-sub" data-tool="segment_ligne" style="left:3.393%;top:26.444%;width:3.095%;height:3.647%;"></div>
   <div class="hs has-sub" data-tool="rectangle" style="left:0.595%;top:30.091%;width:2.738%;height:3.647%;"></div>
@@ -186,16 +194,23 @@ html,body{width:100%;height:100%;background:#111;display:flex;align-items:center
   <div class="hs has-sub" data-tool="transformation_manuelle" style="left:3.393%;top:41.135%;width:3.095%;height:3.647%;"></div>
   <div class="hs has-sub" data-tool="concepteur_forme" style="left:0.595%;top:44.782%;width:2.738%;height:3.647%;"></div>
   <div class="hs has-sub" data-tool="grille_perspective" style="left:3.393%;top:44.782%;width:3.095%;height:3.647%;"></div>
+
   <div class="hs" data-tool="filet" style="left:0.595%;top:48.430%;width:2.738%;height:3.749%;"></div>
   <div class="hs" data-tool="degrade" style="left:3.393%;top:48.430%;width:3.095%;height:3.749%;"></div>
   <div class="hs" data-tool="cote" style="left:0.595%;top:52.178%;width:2.738%;height:3.647%;"></div>
+
   <div class="hs has-sub" data-tool="pipette" style="left:3.393%;top:52.178%;width:3.095%;height:3.647%;"></div>
+
   <div class="hs" data-tool="fusion" style="left:0.595%;top:55.826%;width:2.738%;height:3.647%;"></div>
+
   <div class="hs has-sub" data-tool="pulverisateur_symboles" style="left:3.393%;top:55.826%;width:3.095%;height:3.749%;"></div>
+
   <div class="hs" data-tool="graphique" style="left:0.595%;top:59.473%;width:2.738%;height:3.749%;"></div>
   <div class="hs" data-tool="plan_travail" style="left:3.393%;top:59.473%;width:3.095%;height:3.749%;"></div>
+
   <div class="hs has-sub" data-tool="tranche" style="left:0.595%;top:63.222%;width:2.738%;height:3.647%;"></div>
   <div class="hs has-sub" data-tool="main" style="left:3.393%;top:63.222%;width:3.095%;height:3.647%;"></div>
+
   <div class="hs" data-tool="curviligne" style="left:0.595%;top:66.869%;width:2.738%;height:3.850%;"></div>
   <div class="hs" data-tool="zoom" style="left:3.393%;top:66.869%;width:3.095%;height:3.850%;"></div>
   <div class="hs" data-tool="p_couleur" style="left:75.476%;top:13.982%;width:8.274%;height:3.749%;"></div>
@@ -214,6 +229,21 @@ html,body{width:100%;height:100%;background:#111;display:flex;align-items:center
   <div class="hs" data-tool="p_commentaires" style="left:75.476%;top:79.635%;width:10.833%;height:3.749%;"></div>
   <div class="hs" data-tool="t_formatdoc" style="left:62.976%;top:5.674%;width:11.131%;height:4.357%;"></div>
 
+
+
+  <!-- Structure pour les sous sections
+   
+    <div class="subtool-popup" id="nom de la section " deplacePupup="faux">
+    <div class="st-img-wrap">
+      <img src="img/chemin vers l'image" style="position de l'image">
+      <div class="st-zone" data-subtool="première sous section " style="caculé avec "illustrator-zones.html"></div>
+        <div class="st-zone" data-subtool="deuxième sous section " style="caculé avec "illustrator-zones.html"></div>
+    </div>
+  </div>
+  -->
+
+
+  <!-- Sélection directe -->
   <div class="subtool-popup" id="sub-selection_directe" deplacePupup="faux">
     <div class="st-img-wrap">
       <img src="img/sous_outils/selection_directe.png" style="left:6.6%;top:15.171%;width:23.099%;height:7.965%;">
@@ -222,6 +252,8 @@ html,body{width:100%;height:100%;background:#111;display:flex;align-items:center
     </div>
   </div>
 
+
+  <!--Plume -->
   <div class="subtool-popup" id="sub-plume" deplacePupup="vrai">
     <div class="st-img-wrap">
       <img src="img/sous_outils/plume.png" style="left:6.6%;top:23.672%;">
@@ -233,7 +265,31 @@ html,body{width:100%;height:100%;background:#111;display:flex;align-items:center
     </div>
   </div>
 
+    <!-- Texte -->
+  <div class="subtool-popup" id="sub-texte" deplacePupup="faux">
+    <div class="st-img-wrap">
+      <img src="img/sous_outils/texte.png" style="left:6.6%;top:26.444%;">
+      <div class="st-zone" data-subtool="texte_captif" style="left:__%;top:__%;width:__%;height:__%;"></div> <!-- TODO: mesurer avec le calculateur de zones -->
+      <div class="st-zone" data-subtool="texte_curviligne" style="left:__%;top:__%;width:__%;height:__%;"></div> <!-- TODO: mesurer avec le calculateur de zones -->
+      <div class="st-zone" data-subtool="texte_vertical" style="left:__%;top:__%;width:__%;height:__%;"></div> <!-- TODO: mesurer avec le calculateur de zones -->
+      <div class="st-zone" data-subtool="texte_captif_vertical" style="left:__%;top:__%;width:__%;height:__%;"></div> <!-- TODO: mesurer avec le calculateur de zones -->
+      <div class="st-zone" data-subtool="texte_curviligne_vertical" style="left:__%;top:__%;width:__%;height:__%;"></div> <!-- TODO: mesurer avec le calculateur de zones -->
+      <div class="st-zone" data-subtool="retouche_texte" style="left:__%;top:__%;width:__%;height:__%;"></div> <!-- TODO: mesurer avec le calculateur de zones -->
+    </div>
+  </div>
 
+ <!-- Ligne -->
+  <div class="subtool-popup" id="sub-segment_ligne" deplacePupup="faux">
+    <div class="st-img-wrap">
+      <img src="img/sous_outils/trait.png" style="left:6.6%;top:26.444%;">
+      <div class="st-zone" data-subtool="arc" style="left:__%;top:__%;width:__%;height:__%;"></div> <!-- TODO: mesurer avec le calculateur de zones -->
+      <div class="st-zone" data-subtool="spirale" style="left:__%;top:__%;width:__%;height:__%;"></div> <!-- TODO: mesurer avec le calculateur de zones -->
+      <div class="st-zone" data-subtool="grille_rectangulaire" style="left:__%;top:__%;width:__%;height:__%;"></div> <!-- TODO: mesurer avec le calculateur de zones -->
+      <div class="st-zone" data-subtool="grille_polaire" style="left:__%;top:__%;width:__%;height:__%;"></div> <!-- TODO: mesurer avec le calculateur de zones -->
+    </div>
+  </div>
+
+    <!-- Rectangle -->
   <div class="subtool-popup" id="sub-rectangle" deplacePupup="faux">
     <div class="st-img-wrap">
       <img src="img/sous_outils/formes.png" style="left:6.6%;top:30.091%;">
@@ -245,6 +301,7 @@ html,body{width:100%;height:100%;background:#111;display:flex;align-items:center
     </div>
   </div>
 
+   <!-- Shaper -->
   <div class="subtool-popup" id="sub-forme" deplacePupup="faux">
     <div class="st-img-wrap">
       <img src="img/sous_outils/shaper.png" style="left:6.6%;top:33.739%;">
@@ -256,6 +313,7 @@ html,body{width:100%;height:100%;background:#111;display:flex;align-items:center
     </div>
   </div>
 
+  <!-- Pinceau -->
   <div class="subtool-popup" id="sub-pinceau" deplacePupup="faux">
     <div class="st-img-wrap">
       <img src="img/sous_outils/pinceau.png" style="left:6.6%;top:30.091%;">
@@ -263,6 +321,8 @@ html,body{width:100%;height:100%;background:#111;display:flex;align-items:center
     </div>
   </div>
 
+
+  <!-- Efface -->
   <div class="subtool-popup" id="sub-gomme" deplacePupup="faux">
     <div class="st-img-wrap">
       <img src="img/sous_outils/gomme.png" style="left:6.6%;top:33.739%;">
@@ -271,6 +331,8 @@ html,body{width:100%;height:100%;background:#111;display:flex;align-items:center
     </div>
   </div>
 
+
+  <!-- Rotation -->
   <div class="subtool-popup" id="sub-rotation" deplacePupup="faux">
     <div class="st-img-wrap">
       <img src="img/sous_outils/rotation.png" style="left:6.6%;top:37.487%;">
@@ -278,6 +340,8 @@ html,body{width:100%;height:100%;background:#111;display:flex;align-items:center
     </div>
   </div>
 
+
+   <!-- Échelle -->
   <div class="subtool-popup" id="sub-mise_echelle" deplacePupup="faux">
     <div class="st-img-wrap">
       <img src="img/sous_outils/echelle.png" style="left:6.6%;top:37.487%;">
@@ -286,6 +350,7 @@ html,body{width:100%;height:100%;background:#111;display:flex;align-items:center
     </div>
   </div>
 
+   <!-- Largeur -->
   <div class="subtool-popup" id="sub-largeur" deplacePupup="faux">
     <div class="st-img-wrap">
       <img src="img/sous_outils/largeur.png" style="left:6.6%;top:41.135%;">
@@ -299,6 +364,7 @@ html,body{width:100%;height:100%;background:#111;display:flex;align-items:center
     </div>
   </div>
 
+   <!-- Transformation manuelle -->
   <div class="subtool-popup" id="sub-transformation_manuelle" deplacePupup="faux">
     <div class="st-img-wrap">
       <img src="img/sous_outils/transformation.png" style="left:6.6%;top:41.135%;">
@@ -306,6 +372,8 @@ html,body{width:100%;height:100%;background:#111;display:flex;align-items:center
     </div>
   </div>
 
+
+   <!-- Concepteur de forme -->
   <div class="subtool-popup" id="sub-concepteur_forme" deplacePupup="faux">
     <div class="st-img-wrap">
       <img src="img/sous_outils/concepteur.png" style="left:6.6%;top:44.782%;">
@@ -314,6 +382,7 @@ html,body{width:100%;height:100%;background:#111;display:flex;align-items:center
     </div>
   </div>
 
+   <!-- Perspective -->
   <div class="subtool-popup" id="sub-grille_perspective" deplacePupup="faux">
     <div class="st-img-wrap">
       <img src="img/sous_outils/perspective.png" style="left:6.6%;top:44.782%;">
@@ -321,6 +390,7 @@ html,body{width:100%;height:100%;background:#111;display:flex;align-items:center
     </div>
   </div>
 
+   <!-- Pipette -->
   <div class="subtool-popup" id="sub-pipette" deplacePupup="faux">
     <div class="st-img-wrap">
       <img src="img/sous_outils/pipette.png" style="left:6.6%;top:52.178%;">
@@ -328,6 +398,7 @@ html,body{width:100%;height:100%;background:#111;display:flex;align-items:center
     </div>
   </div>
 
+   <!-- Pulvérisateur de symboles -->
     <div class="subtool-popup" id="sub-pulverisateur_symboles" deplacePupup="faux">
     <div class="st-img-wrap">
       <img src="img/sous_outils/symboles.png" style="left:6.6%;top:55.826%;">
@@ -336,7 +407,7 @@ html,body{width:100%;height:100%;background:#111;display:flex;align-items:center
     </div>
   </div>
 
-
+ <!-- Main -->
   <div class="subtool-popup" id="sub-main" deplacePupup="faux">
     <div class="st-img-wrap">
       <img src="img/sous_outils/main.png" style="left:6.6%;top:63.222%;">
@@ -345,6 +416,7 @@ html,body{width:100%;height:100%;background:#111;display:flex;align-items:center
     </div>
   </div>
 
+   <!-- Tranche -->
   <div class="subtool-popup" id="sub-tranche" deplacePupup="faux">
     <div class="st-img-wrap">
       <img src="img/sous_outils/tranche.png" style="left:6.6%;top:63.222%;">
@@ -352,28 +424,9 @@ html,body{width:100%;height:100%;background:#111;display:flex;align-items:center
     </div>
   </div>
 
-  <div class="subtool-popup" id="sub-texte" deplacePupup="faux">
-    <div class="st-img-wrap">
-      <img src="img/sous_outils/texte.png" style="left:6.6%;top:26.444%;">
-      <div class="st-zone" data-subtool="texte_captif" style="left:__%;top:__%;width:__%;height:__%;"></div> <!-- TODO: mesurer avec le calculateur de zones -->
-      <div class="st-zone" data-subtool="texte_curviligne" style="left:__%;top:__%;width:__%;height:__%;"></div> <!-- TODO: mesurer avec le calculateur de zones -->
-      <div class="st-zone" data-subtool="texte_vertical" style="left:__%;top:__%;width:__%;height:__%;"></div> <!-- TODO: mesurer avec le calculateur de zones -->
-      <div class="st-zone" data-subtool="texte_captif_vertical" style="left:__%;top:__%;width:__%;height:__%;"></div> <!-- TODO: mesurer avec le calculateur de zones -->
-      <div class="st-zone" data-subtool="texte_curviligne_vertical" style="left:__%;top:__%;width:__%;height:__%;"></div> <!-- TODO: mesurer avec le calculateur de zones -->
-      <div class="st-zone" data-subtool="retouche_texte" style="left:__%;top:__%;width:__%;height:__%;"></div> <!-- TODO: mesurer avec le calculateur de zones -->
-    </div>
-  </div>
+ 
 
-  <div class="subtool-popup" id="sub-segment_ligne" deplacePupup="faux">
-    <div class="st-img-wrap">
-      <img src="img/sous_outils/trait.png" style="left:6.6%;top:26.444%;">
-      <div class="st-zone" data-subtool="arc" style="left:__%;top:__%;width:__%;height:__%;"></div> <!-- TODO: mesurer avec le calculateur de zones -->
-      <div class="st-zone" data-subtool="spirale" style="left:__%;top:__%;width:__%;height:__%;"></div> <!-- TODO: mesurer avec le calculateur de zones -->
-      <div class="st-zone" data-subtool="grille_rectangulaire" style="left:__%;top:__%;width:__%;height:__%;"></div> <!-- TODO: mesurer avec le calculateur de zones -->
-      <div class="st-zone" data-subtool="grille_polaire" style="left:__%;top:__%;width:__%;height:__%;"></div> <!-- TODO: mesurer avec le calculateur de zones -->
-    </div>
-  </div>
-
+   <!-------------Carte Guide------------ -->
   <div class="card-anchor" id="card-anchor">
     <div class="tc-default" id="tc-default">
       <h2>Guide des Outils</h2>
@@ -384,9 +437,9 @@ html,body{width:100%;height:100%;background:#111;display:flex;align-items:center
         <span class="tc-arrow-right">→</span>
       </div>
     </div>
-
   </div>
 </div>
+
 
 <script>
 fetch('tools-data.json')
@@ -419,6 +472,34 @@ function initGuide(TOOLS_DATA){
       return '<span class="tc-tag">' + t + '</span>';
     }).join('');
 
+    // Convertit un bloc de texte multi-lignes (Manipulation, Conseil) en <li> de liste à
+    // puces : une ligne = un item, un "- " de tête est retiré, les lignes vides sont ignorées.
+    function linesToList(text){
+      return (text || '').split('\n')
+        .map(function(l){ return l.trim().replace(/^-\s*/, ''); })
+        .filter(function(l){ return l.length > 0; });
+    }
+    function listHtml(items){
+      return items.length ? '<ul class="tc-list">' + items.map(function(li){ return '<li>' + li + '</li>'; }).join('') + '</ul>' : '';
+    }
+
+    // ── Manipulations : étapes (tool.manipulation) + section "Raccourcis clavier"
+    //    extraite de tool.extra (au lieu de rester dans "En savoir plus"). ──
+    var manipLines = linesToList(tool.manipulation);
+    var shortcutsSection = (tool.extra || []).find(function(s){ return s.title === 'Raccourcis clavier'; });
+    var otherExtra = (tool.extra || []).filter(function(s){ return s.title !== 'Raccourcis clavier'; });
+
+    var manipBodyHtml = listHtml(manipLines);
+    if(shortcutsSection){
+      manipBodyHtml += '<div class="tc-section">'
+        + (shortcutsSection.title ? '<div class="tc-section-title">' + shortcutsSection.title + '</div>' : '')
+        + (shortcutsSection.list ? listHtml(shortcutsSection.list) : '')
+        + '</div>';
+    }
+
+    // ── Astuces : tool.tip affiché en liste à puces plutôt qu'en encart. ──
+    var astucesBodyHtml = listHtml(linesToList(tool.tip));
+
     var html = ''
       + '<div class="tc-top">'
       +   '<div class="tc-header">'
@@ -429,18 +510,20 @@ function initGuide(TOOLS_DATA){
       +     '</div>'
       +     '<span class="tc-badge ' + (tool.category || '') + '">' + (tool.categoryLabel || '') + '</span>'
       +   '</div>'
-      +   '<p class="tc-desc">' + tool.desc + '</p>'
       +   (tagsHtml ? '<div class="tc-tags">' + tagsHtml + '</div>' : '')
-      +   (tool.tip ? '<div class="tc-tip">💡 ' + tool.tip + '</div>' : '')
+      +   '<p class="tc-desc">' + tool.desc + '</p>'
+      +   (manipBodyHtml ? '<button class="tc-more-btn" type="button" style="display:flex;">Manipulations <i class="arr">▾</i></button><div class="tc-extra">' + manipBodyHtml + '</div>' : '')
+      +   (astucesBodyHtml ? '<button class="tc-more-btn" type="button" style="display:flex;">Astuces <i class="arr">▾</i></button><div class="tc-extra">' + astucesBodyHtml + '</div>' : '')
       + '</div>';
 
-    if(tool.extra && tool.extra.length){
+    // ── En savoir plus : reste de tool.extra (sans "Raccourcis clavier", déjà utilisé plus haut). ──
+    if(otherExtra.length){
       html += '<div class="tc-extra">';
-      tool.extra.forEach(function(section){
+      otherExtra.forEach(function(section){
         html += '<div class="tc-section">';
         if(section.title) html += '<div class="tc-section-title">' + section.title + '</div>';
         if(section.list){
-          html += '<ul class="tc-list">' + section.list.map(function(li){ return '<li>' + li + '</li>'; }).join('') + '</ul>';
+          html += listHtml(section.list);
         }
         if(section.text){
           html += '<p class="tc-section-text">' + section.text + '</p>';
@@ -499,6 +582,13 @@ function doHide(){
   cards.forEach(function(c){
     c.classList.remove('tc-visible');
     closeExtra(c);
+    // Referme aussi les menus locaux (Manipulations, Astuces) de la fiche.
+    c.querySelectorAll('.tc-top .tc-more-btn').forEach(function(btn){
+      var ex = btn.nextElementSibling;
+      if(ex) ex.classList.remove('open');
+      btn.classList.remove('open');
+      var a = btn.querySelector('.arr'); if(a) a.textContent = '▾';
+    });
   });
   hotspots.forEach(function(h){ h.classList.remove('active','pinned','linked'); });
   document.querySelectorAll('.st-zone').forEach(function(z){ z.classList.remove('pinned'); });
@@ -506,22 +596,40 @@ function doHide(){
   if(currentSubPopup) closeSubPopup(currentSubPopup);
 }
 
+// "En savoir plus" est injecté dynamiquement plus bas (hors de .tc-top) ;
+// ces deux fonctions ne gèrent que lui, pas Manipulations/Astuces.
 function openExtra(card){
-  var extra = card.querySelector('.tc-extra');
-  var btn   = card.querySelector('.tc-more-btn');
+  var extra = card.querySelector(':scope > .tc-extra');
+  var btn   = card.querySelector(':scope > .tc-more-btn');
   if(!extra || extra.classList.contains('open')) return;
   extra.classList.add('open');
   if(btn){ btn.classList.add('open'); btn.querySelector('.arr').textContent='▴'; }
 }
 function closeExtra(card){
-  var extra = card.querySelector('.tc-extra');
-  var btn   = card.querySelector('.tc-more-btn');
+  var extra = card.querySelector(':scope > .tc-extra');
+  var btn   = card.querySelector(':scope > .tc-more-btn');
   if(extra) extra.classList.remove('open');
   if(btn){ btn.classList.remove('open'); btn.querySelector('.arr').textContent='▾'; }
 }
 
+// Menu ouvrant générique pour les sections locales à .tc-top (Manipulations, Astuces) :
+// chaque bouton .tc-more-btn est directement suivi de son contenu .tc-extra dans le HTML.
 cards.forEach(function(card){
-  var extra = card.querySelector('.tc-extra');
+  card.querySelectorAll('.tc-top .tc-more-btn').forEach(function(btn){
+    var extra = btn.nextElementSibling;
+    if(!extra || !extra.classList.contains('tc-extra')) return;
+    btn.addEventListener('click', function(e){
+      e.stopPropagation();
+      var isOpen = extra.classList.contains('open');
+      extra.classList.toggle('open', !isOpen);
+      btn.classList.toggle('open', !isOpen);
+      btn.querySelector('.arr').textContent = isOpen ? '▾' : '▴';
+    });
+  });
+});
+
+cards.forEach(function(card){
+  var extra = card.querySelector(':scope > .tc-extra');
   if(!extra) return;
   var btn = document.createElement('button');
   btn.className = 'tc-more-btn';

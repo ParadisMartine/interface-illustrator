@@ -5,9 +5,9 @@
       "icon": "▶",
       "name": "Outil Sélection",
       "shortcut": "V",
-      "category": "cat-sel",
+      "category": "cat-selection",
       "categoryLabel": "Sélection",
-      "desc": "Permet de sélectionner et déplace des objets entiers.\n\n- Cliquez sur un objet pour le sélectionner\n- Cliquez dans une zone vide, et glissez, pour sélectionner plusieurs objets .",
+      "desc": "Permet de sélectionner et déplace des objets entiers.",
       "tags": [
         "Sélection",
         "Déplacement",
@@ -24,8 +24,16 @@
             "<strong>Alt+glisser</strong> — Dupliquer",
             "<strong>Échap</strong> — Désélectionner"
           ]
+        },
+        {
+          "title": "Test 2",
+          "list": [
+            "test1",
+            "tet"
+          ]
         }
-      ]
+      ],
+      "manipulation": "- Cliquez sur un objet pour le sélectionner\n- Cliquez dans une zone vide, et glissez, pour sélectionner plusieurs objets ."
     },
     {
       "id": "selection_directe",
