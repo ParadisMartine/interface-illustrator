@@ -487,6 +487,9 @@ function renderForm(tool, idx, rowEl){
   // Catégorie
   wrap.appendChild(field('Catégorie', categorySelect(tool, rowEl)));
 
+    // Tags
+  wrap.appendChild(field('Mots-clés', tagsEditor(tool)));
+
   // Description
   wrap.appendChild(field('Description', textArea(tool.desc || '', function(v){
     tool.desc = v;
@@ -495,10 +498,12 @@ function renderForm(tool, idx, rowEl){
   // Manipulation
   wrap.appendChild(field('Manipulation', textArea(tool.manipulation || '', function(v){
     tool.manipulation = v;
-  }), 'Une étape par ligne (un "- " en tête est retiré automatiquement). Affiché en liste à puces dans le menu ouvrant "Manipulations", avec les Raccourcis clavier (voir "En savoir plus" ci-dessous).'));
+  }), 'Une étape par ligne (un "- " en tête est retiré automatiquement). Affiché en liste à puces dans le menu ouvrant "Manipulations", juste au-dessus des Raccourcis clavier ci-dessous.'));
 
-  // Tags
-  wrap.appendChild(field('Mots-clés', tagsEditor(tool)));
+  // Raccourcis clavier (regroupés avec Manipulation dans le menu "Manipulations")
+  wrap.appendChild(field('Raccourcis clavier', shortcutsEditor(tool), 'Un raccourci par ligne. Affiché à la suite de Manipulation, dans le même menu ouvrant "Manipulations".'));
+
+
 
   // Conseil
   wrap.appendChild(field('Astuces (Conseil)', textArea(tool.tip || '', function(v){
@@ -506,7 +511,7 @@ function renderForm(tool, idx, rowEl){
   }, 60), 'Une astuce par ligne. Affiché en liste à puces dans son propre menu ouvrant "Astuces".'));
 
   // Extra (En savoir plus)
-  wrap.appendChild(field('Contenu "En savoir plus"', extraEditor(tool), 'Astuce : une section dont le titre est exactement "Raccourcis clavier" est automatiquement déplacée dans le menu "Manipulations" plutôt qu\'ici.'));
+  wrap.appendChild(field('Contenu "En savoir plus"', extraEditor(tool), 'Sections supplémentaires, chacune avec son titre et sa liste à puces. Les Raccourcis clavier ont leur propre champ ci-dessus — inutile de les répéter ici.'));
 
   // Footer : supprimer
   var foot = document.createElement('div');
@@ -659,6 +664,65 @@ function tagsEditor(tool){
   return wrap;
 }
 
+// ── Raccourcis clavier ───────────────────────────────
+// Gère la section spéciale tool.extra[].title === 'Raccourcis clavier' séparément
+// du reste de "En savoir plus", puisqu'elle s'affiche dans le menu "Manipulations".
+function shortcutsEditor(tool){
+  var wrap = document.createElement('div');
+  if(!tool.extra) tool.extra = [];
+
+  function getSection(){
+    return tool.extra.find(function(s){ return s.title === 'Raccourcis clavier'; });
+  }
+
+  var itemsWrap = document.createElement('div');
+  itemsWrap.className = 'list-items';
+
+  function renderItems(){
+    itemsWrap.innerHTML = '';
+    var section = getSection();
+    var list = section ? section.list : [];
+    list.forEach(function(item, j){
+      var row = document.createElement('div');
+      row.className = 'list-item';
+      var ta = document.createElement('textarea');
+      ta.value = item;
+      ta.addEventListener('input', function(){ section.list[j] = ta.value; });
+      var rmBtn = document.createElement('button');
+      rmBtn.textContent = '✕';
+      rmBtn.addEventListener('click', function(){
+        section.list.splice(j, 1);
+        if(section.list.length === 0){
+          var idx = tool.extra.indexOf(section);
+          if(idx > -1) tool.extra.splice(idx, 1);
+        }
+        renderItems();
+      });
+      row.appendChild(ta);
+      row.appendChild(rmBtn);
+      itemsWrap.appendChild(row);
+    });
+  }
+  renderItems();
+
+  var addItemBtn = document.createElement('button');
+  addItemBtn.className = 'add-row';
+  addItemBtn.textContent = '+ Ajouter un raccourci';
+  addItemBtn.addEventListener('click', function(){
+    var section = getSection();
+    if(!section){
+      section = { title: 'Raccourcis clavier', list: [] };
+      tool.extra.push(section);
+    }
+    section.list.push('');
+    renderItems();
+  });
+
+  wrap.appendChild(itemsWrap);
+  wrap.appendChild(addItemBtn);
+  return wrap;
+}
+
 // ── Extra (En savoir plus) ──────────────────────────
 function extraEditor(tool){
   var wrap = document.createElement('div');
@@ -669,6 +733,7 @@ function extraEditor(tool){
   function renderBlocks(){
     blocksWrap.innerHTML = '';
     tool.extra.forEach(function(section, i){
+      if(section.title === 'Raccourcis clavier') return; // géré par shortcutsEditor, pas ici
       blocksWrap.appendChild(renderExtraBlock(section, i));
     });
   }

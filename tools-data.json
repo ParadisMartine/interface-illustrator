@@ -31,6 +31,12 @@
             "test1",
             "tet"
           ]
+        },
+        {
+          "title": "Test de section",
+          "list": [
+            "Bon"
+          ]
         }
       ],
       "manipulation": "- Cliquez sur un objet pour le sélectionner\n- Cliquez dans une zone vide, et glissez, pour sélectionner plusieurs objets ."
