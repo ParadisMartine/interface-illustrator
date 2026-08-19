@@ -487,13 +487,10 @@ function renderForm(tool, idx, rowEl){
   // Catégorie
   wrap.appendChild(field('Catégorie', categorySelect(tool, rowEl)));
 
-    // Tags
-  wrap.appendChild(field('Mots-clés', tagsEditor(tool)));
-
   // Description
   wrap.appendChild(field('Description', textArea(tool.desc || '', function(v){
     tool.desc = v;
-  }), 'Texte principal de la fiche.'));
+  }), 'Texte principal de la fiche. Pour un lien : [texte du lien](https://exemple.com).'));
 
   // Manipulation
   wrap.appendChild(field('Manipulation', textArea(tool.manipulation || '', function(v){
@@ -503,7 +500,8 @@ function renderForm(tool, idx, rowEl){
   // Raccourcis clavier (regroupés avec Manipulation dans le menu "Manipulations")
   wrap.appendChild(field('Raccourcis clavier', shortcutsEditor(tool), 'Un raccourci par ligne. Affiché à la suite de Manipulation, dans le même menu ouvrant "Manipulations".'));
 
-
+  // Tags
+  wrap.appendChild(field('Mots-clés', tagsEditor(tool)));
 
   // Conseil
   wrap.appendChild(field('Astuces (Conseil)', textArea(tool.tip || '', function(v){

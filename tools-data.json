@@ -7,7 +7,7 @@
       "shortcut": "V",
       "category": "cat-selection",
       "categoryLabel": "Sélection",
-      "desc": "Permet de sélectionner et déplace des objets entiers.",
+      "desc": "Permet de sélectionner, déplacer, redimensionner et pivoter des objets et des groupes d'objet",
       "tags": [
         "Sélection",
         "Déplacement",
@@ -26,20 +26,13 @@
           ]
         },
         {
-          "title": "Test 2",
+          "title": "Documentation Adobe Illustrator",
           "list": [
-            "test1",
-            "tet"
-          ]
-        },
-        {
-          "title": "Test de section",
-          "list": [
-            "Bon"
+            "<a>https://helpx.adobe.com/fr/illustrator/desktop/manage-objects/select-objects/select-transform-objects-selection-tools.html</a>"
           ]
         }
       ],
-      "manipulation": "- Cliquez sur un objet pour le sélectionner\n- Cliquez dans une zone vide, et glissez, pour sélectionner plusieurs objets ."
+      "manipulation": "- Cliquez sur un objet pour le sélectionner\n- Cliquez dans une zone vide, et glissez, pour sélectionner plusieurs objets"
     },
     {
       "id": "selection_directe",

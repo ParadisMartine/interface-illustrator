@@ -2,7 +2,7 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
-<title>Illustrator — Guide Interface</title>
+<title>Illustrator — Guide Interactif</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Mono:wght@700&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
@@ -54,7 +54,7 @@ html,body{width:100%;height:100%;background:#111;display:flex;align-items:center
 }
 .card-anchor{
   position:absolute;
-  left:12%;top:14.5%;width:56.5%;bottom:6%;
+  left:18%;top:14.5%;width:56.5%;bottom:6%;
   display:flex;align-items:flex-start;justify-content:center;
   overflow-y:auto;overflow-x:hidden;
   scrollbar-width:thin;scrollbar-color:#ddd transparent;
@@ -132,6 +132,8 @@ html,body{width:100%;height:100%;background:#111;display:flex;align-items:center
 .cat-color {background:#fce8db;color:#a03000;}
 .cat-panel {background:#f0f0f0;color:#444;}
 .tc-desc{font-size:0.781em;color:#333;line-height:1.7;margin-bottom:0.625em;white-space:pre-line;}
+.tc-body a{color:#FF6E14;text-decoration:underline;text-underline-offset:0.15em;}
+.tc-body a:hover{color:#d9560a;}
 .tc-tags{display:flex;flex-wrap:wrap;gap:0.25em;margin-bottom:0.625em;padding-bottom:1.125em;border-bottom:0.0625em solid #f0f0f0;}
 .tc-tag{background:#f2f2f2;color:#555;font-size:0.625em;padding:0.125em 0.5em;border-radius:1.25em;border:0.0625em solid #e5e5e5;}
 .tc-tip{background:#fff8f2;border-left:0.1875em solid #FF6E14;border-radius:0 0.3125em 0.3125em 0;padding:0.4375em 0.625em;font-size:0.6875em;color:#555;line-height:1.6;}
@@ -245,7 +247,7 @@ html,body{width:100%;height:100%;background:#111;display:flex;align-items:center
 
 
   <!-- Sélection directe -->
-  <div class="subtool-popup" id="sub-selection_directe" deplacePupup="vrai">
+  <div class="subtool-popup" id="sub-selection_directe" deplacePupup="faux">
     <div class="st-img-wrap">
       <img src="img/sous_outils/selection_directe.png" style="left:6.6%;top:15.171%;width:23.099%;height:7.965%;">
       <div class="st-zone" data-subtool="selection_directe_normal" style="left:6.624%;top:15.297%;width:22.876%;height:3.540%;"></div>
@@ -267,7 +269,7 @@ html,body{width:100%;height:100%;background:#111;display:flex;align-items:center
   </div>
 
     <!-- Texte -->
-  <div class="subtool-popup" id="sub-texte" deplacePupup="vrai">
+  <div class="subtool-popup" id="sub-texte" deplacePupup="faux">
     <div class="st-img-wrap">
       <img src="img/sous_outils/texte.png" style="left:6.6%;top:26.444%;">
       <div class="st-zone" data-subtool="texte_captif" style="left:__%;top:__%;width:__%;height:__%;"></div> <!-- TODO: mesurer avec le calculateur de zones -->
@@ -280,7 +282,7 @@ html,body{width:100%;height:100%;background:#111;display:flex;align-items:center
   </div>
 
  <!-- Ligne -->
-  <div class="subtool-popup" id="sub-segment_ligne" deplacePupup="vrai">
+  <div class="subtool-popup" id="sub-segment_ligne" deplacePupup="faux">
     <div class="st-img-wrap">
       <img src="img/sous_outils/trait.png" style="left:6.6%;top:26.444%;">
       <div class="st-zone" data-subtool="arc" style="left:__%;top:__%;width:__%;height:__%;"></div> <!-- TODO: mesurer avec le calculateur de zones -->
@@ -291,7 +293,7 @@ html,body{width:100%;height:100%;background:#111;display:flex;align-items:center
   </div>
 
     <!-- Rectangle -->
-  <div class="subtool-popup" id="sub-rectangle" deplacePupup="vrai">
+  <div class="subtool-popup" id="sub-rectangle" deplacePupup="faux">
     <div class="st-img-wrap">
       <img src="img/sous_outils/formes.png" style="left:6.6%;top:30.091%;">
       <div class="st-zone" data-subtool="rectangle_arrondi" style="left:__%;top:__%;width:__%;height:__%;"></div> <!-- TODO: mesurer avec le calculateur de zones -->
@@ -303,7 +305,7 @@ html,body{width:100%;height:100%;background:#111;display:flex;align-items:center
   </div>
 
    <!-- Shaper -->
-  <div class="subtool-popup" id="sub-forme" deplacePupup="vrai">
+  <div class="subtool-popup" id="sub-forme" deplacePupup="faux">
     <div class="st-img-wrap">
       <img src="img/sous_outils/shaper.png" style="left:6.6%;top:33.739%;">
       <div class="st-zone" data-subtool="forme_normal" style="left:__%;top:__%;width:__%;height:__%;"></div> <!-- TODO: mesurer avec le calculateur de zones -->
@@ -315,7 +317,7 @@ html,body{width:100%;height:100%;background:#111;display:flex;align-items:center
   </div>
 
   <!-- Pinceau -->
-  <div class="subtool-popup" id="sub-pinceau" deplacePupup="vrai">
+  <div class="subtool-popup" id="sub-pinceau" deplacePupup="faux">
     <div class="st-img-wrap">
       <img src="img/sous_outils/pinceau.png" style="left:6.6%;top:30.091%;">
       <div class="st-zone" data-subtool="forme_tache" style="left:__%;top:__%;width:__%;height:__%;"></div> <!-- TODO: mesurer avec le calculateur de zones -->
@@ -324,7 +326,7 @@ html,body{width:100%;height:100%;background:#111;display:flex;align-items:center
 
 
   <!-- Efface -->
-  <div class="subtool-popup" id="sub-gomme" deplacePupup="vrai">
+  <div class="subtool-popup" id="sub-gomme" deplacePupup="faux">
     <div class="st-img-wrap">
       <img src="img/sous_outils/gomme.png" style="left:6.6%;top:33.739%;">
       <div class="st-zone" data-subtool="ciseaux" style="left:__%;top:__%;width:__%;height:__%;"></div> <!-- TODO: mesurer avec le calculateur de zones -->
@@ -343,7 +345,7 @@ html,body{width:100%;height:100%;background:#111;display:flex;align-items:center
 
 
    <!-- Échelle -->
-  <div class="subtool-popup" id="sub-mise_echelle" deplacePupup="vrai">
+  <div class="subtool-popup" id="sub-mise_echelle" deplacePupup="faux">
     <div class="st-img-wrap">
       <img src="img/sous_outils/echelle.png" style="left:6.6%;top:37.487%;">
       <div class="st-zone" data-subtool="deformation" style="left:__%;top:__%;width:__%;height:__%;"></div> <!-- TODO: mesurer avec le calculateur de zones -->
@@ -352,7 +354,7 @@ html,body{width:100%;height:100%;background:#111;display:flex;align-items:center
   </div>
 
    <!-- Largeur -->
-  <div class="subtool-popup" id="sub-largeur" deplacePupup="vrai">
+  <div class="subtool-popup" id="sub-largeur" deplacePupup="faux">
     <div class="st-img-wrap">
       <img src="img/sous_outils/largeur.png" style="left:6.6%;top:41.135%;">
       <div class="st-zone" data-subtool="liquefaction" style="left:__%;top:__%;width:__%;height:__%;"></div> <!-- TODO: mesurer avec le calculateur de zones -->
@@ -366,7 +368,7 @@ html,body{width:100%;height:100%;background:#111;display:flex;align-items:center
   </div>
 
    <!-- Transformation manuelle -->
-  <div class="subtool-popup" id="sub-transformation_manuelle" deplacePupup="vrai">
+  <div class="subtool-popup" id="sub-transformation_manuelle" deplacePupup="faux">
     <div class="st-img-wrap">
       <img src="img/sous_outils/transformation.png" style="left:6.6%;top:41.135%;">
       <div class="st-zone" data-subtool="deformation_marionnette" style="left:__%;top:__%;width:__%;height:__%;"></div> <!-- TODO: mesurer avec le calculateur de zones -->
@@ -375,7 +377,7 @@ html,body{width:100%;height:100%;background:#111;display:flex;align-items:center
 
 
    <!-- Concepteur de forme -->
-  <div class="subtool-popup" id="sub-concepteur_forme" deplacePupup="vrai">
+  <div class="subtool-popup" id="sub-concepteur_forme" deplacePupup="faux">
     <div class="st-img-wrap">
       <img src="img/sous_outils/concepteur.png" style="left:6.6%;top:44.782%;">
       <div class="st-zone" data-subtool="peinture_dynamique" style="left:__%;top:__%;width:__%;height:__%;"></div> <!-- TODO: mesurer avec le calculateur de zones -->
@@ -384,7 +386,7 @@ html,body{width:100%;height:100%;background:#111;display:flex;align-items:center
   </div>
 
    <!-- Perspective -->
-  <div class="subtool-popup" id="sub-grille_perspective" deplacePupup="vrai">
+  <div class="subtool-popup" id="sub-grille_perspective" deplacePupup="faux">
     <div class="st-img-wrap">
       <img src="img/sous_outils/perspective.png" style="left:6.6%;top:44.782%;">
       <div class="st-zone" data-subtool="selection_perspective" style="left:__%;top:__%;width:__%;height:__%;"></div> <!-- TODO: mesurer avec le calculateur de zones -->
@@ -473,6 +475,13 @@ function initGuide(TOOLS_DATA){
       return '<span class="tc-tag">' + t + '</span>';
     }).join('');
 
+    // Transforme la syntaxe simplifiée [texte](https://...) en vrai lien cliquable,
+    // pour ne pas avoir à taper de balise <a> à la main dans editeur.html.
+    function mdLink(text){
+      return (text || '').replace(/\[([^\]]+)\]\((https?:\/\/[^\s)]+)\)/g,
+        '<a href="$2" target="_blank" rel="noopener">$1</a>');
+    }
+
     // Convertit un bloc de texte multi-lignes (Manipulation, Conseil) en <li> de liste à
     // puces : une ligne = un item, un "- " de tête est retiré, les lignes vides sont ignorées.
     function linesToList(text){
@@ -481,7 +490,7 @@ function initGuide(TOOLS_DATA){
         .filter(function(l){ return l.length > 0; });
     }
     function listHtml(items){
-      return items.length ? '<ul class="tc-list">' + items.map(function(li){ return '<li>' + li + '</li>'; }).join('') + '</ul>' : '';
+      return items.length ? '<ul class="tc-list">' + items.map(function(li){ return '<li>' + mdLink(li) + '</li>'; }).join('') + '</ul>' : '';
     }
 
     // ── Manipulations : étapes (tool.manipulation) + section "Raccourcis clavier"
@@ -493,7 +502,7 @@ function initGuide(TOOLS_DATA){
     var manipBodyHtml = listHtml(manipLines);
     if(shortcutsSection){
       manipBodyHtml += '<div class="tc-section">'
-        + (shortcutsSection.title ? '<div class="tc-section-title">' + shortcutsSection.title + '</div>' : '')
+        + (shortcutsSection.title ? '<div class="tc-section-title">' + mdLink(shortcutsSection.title) + '</div>' : '')
         + (shortcutsSection.list ? listHtml(shortcutsSection.list) : '')
         + '</div>';
     }
@@ -517,7 +526,7 @@ function initGuide(TOOLS_DATA){
     // ── tc-body : tout le contenu variable (description + sections ouvrantes),
     //    dans UN SEUL conteneur avec sa propre barre de défilement si ça dépasse. ──
     html += '<div class="tc-body">';
-    html += '<p class="tc-desc">' + tool.desc + '</p>';
+    html += '<p class="tc-desc">' + mdLink(tool.desc) + '</p>';
     if(manipBodyHtml) html += '<button class="tc-more-btn" type="button" style="display:flex;">Manipulations <i class="arr">▾</i></button><div class="tc-extra">' + manipBodyHtml + '</div>';
     if(astucesBodyHtml) html += '<button class="tc-more-btn" type="button" style="display:flex;">Astuces <i class="arr">▾</i></button><div class="tc-extra">' + astucesBodyHtml + '</div>';
 
@@ -526,12 +535,12 @@ function initGuide(TOOLS_DATA){
       html += '<button class="tc-more-btn" type="button" style="display:flex;">En savoir plus <i class="arr">▾</i></button><div class="tc-extra">';
       otherExtra.forEach(function(section){
         html += '<div class="tc-section">';
-        if(section.title) html += '<div class="tc-section-title">' + section.title + '</div>';
+        if(section.title) html += '<div class="tc-section-title">' + mdLink(section.title) + '</div>';
         if(section.list){
           html += listHtml(section.list);
         }
         if(section.text){
-          html += '<p class="tc-section-text">' + section.text + '</p>';
+          html += '<p class="tc-section-text">' + mdLink(section.text) + '</p>';
         }
         html += '</div>';
       });
